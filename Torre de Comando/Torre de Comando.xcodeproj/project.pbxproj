@@ -11,6 +11,8 @@
 		8E96679E1C97A72C00F42198 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E96679D1C97A72C00F42198 /* Assets.xcassets */; };
 		8E9667A11C97A72C00F42198 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E96679F1C97A72C00F42198 /* Main.storyboard */; };
 		8E9667AD1C97A7CE00F42198 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9667AC1C97A7CE00F42198 /* MainViewController.swift */; };
+		8E9667B51C99D88E00F42198 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9667B41C99D88E00F42198 /* FileManager.swift */; };
+		8E9667BB1C99DE2C00F42198 /* mapa.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8E9667BA1C99DE2C00F42198 /* mapa.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		8E9667A01C97A72C00F42198 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8E9667A21C97A72C00F42198 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E9667AC1C97A7CE00F42198 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = Controllers/MainViewController.swift; sourceTree = "<group>"; };
+		8E9667B41C99D88E00F42198 /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileManager.swift; path = Models/FileManager.swift; sourceTree = "<group>"; };
+		8E9667BA1C99DE2C00F42198 /* mapa.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mapa.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,7 @@
 		8E9667A91C97A77400F42198 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8E9667B41C99D88E00F42198 /* FileManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -89,6 +94,7 @@
 			children = (
 				8E96679D1C97A72C00F42198 /* Assets.xcassets */,
 				8E9667A21C97A72C00F42198 /* Info.plist */,
+				8E9667BA1C99DE2C00F42198 /* mapa.txt */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -152,6 +158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E96679E1C97A72C00F42198 /* Assets.xcassets in Resources */,
+				8E9667BB1C99DE2C00F42198 /* mapa.txt in Resources */,
 				8E9667A11C97A72C00F42198 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -163,6 +170,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E9667B51C99D88E00F42198 /* FileManager.swift in Sources */,
 				8E96679A1C97A72C00F42198 /* AppDelegate.swift in Sources */,
 				8E9667AD1C97A7CE00F42198 /* MainViewController.swift in Sources */,
 			);
@@ -305,6 +313,7 @@
 				8E9667A71C97A72C00F42198 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
