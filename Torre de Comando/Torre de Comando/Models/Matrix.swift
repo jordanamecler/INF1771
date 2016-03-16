@@ -10,12 +10,12 @@ import Foundation
 
 class Matrix2D<KeyElem:Hashable, Value> {
     
-    var _storage:[Int:[Int:Int]] = [:]
+    var _storage:[Int:[Int:Character]] = [:]
     
     var lines : Int = 0
     var columns : Int = 0
     
-    subscript(x:Int, y:Int) -> Int? {
+    subscript(x:Int, y:Int) -> Character? {
         get {
             return _storage[x]?[y]
         }
@@ -67,11 +67,7 @@ class Matrix2D<KeyElem:Hashable, Value> {
                 
             } else {
                 
-                if(c == "M"){
-                    self[i, j] = 1
-                } else {
-                    self[i, j] = 2
-                }
+                self[i, j] = c
                 
                 j++
             }
