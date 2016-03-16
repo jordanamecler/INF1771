@@ -11,13 +11,13 @@ import AppKit
 
 class FileManager {
     
-    static let sharedInstance = FileManager()
-    private let file = "mapa"
+    private static let file = "mapa"
     
     private init() {
+    
     }
     
-    func readFile() -> Array<Array<Int>>? {
+    static func readFile() -> Matrix2D<Int, Int>? {
         
         if let path = NSBundle.mainBundle().pathForResource(file, ofType:"txt") {
             
@@ -27,7 +27,13 @@ class FileManager {
                 
                 let text = fileContent!
                 
-                print(text)
+                let matrix = Matrix2D<Int, Int>()
+                
+                matrix.fillMatrix("\(text)")
+                
+                matrix.show()
+                
+                return matrix
                 
             } else {
                 print("Não consegui ler o arquivo \(file).txt")

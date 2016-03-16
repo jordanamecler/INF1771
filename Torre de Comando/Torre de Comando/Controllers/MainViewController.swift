@@ -13,7 +13,7 @@ class MainViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        FileManager.sharedInstance.readFile()
+        FileManager.readFile()
         
     }
     

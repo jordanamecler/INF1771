@@ -13,6 +13,7 @@
 		8E9667AD1C97A7CE00F42198 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9667AC1C97A7CE00F42198 /* MainViewController.swift */; };
 		8E9667B51C99D88E00F42198 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9667B41C99D88E00F42198 /* FileManager.swift */; };
 		8E9667BB1C99DE2C00F42198 /* mapa.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8E9667BA1C99DE2C00F42198 /* mapa.txt */; };
+		8E9667BD1C99E75F00F42198 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9667BC1C99E75F00F42198 /* Matrix.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		8E9667AC1C97A7CE00F42198 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = Controllers/MainViewController.swift; sourceTree = "<group>"; };
 		8E9667B41C99D88E00F42198 /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileManager.swift; path = Models/FileManager.swift; sourceTree = "<group>"; };
 		8E9667BA1C99DE2C00F42198 /* mapa.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mapa.txt; sourceTree = "<group>"; };
+		8E9667BC1C99E75F00F42198 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Matrix.swift; path = Models/Matrix.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				8E9667B41C99D88E00F42198 /* FileManager.swift */,
+				8E9667BC1C99E75F00F42198 /* Matrix.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E9667BD1C99E75F00F42198 /* Matrix.swift in Sources */,
 				8E9667B51C99D88E00F42198 /* FileManager.swift in Sources */,
 				8E96679A1C97A72C00F42198 /* AppDelegate.swift in Sources */,
 				8E9667AD1C97A7CE00F42198 /* MainViewController.swift in Sources */,
