@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E47F1CF1C9D96690060237F /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E47F1CE1C9D96690060237F /* SquareView.swift */; };
 		8E96679A1C97A72C00F42198 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9667991C97A72C00F42198 /* AppDelegate.swift */; };
 		8E96679E1C97A72C00F42198 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E96679D1C97A72C00F42198 /* Assets.xcassets */; };
 		8E9667A11C97A72C00F42198 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E96679F1C97A72C00F42198 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E47F1CE1C9D96690060237F /* SquareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SquareView.swift; path = Components/SquareView.swift; sourceTree = "<group>"; };
 		8E9667961C97A72C00F42198 /* Torre de Comando.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Torre de Comando.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E9667991C97A72C00F42198 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E96679D1C97A72C00F42198 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -39,6 +41,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8E47F1CD1C9D951B0060237F /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				8E47F1CE1C9D96690060237F /* SquareView.swift */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
 		8E96678D1C97A72C00F42198 = {
 			isa = PBXGroup;
 			children = (
@@ -59,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				8E9667991C97A72C00F42198 /* AppDelegate.swift */,
+				8E47F1CD1C9D951B0060237F /* Components */,
 				8E9667AB1C97A78800F42198 /* Resources */,
 				8E9667AA1C97A77C00F42198 /* Controllers */,
 				8E9667A91C97A77400F42198 /* Models */,
@@ -174,6 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E9667BD1C99E75F00F42198 /* Matrix.swift in Sources */,
+				8E47F1CF1C9D96690060237F /* SquareView.swift in Sources */,
 				8E9667B51C99D88E00F42198 /* FileManager.swift in Sources */,
 				8E96679A1C97A72C00F42198 /* AppDelegate.swift in Sources */,
 				8E9667AD1C97A7CE00F42198 /* MainViewController.swift in Sources */,
