@@ -31,7 +31,7 @@ class FileManager {
                 
                 matrix.fillMatrix("\(text)")
                 
-                matrix.show()
+//                matrix.show()
                 
                 return matrix
                 
