@@ -62,6 +62,7 @@ class MainViewController: NSViewController {
             
             tamCaminho++
         }
+        
         print(tamCaminho)
 //        if visited.count > 0 {
 //            for v in visited {

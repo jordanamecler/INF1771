@@ -19,6 +19,9 @@ class Tree {
     var lines: Int?
     var columns: Int?
     var matrix = Matrix2D<Int, Int>()
+    var priority : Double!
+    
+    //h (n) = (distancia horizontal + distancia vertical) entre n e o vértice Saída.
     
     init() {
         
@@ -65,9 +68,10 @@ class Tree {
             if((actual?.data)! == fim!) {
                 print(actual?.data![0])
                 print(actual?.data![1])
+                print(visited.count)
+                print(queue.count)
                 return visited
             }
-            
             
             valor.removeAll()
             neighbor1 = Tree()
@@ -127,6 +131,10 @@ class Tree {
             visitado = false
             
             for n in neighbors {
+                
+                let priority = heuristic(fim!, prox: n.data!)
+                n.priority = priority
+                
                 for v in visited {
 
                     if ((n.data![0] == v.data![0]) && (n.data![1] == v.data![1])) {
@@ -144,7 +152,7 @@ class Tree {
                             }
                         }
                         if visitado == false {
-                            queue.append(n)
+                            queue = orginizeArray(queue, new: n)
                         }
                     }
 
@@ -155,4 +163,33 @@ class Tree {
         }
         return []
     }
+    
+    
+    func heuristic(fim: [Int], prox: [Int]) -> Double {
+        return  sqrt(pow(Double(abs(fim[0] - prox[0])), 2) + pow(Double(abs(fim[1] - prox[1])), 2))
+    }
+    
+    func orginizeArray(array : [Tree], new: Tree) -> [Tree] {
+        var insert : Bool = false
+        var newQue = [Tree]()
+        
+        for n in array {
+            
+            if(n.priority >= new.priority && !insert){
+                newQue.append(new)
+                insert = true
+            }
+            
+            newQue.append(n)
+            
+        }
+        
+        if(insert == false){
+            newQue.append(new)
+        }
+        
+        return newQue
+        
+    }
+    
 }
