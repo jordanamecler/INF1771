@@ -33,7 +33,7 @@ class SquareView: NSImageView {
     
     override func drawRect(dirtyRect: NSRect) {
         
-        if(value == "X"){
+        if(value == "M"){
             NSColor.redColor().setFill()
         } else if value == "." {
             NSColor.grayColor().setFill()

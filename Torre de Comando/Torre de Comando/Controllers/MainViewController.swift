@@ -54,6 +54,7 @@ class MainViewController: NSViewController {
         var tamCaminho = 0
         
         while ultimo.parent != nil {
+            print("AQUI")
             let squareView = SquareView(line: ultimo.data![0], column: ultimo.data![1], value: "v", viewHeight: view.frame.height)
             
             view.addSubview(squareView)
@@ -63,17 +64,7 @@ class MainViewController: NSViewController {
             tamCaminho++
         }
         
-        print(tamCaminho)
-//        if visited.count > 0 {
-//            for v in visited {
-//                let squareView = SquareView(line: v.data![0], column: v.data![1], value: "v", viewHeight: view.frame.height)
-//                
-//                view.addSubview(squareView)
-//            }
-//        }
-//        else {
-//            print("erro")
-//        }
+        print(tamCaminho)   
         
     }
     

@@ -21,8 +21,6 @@ class Tree {
     var matrix = Matrix2D<Int, Int>()
     var priority : Double!
     
-    //h (n) = (distancia horizontal + distancia vertical) entre n e o vértice Saída.
-    
     init() {
         
     }
@@ -80,7 +78,7 @@ class Tree {
             neighbor4 = Tree()
             neighbors.removeAll()
             
-            if (actual!.data![0]-1 >= 0) && (actual!.data![0]-1 < lines) && (matrix[(actual?.data![0])!-1, (actual?.data![1])!] != "X") {
+            if (actual!.data![0]-1 >= 0) && (actual!.data![0]-1 < lines) {
                 
                 valor.append(actual!.data![0]-1)
                 valor.append(actual!.data![1])
@@ -93,7 +91,7 @@ class Tree {
 
             valor.removeAll()
             
-            if (actual!.data![1]+1 >= 0) && (actual!.data![1]+1 < columns) && (matrix[(actual?.data![0])!, (actual?.data![1])!+1] != "X") {
+            if (actual!.data![1]+1 >= 0) && (actual!.data![1]+1 < columns) {
                 
                 valor.append(actual!.data![0])
                 valor.append(actual!.data![1]+1)
@@ -105,7 +103,7 @@ class Tree {
             
             valor.removeAll()
             
-            if (actual!.data![1]-1 >= 0) && (actual!.data![1]-1 < columns) && (matrix[(actual?.data![0])!, (actual?.data![1])!-1] != "X") {
+            if (actual!.data![1]-1 >= 0) && (actual!.data![1]-1 < columns) {
                 
                 valor.append(actual!.data![0])
                 valor.append(actual!.data![1]-1)
@@ -118,7 +116,7 @@ class Tree {
             valor.removeAll()
             
             
-            if (actual!.data![0]+1 >= 0) && (actual!.data![0] < lines) && (matrix[(actual?.data![0])!+1, (actual?.data![1])!] != "X") {
+            if (actual!.data![0]+1 >= 0) && (actual!.data![0] < lines) {
                 
                 valor.append(actual!.data![0]+1)
                 valor.append(actual!.data![1])
@@ -166,7 +164,12 @@ class Tree {
     
     
     func heuristic(fim: [Int], prox: [Int]) -> Double {
-        return  sqrt(pow(Double(abs(fim[0] - prox[0])), 2) + pow(Double(abs(fim[1] - prox[1])), 2))
+        
+        if(matrix[prox[0], prox[1]] == "M"){
+            return 10000
+        }
+        
+        return sqrt(pow(Double(abs(fim[0] - prox[0])), 2) + pow(Double(abs(fim[1] - prox[1])), 2))
     }
     
     func orginizeArray(array : [Tree], new: Tree) -> [Tree] {
