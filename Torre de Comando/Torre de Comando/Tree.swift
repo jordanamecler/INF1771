@@ -130,7 +130,7 @@ class Tree {
             
             for n in neighbors {
                 
-                let priority = heuristic(fim!, prox: n.data!)
+                let priority = heuristic(fim!, prox: n.data!) + new_cost(fim!, prox: n.data!)
                 n.priority = priority
                 
                 for v in visited {
@@ -165,11 +165,21 @@ class Tree {
     
     func heuristic(fim: [Int], prox: [Int]) -> Double {
         
+        return sqrt(pow(Double(abs(fim[0] - prox[0])), 2) + pow(Double(abs(fim[1] - prox[1])), 2))
+    }
+    
+    func new_cost(fim: [Int], prox: [Int]) -> Double {
+        
         if(matrix[prox[0], prox[1]] == "M"){
-            return 10000
+            return 200
         }
         
-        return sqrt(pow(Double(abs(fim[0] - prox[0])), 2) + pow(Double(abs(fim[1] - prox[1])), 2))
+        if(matrix[prox[0], prox[1]] == "R"){
+            return 5
+        }
+        
+        return 1
+        
     }
     
     func orginizeArray(array : [Tree], new: Tree) -> [Tree] {

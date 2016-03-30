@@ -34,8 +34,8 @@ MMM...................................MMM
 MMM...MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMM...MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMM...MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMM...................................MMM
-MMM.................................I.MMM
+MMM........................R..........MMM
+MMM........................RRR......I.MMM
 MMM...................................MMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM

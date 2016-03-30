@@ -54,7 +54,7 @@ class MainViewController: NSViewController {
         var tamCaminho = 0
         
         while ultimo.parent != nil {
-            print("AQUI")
+
             let squareView = SquareView(line: ultimo.data![0], column: ultimo.data![1], value: "v", viewHeight: view.frame.height)
             
             view.addSubview(squareView)
