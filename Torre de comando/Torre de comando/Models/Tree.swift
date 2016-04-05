@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Cocoa
 
 class Tree {
     
@@ -26,7 +25,7 @@ class Tree {
     }
     
     func treeSearch() -> [Tree] {
-
+        
         let inicio = Tree()
         var neighbors = [Tree]()
         var neighbor1 = Tree()
@@ -37,7 +36,7 @@ class Tree {
         var visitado = Bool()
         
         inicio.data = self.data
-
+        
         
         var queue = [Tree]()
         queue.append(inicio)
@@ -54,9 +53,9 @@ class Tree {
             dispatch_async(dispatch_get_main_queue()){
                 NSNotificationCenter.defaultCenter().postNotificationName("novoVisitado", object: info)
             }
-
+            
             visitado = false
-
+            
             if visited.count == 0 {
                 visited.append(actual!)
             }
@@ -70,7 +69,7 @@ class Tree {
                     visited.append(actual!)
                 }
             }
-
+            
             if((actual?.data)! == fim!) {
                 //print("\(actual!.data![0])")
                 //print(actual?.data![1])
@@ -94,9 +93,9 @@ class Tree {
                 neighbor1.data = valor
                 neighbor1.parent = actual
                 neighbors.append(neighbor1)
-
+                
             }
-
+            
             valor.removeAll()
             
             if (actual!.data![1]+1 >= 0) && (actual!.data![1]+1 < columns) {
@@ -142,7 +141,7 @@ class Tree {
                 n.priority = priority
                 
                 for v in visited {
-
+                    
                     if ((n.data![0] == v.data![0]) && (n.data![1] == v.data![1])) {
                         visitado = true
                     }
@@ -161,11 +160,11 @@ class Tree {
                             queue = orginizeArray(queue, new: n)
                         }
                     }
-
+                    
                 }
                 visitado = false
             }
-           
+            
         }
         return []
     }
@@ -173,7 +172,7 @@ class Tree {
     
     func heuristic(fim: [Int], prox: [Int]) -> Double {
         
-//        return Double(abs(prox[0]-fim[0])) + Double(abs(prox[1]-fim[1]))
+        //        return Double(abs(prox[0]-fim[0])) + Double(abs(prox[1]-fim[1]))
         return sqrt(pow(Double(abs(fim[0] - prox[0])), 2) + pow(Double(abs(fim[1] - prox[1])), 2))
     }
     

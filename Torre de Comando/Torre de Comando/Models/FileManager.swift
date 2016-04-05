@@ -7,14 +7,13 @@
 //
 
 import Foundation
-import AppKit
 
 class FileManager {
     
     private static let file = "mapa"
     
     private init() {
-    
+        
     }
     
     static func readFile() -> Matrix2D<Int, Int>? {
@@ -31,7 +30,7 @@ class FileManager {
                 
                 matrix.fillMatrix("\(text)")
                 
-//                matrix.show()
+                //                matrix.show()
                 
                 return matrix
                 
@@ -44,9 +43,9 @@ class FileManager {
         }
         
         return nil
-    
+        
     }
-
+    
     
 }
     

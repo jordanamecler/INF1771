@@ -1,30 +1,30 @@
 //
-//  MainViewController.swift
-//  Torre de Comando
+//  ViewController.swift
+//  Torre de comando
 //
-//  Created by Matheus Falcão on 14/03/16.
-//  Copyright © 2016 Matheus Falcão. All rights reserved.
+//  Created by Matheus Falcão on 04/04/16.
+//  Copyright © 2016 Matheus e Jordana. All rights reserved.
 //
 
-import Cocoa
+import UIKit
 
-class MainViewController: NSViewController {
+class ViewController: UIViewController {
     
     var matrix = FileManager.readFile()!
     var inicio = [Int]()
     var fim = [Int]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         for i in 0...matrix.lines{
             for j in 0...matrix.columns{
-                let squareView = SquareView(line: i, column: j, value: matrix[i, j]!, viewHeight: view.frame.height)
+                let squareView = SquareView(line: i, column: j, value: matrix[i, j]!)
                 
                 view.addSubview(squareView)
+                
             }
         }
-    
         
         for i in 0...matrix.lines {
             for j in 0...matrix.columns {
@@ -58,7 +58,7 @@ class MainViewController: NSViewController {
         
         while ultimo.parent != nil {
             
-            let squareView = SquareView(line: ultimo.data![0], column: ultimo.data![1], value: "v", viewHeight: view.frame.height)
+            let squareView = SquareView(line: ultimo.data![0], column: ultimo.data![1], value: "v")
             
             view.addSubview(squareView)
             
@@ -86,27 +86,23 @@ class MainViewController: NSViewController {
         
         print("Tamanho do caminho \(tamCaminho)")
         print("Custo do caminho \(custoCaminho)")
-        
-
-    }
     
+        
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
     func novoVisitado_func(notification: NSNotification) {
         let novo = notification.object as! [Int]
         if ((novo[0] != inicio[0]) || (novo[1] != inicio[1])) && ((novo[0] != fim[0]) || (novo[1] != fim[1])) {
-            let squareView = SquareView(line: novo[0], column: novo[1], value: "v", viewHeight: view.frame.height)
+            let squareView = SquareView(line: novo[0], column: novo[1], value: "v")
             
             view.addSubview(squareView)
         }
     }
-    
-    
-    override var representedObject: AnyObject? {
-        didSet {
-            // Update the view, if already loaded.
-
-        }
-    }
-    
     
 }
 

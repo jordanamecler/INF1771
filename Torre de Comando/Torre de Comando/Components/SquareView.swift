@@ -6,60 +6,48 @@
 //  Copyright © 2016 Matheus Falcão. All rights reserved.
 //
 
-import Cocoa
+import UIKit
 
-class SquareView: NSImageView {
-
+class SquareView: UIView {
+    
     var value : Character!
     
-    init(line : Int, column : Int, value : Character, viewHeight : CGFloat) {
+    init(line : Int, column : Int, value : Character) {
         
         self.value = value
         
-        let height : CGFloat = 6.0
-        let width  : CGFloat = 6.0
+        let height : CGFloat = 10.0
+        let width  : CGFloat = 10.0
         
-        let yPosition = viewHeight - height - (height * CGFloat(line))
+        super.init(frame: CGRect(x: width * CGFloat(column), y: height * CGFloat(line), width: width, height: height))
         
-        super.init(frame: NSRect(x: width * CGFloat(column), y: yPosition, width: width, height: height))
-        
-        self.wantsLayer = true
+        if(value == "M"){
+            self.backgroundColor = UIColor.grayColor()
+        } else if value == "." {
+            self.backgroundColor = UIColor.whiteColor()
+        }
+        else if value == "I" {
+            self.backgroundColor = UIColor.blueColor()
+        }
+        else if value == "F" {
+            self.backgroundColor = UIColor.greenColor()
+        }
+        else if value == "R" {
+            self.backgroundColor = UIColor.blackColor()
+        }
+        else if value == "B" {
+            self.backgroundColor = UIColor.yellowColor()
+        }
+        else if value == "C" {
+            self.backgroundColor = UIColor.redColor()
+        }
+        else {
+            self.backgroundColor = UIColor.orangeColor()
+        }
         
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func drawRect(dirtyRect: NSRect) {
-        
-        if(value == "M"){
-            NSColor.grayColor().setFill()
-        } else if value == "." {
-            NSColor.whiteColor().setFill()
-        }
-        else if value == "I" {
-            NSColor.blueColor().setFill()
-        }
-        else if value == "F" {
-            NSColor.greenColor().setFill()
-        }
-        else if value == "R" {
-            NSColor.blackColor().setFill()
-        }
-        else if value == "B" {
-            NSColor.yellowColor().setFill()
-        }
-        else if value == "C" {
-            NSColor.redColor().setFill()
-        }
-        else {
-            NSColor.orangeColor().setFill()
-        }
-        
-        NSRectFill(dirtyRect)
-        
-        super.drawRect(dirtyRect)
-    }
-    
 }
