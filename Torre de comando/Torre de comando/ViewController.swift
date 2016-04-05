@@ -58,9 +58,9 @@ class ViewController: UIViewController {
         
         while ultimo.parent != nil {
             
-            let squareView = SquareView(line: ultimo.data![0], column: ultimo.data![1], value: "v")
-            
-            view.addSubview(squareView)
+//            let squareView = SquareView(line: ultimo.data![0], column: ultimo.data![1], value: "v")
+//            
+//            view.addSubview(squareView)
             
             if(matrix[ultimo.data![0], ultimo.data![1]] == "M"){
                 custoCaminho += 200
@@ -99,9 +99,19 @@ class ViewController: UIViewController {
         let novo = notification.object as! [Int]
         if ((novo[0] != inicio[0]) || (novo[1] != inicio[1])) && ((novo[0] != fim[0]) || (novo[1] != fim[1])) {
             let squareView = SquareView(line: novo[0], column: novo[1], value: "v")
-            
-            view.addSubview(squareView)
+
+            self.view.addSubview(squareView)
+
         }
+    }
+    
+    public func delay(delay:Double, closure:()->()) {
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(delay * Double(NSEC_PER_SEC))
+            ),
+            dispatch_get_main_queue(), closure)
     }
     
 }
