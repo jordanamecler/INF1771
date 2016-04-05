@@ -16,8 +16,8 @@ class SquareView: NSImageView {
         
         self.value = value
         
-        let height : CGFloat = 5.0
-        let width  : CGFloat = 5.0
+        let height : CGFloat = 6.0
+        let width  : CGFloat = 6.0
         
         let yPosition = viewHeight - height - (height * CGFloat(line))
         
@@ -34,15 +34,24 @@ class SquareView: NSImageView {
     override func drawRect(dirtyRect: NSRect) {
         
         if(value == "M"){
-            NSColor.redColor().setFill()
-        } else if value == "." {
             NSColor.grayColor().setFill()
+        } else if value == "." {
+            NSColor.whiteColor().setFill()
         }
         else if value == "I" {
             NSColor.blueColor().setFill()
         }
         else if value == "F" {
             NSColor.greenColor().setFill()
+        }
+        else if value == "R" {
+            NSColor.blackColor().setFill()
+        }
+        else if value == "B" {
+            NSColor.yellowColor().setFill()
+        }
+        else if value == "C" {
+            NSColor.redColor().setFill()
         }
         else {
             NSColor.orangeColor().setFill()

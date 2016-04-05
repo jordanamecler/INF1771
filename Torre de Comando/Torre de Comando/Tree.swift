@@ -47,6 +47,14 @@ class Tree {
             actual = queue.first
             queue.removeFirst()
             
+            var info = [Int]()
+            info.append((actual?.data![0])!)
+            info.append((actual?.data![1])!)
+            
+            dispatch_async(dispatch_get_main_queue()){
+                NSNotificationCenter.defaultCenter().postNotificationName("novoVisitado", object: info)
+            }
+
             visitado = false
 
             if visited.count == 0 {
@@ -64,10 +72,10 @@ class Tree {
             }
 
             if((actual?.data)! == fim!) {
-                print(actual?.data![0])
-                print(actual?.data![1])
-                print(visited.count)
-                print(queue.count)
+                //print("\(actual!.data![0])")
+                //print(actual?.data![1])
+                print("Visitados: \(visited.count)")
+                //print(queue.count)
                 return visited
             }
             
@@ -165,6 +173,7 @@ class Tree {
     
     func heuristic(fim: [Int], prox: [Int]) -> Double {
         
+//        return Double(abs(prox[0]-fim[0])) + Double(abs(prox[1]-fim[1]))
         return sqrt(pow(Double(abs(fim[0] - prox[0])), 2) + pow(Double(abs(fim[1] - prox[1])), 2))
     }
     
@@ -176,6 +185,12 @@ class Tree {
         
         if(matrix[prox[0], prox[1]] == "R"){
             return 5
+        }
+        if(matrix[prox[0], prox[1]] == "B") {
+            return 1
+        }
+        if(matrix[prox[0], prox[1]] == "C") {
+            return 50
         }
         
         return 1

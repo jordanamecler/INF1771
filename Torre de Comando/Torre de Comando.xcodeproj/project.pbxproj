@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C6F63491CB34872006BA6C3 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6F63481CB34872006BA6C3 /* StartViewController.swift */; };
 		0C9830AF1CA38A7100FCE8FB /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9830AE1CA38A7100FCE8FB /* Tree.swift */; };
 		8E47F1CF1C9D96690060237F /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E47F1CE1C9D96690060237F /* SquareView.swift */; };
 		8E9527361CAC35EE0066451D /* mapa.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8E9527351CAC35EE0066451D /* mapa.txt */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C6F63481CB34872006BA6C3 /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		0C9830AE1CA38A7100FCE8FB /* Tree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
 		8E47F1CE1C9D96690060237F /* SquareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SquareView.swift; path = Components/SquareView.swift; sourceTree = "<group>"; };
 		8E9527351CAC35EE0066451D /* mapa.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mapa.txt; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 		8E9667AA1C97A77C00F42198 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0C6F63481CB34872006BA6C3 /* StartViewController.swift */,
 				8E9667AC1C97A7CE00F42198 /* MainViewController.swift */,
 			);
 			name = Controllers;
@@ -196,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E9667BD1C99E75F00F42198 /* Matrix.swift in Sources */,
+				0C6F63491CB34872006BA6C3 /* StartViewController.swift in Sources */,
 				8E47F1CF1C9D96690060237F /* SquareView.swift in Sources */,
 				0C9830AF1CA38A7100FCE8FB /* Tree.swift in Sources */,
 				8E9667B51C99D88E00F42198 /* FileManager.swift in Sources */,
