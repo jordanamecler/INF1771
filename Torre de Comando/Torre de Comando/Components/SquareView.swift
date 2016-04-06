@@ -16,10 +16,10 @@ class SquareView: UIView {
         
         self.value = value
         
-        let height : CGFloat = 10.0
-        let width  : CGFloat = 10.0
+        let height : CGFloat = 15.0
+        let width  : CGFloat = 15.0
         
-        super.init(frame: CGRect(x: width * CGFloat(column), y: height * CGFloat(line), width: width, height: height))
+        super.init(frame: CGRect(x: width * CGFloat(column), y: height * CGFloat(line) + 44, width: width, height: height))
         
         if(value == "M"){
             self.backgroundColor = UIColor.grayColor()
