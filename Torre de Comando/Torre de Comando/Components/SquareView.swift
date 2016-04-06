@@ -19,7 +19,9 @@ class SquareView: UIView {
         let height : CGFloat = 15.0
         let width  : CGFloat = 15.0
         
-        super.init(frame: CGRect(x: width * CGFloat(column), y: height * CGFloat(line) + 44, width: width, height: height))
+        let moldura : CGFloat = 0.5
+        
+        super.init(frame: CGRect(x: (width * CGFloat(column)) + moldura, y: (height * CGFloat(line)) + moldura + 44, width: width - (moldura*2), height: height - (moldura*2)))
         
         if(value == "M"){
             self.backgroundColor = UIColor.grayColor()
@@ -33,13 +35,13 @@ class SquareView: UIView {
             self.backgroundColor = UIColor.greenColor()
         }
         else if value == "R" {
-            self.backgroundColor = UIColor.blackColor()
+            self.backgroundColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1.0)
         }
         else if value == "B" {
             self.backgroundColor = UIColor.yellowColor()
         }
         else if value == "C" {
-            self.backgroundColor = UIColor.redColor()
+            self.backgroundColor = UIColor(red: 255/255, green: 0/255, blue: 0/255, alpha: 1.0)
         }
         else {
             self.backgroundColor = UIColor.orangeColor()

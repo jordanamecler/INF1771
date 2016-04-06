@@ -33,9 +33,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let backgroundView = UIView(frame: CGRect(x: 0, y: 44, width: 615, height: 630))
+        backgroundView.backgroundColor = UIColor.blackColor()
+        
+        view.addSubview(backgroundView)
+        
         for i in 0...matrix.lines{
             for j in 0...matrix.columns{
-                let squareView = SquareView(line: i, column: j, value: matrix[i, j]!)
+                let squareView = SquareView(line: i, column: j, value: matrix[i, j]!.character)
                 
                 view.addSubview(squareView)
                 
@@ -75,11 +80,11 @@ class ViewController: UIViewController {
         
         for i in 0...matrix.lines {
             for j in 0...matrix.columns {
-                if matrix[i, j] == "I" {
+                if matrix[i, j]!.character == "I" {
                     inicio.append(i)
                     inicio.append(j)
                 }
-                if matrix[i, j] == "F" {
+                if matrix[i, j]!.character == "F" {
                     fim.append(i)
                     fim.append(j)
                 }
@@ -141,6 +146,8 @@ class ViewController: UIViewController {
         
         ultimo = (visited.last?.parent)!
         
+        print(matrix[fim[0], fim[1]]?.custo)
+        
         var tamCaminho = 0
         var custoCaminho = 0
         
@@ -152,17 +159,17 @@ class ViewController: UIViewController {
             
             arrayViews.append(squareView)
             
-            if(matrix[ultimo.data![0], ultimo.data![1]] == "M"){
+            if(matrix[ultimo.data![0], ultimo.data![1]]!.character == "M"){
                 custoCaminho += 200
             }
             
-            if(matrix[ultimo.data![0], ultimo.data![1]] == "R"){
+            if(matrix[ultimo.data![0], ultimo.data![1]]!.character == "R"){
                 custoCaminho += 5
             }
-            if(matrix[ultimo.data![0], ultimo.data![1]] == "B") {
+            if(matrix[ultimo.data![0], ultimo.data![1]]!.character == "B") {
                 custoCaminho += 1
             }
-            if(matrix[ultimo.data![0], ultimo.data![1]] == "C") {
+            if(matrix[ultimo.data![0], ultimo.data![1]]!.character == "C") {
                 custoCaminho += 50
             }
             else {
@@ -173,6 +180,7 @@ class ViewController: UIViewController {
             
             tamCaminho++
         }
+        
         print("Tamanho do caminho \(tamCaminho)")
         print("Custo do caminho \(custoCaminho)")
     }

@@ -17,6 +17,7 @@
 		8EAEDF261CB351EF00FA3ADF /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAEDF251CB351EE00FA3ADF /* Tree.swift */; };
 		8EAEDF281CB3521A00FA3ADF /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAEDF271CB3521A00FA3ADF /* SquareView.swift */; };
 		8EAEDF2A1CB352A600FA3ADF /* mapa.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8EAEDF291CB352A600FA3ADF /* mapa.txt */; };
+		8EAEDF2C1CB5A1E700FA3ADF /* MatrixCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAEDF2B1CB5A1E700FA3ADF /* MatrixCharacters.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		8EAEDF251CB351EE00FA3ADF /* Tree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tree.swift; path = Models/Tree.swift; sourceTree = "<group>"; };
 		8EAEDF271CB3521A00FA3ADF /* SquareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SquareView.swift; path = Components/SquareView.swift; sourceTree = "<group>"; };
 		8EAEDF291CB352A600FA3ADF /* mapa.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mapa.txt; sourceTree = "<group>"; };
+		8EAEDF2B1CB5A1E700FA3ADF /* MatrixCharacters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MatrixCharacters.swift; path = Models/MatrixCharacters.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				8EAEDF211CB351BE00FA3ADF /* FileManager.swift */,
 				8EAEDF231CB351D800FA3ADF /* Matrix.swift */,
 				8EAEDF251CB351EE00FA3ADF /* Tree.swift */,
+				8EAEDF2B1CB5A1E700FA3ADF /* MatrixCharacters.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 				8EAEDF281CB3521A00FA3ADF /* SquareView.swift in Sources */,
 				8EAEDF0C1CB3514000FA3ADF /* ViewController.swift in Sources */,
 				8EAEDF0A1CB3514000FA3ADF /* AppDelegate.swift in Sources */,
+				8EAEDF2C1CB5A1E700FA3ADF /* MatrixCharacters.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +350,7 @@
 				8EAEDF1A1CB3514000FA3ADF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -30,8 +30,6 @@ class FileManager {
                 
                 matrix.fillMatrix("\(text)")
                 
-                //                matrix.show()
-                
                 return matrix
                 
             } else {

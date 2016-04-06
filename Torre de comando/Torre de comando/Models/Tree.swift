@@ -24,7 +24,7 @@ class Tree {
         
     }
     
-    public func delay(delay:Double, closure:()->()) {
+    internal func delay(delay:Double, closure:()->()) {
         dispatch_after(
             dispatch_time(
                 DISPATCH_TIME_NOW,
@@ -103,6 +103,8 @@ class Tree {
                 valor.append(actual!.data![0]-1)
                 valor.append(actual!.data![1])
                 
+                matrix[valor[0], valor[1]]!.custo = matrix[actual!.data![0], actual!.data![1]]!.custo + new_cost(valor)
+                
                 neighbor1.data = valor
                 neighbor1.parent = actual
                 neighbors.append(neighbor1)
@@ -116,6 +118,8 @@ class Tree {
                 valor.append(actual!.data![0])
                 valor.append(actual!.data![1]+1)
                 
+                matrix[valor[0], valor[1]]!.custo = matrix[actual!.data![0], actual!.data![1]]!.custo + new_cost(valor)
+                
                 neighbor2.data = valor
                 neighbor2.parent = actual
                 neighbors.append(neighbor2)
@@ -127,6 +131,8 @@ class Tree {
                 
                 valor.append(actual!.data![0])
                 valor.append(actual!.data![1]-1)
+                
+                matrix[valor[0], valor[1]]!.custo = matrix[actual!.data![0], actual!.data![1]]!.custo + new_cost(valor)
                 
                 neighbor3.data = valor
                 neighbor3.parent = actual
@@ -141,6 +147,8 @@ class Tree {
                 valor.append(actual!.data![0]+1)
                 valor.append(actual!.data![1])
                 
+                matrix[valor[0], valor[1]]!.custo = matrix[actual!.data![0], actual!.data![1]]!.custo + new_cost(valor)
+                
                 neighbor4.data = valor
                 neighbor4.parent = actual
                 neighbors.append(neighbor4)
@@ -150,7 +158,11 @@ class Tree {
             
             for n in neighbors {
                 
-                let priority = heuristic(fim!, prox: n.data!) + new_cost(fim!, prox: n.data!)
+                let iData = n.data![0]
+                let jData = n.data![1]
+                
+                let priority = heuristic(fim!, prox: n.data!) + matrix[iData, jData]!.custo
+                
                 n.priority = priority
                 
                 for v in visited {
@@ -185,23 +197,26 @@ class Tree {
     
     func heuristic(fim: [Int], prox: [Int]) -> Double {
         
-        //        return Double(abs(prox[0]-fim[0])) + Double(abs(prox[1]-fim[1]))
+        //return Double(abs(prox[0]-fim[0])) + Double(abs(prox[1]-fim[1]))
+        
         return sqrt(pow(Double(abs(fim[0] - prox[0])), 2) + pow(Double(abs(fim[1] - prox[1])), 2))
     }
     
-    func new_cost(fim: [Int], prox: [Int]) -> Double {
+    func new_cost(prox: [Int]) -> Double {
         
-        if(matrix[prox[0], prox[1]] == "M"){
+        if(matrix[prox[0], prox[1]]!.character == "M"){
             return 200
         }
         
-        if(matrix[prox[0], prox[1]] == "R"){
+        if(matrix[prox[0], prox[1]]!.character == "R"){
             return 5
         }
-        if(matrix[prox[0], prox[1]] == "B") {
+        
+        if(matrix[prox[0], prox[1]]!.character == "B") {
             return 1
         }
-        if(matrix[prox[0], prox[1]] == "C") {
+        
+        if(matrix[prox[0], prox[1]]!.character == "C") {
             return 50
         }
         
