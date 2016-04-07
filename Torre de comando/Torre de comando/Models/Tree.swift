@@ -213,7 +213,7 @@ class Tree {
         }
         
         if(matrix[prox[0], prox[1]]!.character == "B") {
-            return 1
+            return valorBase(prox[0], coluna:prox[1])
         }
         
         if(matrix[prox[0], prox[1]]!.character == "C") {
@@ -222,6 +222,57 @@ class Tree {
         
         return 1
         
+    }
+    
+    func valorBase(i: Int, coluna: Int) -> Double {
+        
+        //base 11
+        if(i == 4 && coluna == 13) {
+            return 120 / (1.2 + 1.5 + 1.4)
+        }
+        //base 10
+        else if(i == 9 && coluna == 14) {
+            return 110 / (1.4 + 1.5)
+        }
+        //base 9
+        else if(i == 9 && coluna == 30) {
+            return 100 / (1.5 + 1.2)
+        }
+        //base 8
+        else if(i == 13 && coluna == 36) {
+            return 95 / (1.1 + 1.2 + 1.3)
+        }
+        //base 7
+        else if(i == 17 && coluna == 26) {
+            return 90 / (1.3 + 1.4)
+        }
+        //base 6
+        else if(i == 17 && coluna == 9) {
+            return 85  / (1.5 + 1.1)
+        }
+        //base 5
+        else if(i == 24 && coluna == 9) {
+            return 80 / (1.3 + 1.4)
+        }
+        //base 4
+        else if(i == 24 && coluna == 26) {
+            return 75 / (1.3 + 1.4)
+        }
+        //base 3
+        else if(i == 31 && coluna == 33) {
+            return 70 / (1.2 + 1.3)
+        }
+        //base 2
+        else if(i == 31 && coluna == 17) {
+            return 65 / (1.1 + 1.2 + 1.5)
+        }
+        //base 1
+        //Aviões: 1
+        else if(i == 37 && coluna == 19) {
+            return 60 / 1.1
+        }
+        
+        return 0
     }
     
     func orginizeArray(array : [Tree], new: Tree) -> [Tree] {
