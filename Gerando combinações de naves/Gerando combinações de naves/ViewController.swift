@@ -14,6 +14,16 @@ class ViewController: UIViewController {
     var navesUsadas = [4, 5, 5, 5, 5]
     var bases : [Float] = [60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 120]
     var tempo : Float = 0.0
+    var nave1 : [Int] = []
+    var nave2 : [Int] = []
+    var nave3 : [Int] = []
+    var nave4 : [Int] = []
+    var nave5 : [Int] = []
+    var melhorNave1 : [Int] = []
+    var melhorNave2 : [Int] = []
+    var melhorNave3 : [Int] = []
+    var melhorNave4 : [Int] = []
+    var melhorNave5 : [Int] = []
     var menorTempo : Float = 10000
     var base = 1
     var nave = 0
@@ -29,8 +39,14 @@ class ViewController: UIViewController {
             
             base = 1
             tempo = 0
-            navesUsadas = [5, 5, 5, 5, 5]
+            navesUsadas = [4, 5, 5, 5, 5]
             contador = 0
+            
+            nave1.removeAll()
+            nave2.removeAll()
+            nave3.removeAll()
+            nave4.removeAll()
+            nave5.removeAll()
             
             while(base < 12){
 
@@ -44,7 +60,7 @@ class ViewController: UIViewController {
                     
                     contador = 0
                     
-                    while(navesUsadas[nave-1] == 0 && contador < 50){
+                    while((navesUsadas[nave-1] == 0 || passouBase(nave, base: base)) && contador < 50){
                         nave = Int(arc4random_uniform(5) + 1)
                         contador++
                     }
@@ -52,6 +68,28 @@ class ViewController: UIViewController {
                     
                     if(contador < 50){
                         navesUsadas[nave-1]--
+                        
+                        switch(nave) {
+                            
+                            case 1:
+                                nave1.append(base)
+                            
+                            case 2:
+                                nave2.append(base)
+                            
+                            case 3:
+                                nave3.append(base)
+                            
+                            case 4:
+                                nave4.append(base)
+                            
+                            case 5:
+                                nave5.append(base)
+                            
+                            default:
+                                break;
+                            
+                        }
                         
                         somatorio = naves[nave-1] + somatorio
                         qtdNaves--
@@ -74,14 +112,50 @@ class ViewController: UIViewController {
             
             if(menorTempo > tempo){
                 menorTempo = tempo
-                
+                melhorNave1 = nave1
+                melhorNave2 = nave2
+                melhorNave3 = nave3
+                melhorNave4 = nave4
+                melhorNave5 = nave5
             }
             
             print("melhor tempo: \(menorTempo) \n");
-
+            print("nave1: \(melhorNave1)")
+            print("nave2: \(melhorNave2)")
+            print("nave3: \(melhorNave3)")
+            print("nave4: \(melhorNave4)")
+            print("nave5: \(melhorNave5)")
+            
             
         }
         
+        
+    }
+    
+    func passouBase(nave : Int, base : Int) -> Bool {
+        
+        switch(nave) {
+            
+        case 1:
+            return nave1.contains(base)
+            
+        case 2:
+            return nave2.contains(base)
+            
+        case 3:
+            return nave3.contains(base)
+            
+        case 4:
+            return nave4.contains(base)
+            
+        case 5:
+            return nave5.contains(base)
+            
+        default:
+            return false
+            
+        }
+
         
     }
 
