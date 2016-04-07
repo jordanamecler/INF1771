@@ -59,13 +59,13 @@ class Tree {
             info.append((actual?.data![0])!)
             info.append((actual?.data![1])!)
 
-            delay(2.0) {
-                
-                dispatch_async(dispatch_get_main_queue()){
-                    NSNotificationCenter.defaultCenter().postNotificationName("novoVisitado", object: info)
-                }
-                
-            }
+//            delay(2.0) {
+//                
+//                dispatch_async(dispatch_get_main_queue()){
+//                    NSNotificationCenter.defaultCenter().postNotificationName("novoVisitado", object: info)
+//                }
+//                
+//            }
             
             visitado = false
             
