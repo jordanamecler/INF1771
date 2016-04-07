@@ -22,6 +22,10 @@ class ViewController: UIViewController {
     var visited = [Tree]()
     var ultimo = Tree()
     
+    var timer = NSTimer();
+    var new = [Tree]();
+    var new2 = [Tree]();
+    
     var arrayViews : [UIView] = []
     
     /* **************************************************************************************************
@@ -130,16 +134,35 @@ class ViewController: UIViewController {
 //            view.addSubview(squareView)
 //        }
         
-        for v in visited {
-            if ((v.data![0] != inicio[0]) || (v.data![1] != inicio[1])) && ((v.data![0] != fim[0]) || (v.data![1] != fim[1])) {
-                let squareView = SquareView(line: v.data![0], column: v.data![1], value: "v")
-
-                self.view.addSubview(squareView)
-                
-                arrayViews.append(squareView)
-                
-            }
+        print("here")
+        
+        new.removeAll()
+        
+        new = visited
+        
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "addImages", userInfo: nil, repeats: true)
+        
+    }
+    
+    func addImages() {
+        
+        if new.first == nil || (new.first?.data)! == self.fim {
+            timer.invalidate()
         }
+        else if ((new.first!.data![0] != self.inicio[0]) || (new.first!.data![1] != self.inicio[1])) && ((new.first!.data![0] != self.fim[0]) || (new.first!.data![1] != self.fim[1])) {
+            let squareView = SquareView(line: new.first!.data![0], column: new.first!.data![1], value: "v")
+            
+            self.view.addSubview(squareView)
+            
+            self.arrayViews.append(squareView)
+            
+            new.removeFirst()
+            
+        }
+        else {
+            new.removeFirst()
+        }
+
     }
     
     func routePressed() {
@@ -151,13 +174,11 @@ class ViewController: UIViewController {
         var tamCaminho = 0
         var custoCaminho = 0
         
+        new.removeAll()
+        
         while ultimo.parent != nil {
             
-            let squareView = SquareView(line: ultimo.data![0], column: ultimo.data![1], value: "v")
-            
-            view.addSubview(squareView)
-            
-            arrayViews.append(squareView)
+            new.append(ultimo)
             
             if(matrix[ultimo.data![0], ultimo.data![1]]!.character == "M"){
                 custoCaminho += 200
@@ -183,23 +204,29 @@ class ViewController: UIViewController {
         
         print("Tamanho do caminho \(tamCaminho)")
         print("Custo do caminho \(custoCaminho)")
+        
+        new = new.reverse()
+        print(new.count)
+        
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "addImages", userInfo: nil, repeats: true)
     }
 
+    
     /* **************************************************************************************************
     **
     **  MARK: Notification Novo Visitado
     **
     ****************************************************************************************************/
 
-    func novoVisitado_func(notification: NSNotification) {
-        let novo = notification.object as! [Int]
-        if ((novo[0] != inicio[0]) || (novo[1] != inicio[1])) && ((novo[0] != fim[0]) || (novo[1] != fim[1])) {
-            let squareView = SquareView(line: novo[0], column: novo[1], value: "v")
-
-            self.view.addSubview(squareView)
-
-        }
-    }
+//    func novoVisitado_func(notification: NSNotification) {
+//        let novo = notification.object as! [Int]
+//        if ((novo[0] != inicio[0]) || (novo[1] != inicio[1])) && ((novo[0] != fim[0]) || (novo[1] != fim[1])) {
+//            let squareView = SquareView(line: novo[0], column: novo[1], value: "v")
+//
+//            self.view.addSubview(squareView)
+//
+//        }
+//    }
 
     
 }
