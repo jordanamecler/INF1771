@@ -28,6 +28,10 @@ class ViewController: UIViewController {
     
     var arrayViews : [UIView] = []
     
+    let visitedButton = UIButton()
+    let routeButton = UIButton()
+    let clearButton = UIButton()
+    
     /* **************************************************************************************************
     **
     **  MARK: Views
@@ -37,14 +41,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let backgroundView = UIView(frame: CGRect(x: 0, y: 44, width: 615, height: 630))
-        backgroundView.backgroundColor = UIColor.blackColor()
-        
-        view.addSubview(backgroundView)
+//        let backgroundView = UIView(frame: CGRect(x: 0, y: 44, width: 615, height: 630))
+//        backgroundView.backgroundColor = UIColor.blackColor()
+//        
+//        view.addSubview(backgroundView)
         
         for i in 0...matrix.lines{
             for j in 0...matrix.columns{
-                let squareView = SquareView(line: i, column: j, value: matrix[i, j]!.character)
+                let squareView = SquareView(line: i, column: j, value: matrix[i, j]!.character, numLines: matrix.lines, numColumns: matrix.columns)
                 
                 view.addSubview(squareView)
                 
@@ -53,9 +57,8 @@ class ViewController: UIViewController {
         
         let centerX = self.view.center.x / 3
         
-        let visitedButton = UIButton()
         visitedButton.frame = CGRectMake(0, 0, 120, 40)
-        visitedButton.center.y = 720
+        visitedButton.center.y = 1120
         visitedButton.center.x = centerX
         visitedButton.setTitle("Visitados", forState: .Normal)
         visitedButton.backgroundColor = UIColor.lightGrayColor()
@@ -63,18 +66,16 @@ class ViewController: UIViewController {
         self.view.addSubview(visitedButton)
         
         
-        let routeButton = UIButton()
         routeButton.frame = CGRectMake(0, 0, 120, 40)
-        routeButton.center.y = 720
+        routeButton.center.y = 1120
         routeButton.center.x = centerX * 2
         routeButton.setTitle("Caminho", forState: .Normal)
         routeButton.backgroundColor = UIColor.lightGrayColor()
         routeButton.addTarget(self, action: "routePressed", forControlEvents: .TouchUpInside)
         self.view.addSubview(routeButton)
         
-        let clearButton = UIButton()
         clearButton.frame = CGRectMake(0, 0, 120, 40)
-        clearButton.center.y = 720
+        clearButton.center.y = 1120
         clearButton.center.x = centerX * 3
         clearButton.setTitle("Limpar Mapa", forState: .Normal)
         clearButton.backgroundColor = UIColor.lightGrayColor()
@@ -134,6 +135,8 @@ class ViewController: UIViewController {
 //            view.addSubview(squareView)
 //        }
         
+        clearPressed()
+        
         print("here")
         
         new.removeAll()
@@ -146,11 +149,18 @@ class ViewController: UIViewController {
     
     func addImages() {
         
+        visitedButton.enabled = false
+        routeButton.enabled = false
+        clearButton.enabled = false
+        
         if new.first == nil || (new.first?.data)! == self.fim {
+            visitedButton.enabled = true
+            routeButton.enabled = true
+            clearButton.enabled = true
             timer.invalidate()
         }
         else if ((new.first!.data![0] != self.inicio[0]) || (new.first!.data![1] != self.inicio[1])) && ((new.first!.data![0] != self.fim[0]) || (new.first!.data![1] != self.fim[1])) {
-            let squareView = SquareView(line: new.first!.data![0], column: new.first!.data![1], value: "v")
+            let squareView = SquareView(line: new.first!.data![0], column: new.first!.data![1], value: "v", numLines: matrix.lines, numColumns: matrix.columns)
             
             self.view.addSubview(squareView)
             
@@ -166,6 +176,8 @@ class ViewController: UIViewController {
     }
     
     func routePressed() {
+        
+        clearPressed()
         
         ultimo = (visited.last?.parent)!
         
