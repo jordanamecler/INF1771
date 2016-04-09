@@ -17,8 +17,8 @@ class SquareView: UIImageView {
         self.value = value
         
         let columns = CGFloat(numColumns)
-        let height : CGFloat = UIScreen.mainScreen().bounds.width/columns
-        let width  : CGFloat = UIScreen.mainScreen().bounds.width/columns
+        let height : CGFloat = UIScreen.mainScreen().bounds.width/columns*0.97
+        let width  : CGFloat = UIScreen.mainScreen().bounds.width/columns*0.97
         
 //        let moldura : CGFloat = 0.5
         
