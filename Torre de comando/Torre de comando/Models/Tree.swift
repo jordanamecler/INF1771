@@ -196,7 +196,7 @@ class Tree {
         }
         
         if(matrix[prox[0], prox[1]]!.character == "B") {
-            return valorBase(prox[0], coluna:prox[1])
+            return Tree.valorBase(prox[0], coluna:prox[1])
         }
         
         if(matrix[prox[0], prox[1]]!.character == "C") {
@@ -207,7 +207,7 @@ class Tree {
         
     }
     
-    func valorBase(i: Int, coluna: Int) -> Double {
+    static func valorBase(i: Int, coluna: Int) -> Double {
         
         //base 11
         if(i == 4 && coluna == 13) {

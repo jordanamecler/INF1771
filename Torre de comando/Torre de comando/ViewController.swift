@@ -180,7 +180,7 @@ class ViewController: UIViewController {
         print("Custo do caminho: \(matrix[fim[0], fim[1]]?.custo)")
         
         var tamCaminho = 0
-        var custoCaminho = 0
+        var custoCaminho : Double = 0
         
         new.removeAll()
         
@@ -196,7 +196,7 @@ class ViewController: UIViewController {
                 custoCaminho += 5
             }
             if(matrix[ultimo.data![0], ultimo.data![1]]!.character == "B") {
-                custoCaminho += 1
+                custoCaminho += Tree.valorBase(ultimo.data![0], coluna:ultimo.data![1])
             }
             if(matrix[ultimo.data![0], ultimo.data![1]]!.character == "C") {
                 custoCaminho += 50
