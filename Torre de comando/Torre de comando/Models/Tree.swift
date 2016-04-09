@@ -23,16 +23,7 @@ class Tree {
     init() {
         
     }
-    
-    internal func delay(delay:Double, closure:()->()) {
-        dispatch_after(
-            dispatch_time(
-                DISPATCH_TIME_NOW,
-                Int64(delay * Double(NSEC_PER_SEC))
-            ),
-            dispatch_get_main_queue(), closure)
-    }
-    
+       
     func treeSearch() -> [Tree] {
         
         let inicio = Tree()
@@ -58,14 +49,6 @@ class Tree {
             var info = [Int]()
             info.append((actual?.data![0])!)
             info.append((actual?.data![1])!)
-
-//            delay(2.0) {
-//                
-//                dispatch_async(dispatch_get_main_queue()){
-//                    NSNotificationCenter.defaultCenter().postNotificationName("novoVisitado", object: info)
-//                }
-//                
-//            }
             
             visitado = false
             

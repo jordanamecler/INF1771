@@ -26,7 +26,7 @@ class ViewController: UIViewController {
     var new = [Tree]();
     var new2 = [Tree]();
     
-    var arrayViews : [UIView] = []
+    var arrayViews : [UIImageView] = []
     
     let visitedButton = UIButton()
     let routeButton = UIButton()
@@ -126,27 +126,6 @@ class ViewController: UIViewController {
         
     }
     
-    func visitedPressed() {
-        
-//        ultimo = (visited.last?.parent)!
-//        while ultimo.parent != nil {
-//            let squareView = SquareView(line: ultimo.data![0], column: ultimo.data![1], value: matrix[ultimo.data![0], ultimo.data![1]]!)
-//            
-//            view.addSubview(squareView)
-//        }
-        
-        clearPressed()
-        
-        print("here")
-        
-        new.removeAll()
-        
-        new = visited
-        
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "addImages", userInfo: nil, repeats: true)
-        
-    }
-    
     func addImages() {
         
         visitedButton.enabled = false
@@ -160,9 +139,12 @@ class ViewController: UIViewController {
             timer.invalidate()
         }
         else if ((new.first!.data![0] != self.inicio[0]) || (new.first!.data![1] != self.inicio[1])) && ((new.first!.data![0] != self.fim[0]) || (new.first!.data![1] != self.fim[1])) {
+            
             let squareView = SquareView(line: new.first!.data![0], column: new.first!.data![1], value: "v", numLines: matrix.lines, numColumns: matrix.columns)
             
             self.view.addSubview(squareView)
+            
+            self.arrayViews.last?.image = UIImage(named: "smoke")
             
             self.arrayViews.append(squareView)
             
@@ -175,13 +157,27 @@ class ViewController: UIViewController {
 
     }
     
+    func visitedPressed() {
+        
+        clearPressed()
+        
+        print("here")
+        
+        new.removeAll()
+        
+        new = visited
+        
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "addImages", userInfo: nil, repeats: true)
+        
+    }
+    
     func routePressed() {
         
         clearPressed()
         
         ultimo = (visited.last?.parent)!
         
-        print(matrix[fim[0], fim[1]]?.custo)
+        print("Custo do caminho: \(matrix[fim[0], fim[1]]?.custo)")
         
         var tamCaminho = 0
         var custoCaminho = 0
@@ -214,32 +210,12 @@ class ViewController: UIViewController {
             tamCaminho++
         }
         
-        print("Tamanho do caminho \(tamCaminho)")
-        print("Custo do caminho \(custoCaminho)")
+        print("Tamanho do caminho: \(tamCaminho)")
         
         new = new.reverse()
         print(new.count)
         
         timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "addImages", userInfo: nil, repeats: true)
-    }
-
-    
-    /* **************************************************************************************************
-    **
-    **  MARK: Notification Novo Visitado
-    **
-    ****************************************************************************************************/
-
-//    func novoVisitado_func(notification: NSNotification) {
-//        let novo = notification.object as! [Int]
-//        if ((novo[0] != inicio[0]) || (novo[1] != inicio[1])) && ((novo[0] != fim[0]) || (novo[1] != fim[1])) {
-//            let squareView = SquareView(line: novo[0], column: novo[1], value: "v")
-//
-//            self.view.addSubview(squareView)
-//
-//        }
-//    }
-
-    
+    }    
 }
 
