@@ -157,7 +157,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8EAEDF011CB3514000FA3ADF /* Build configuration list for PBXProject "Torre de comando" */;
+			buildConfigurationList = 8EAEDF011CB3514000FA3ADF /* Build configuration list for PBXProject "Torre de Comando" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -317,6 +317,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ia.matheus.jordana.Torre-de-comando";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -328,13 +329,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ia.matheus.jordana.Torre-de-comando";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8EAEDF011CB3514000FA3ADF /* Build configuration list for PBXProject "Torre de comando" */ = {
+		8EAEDF011CB3514000FA3ADF /* Build configuration list for PBXProject "Torre de Comando" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8EAEDF161CB3514000FA3ADF /* Debug */,
