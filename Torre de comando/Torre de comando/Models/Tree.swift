@@ -46,10 +46,6 @@ class Tree {
             actual = queue.first
             queue.removeFirst()
             
-            var info = [Int]()
-            info.append((actual?.data![0])!)
-            info.append((actual?.data![1])!)
-            
             visitado = false
             
             if visited.count == 0 {
@@ -81,7 +77,7 @@ class Tree {
             neighbor4 = Tree()
             neighbors.removeAll()
             
-            if (actual!.data![0]-1 >= 0) && (actual!.data![0]-1 < lines) {
+            if (actual!.data![0]-1 >= 0) && (actual!.data![0]-1 <= lines) {
                 
                 valor.append(actual!.data![0]-1)
                 valor.append(actual!.data![1])
@@ -96,7 +92,7 @@ class Tree {
             
             valor.removeAll()
             
-            if (actual!.data![1]+1 >= 0) && (actual!.data![1]+1 < columns) {
+            if (actual!.data![1]+1 >= 0) && (actual!.data![1]+1 <= columns) {
                 
                 valor.append(actual!.data![0])
                 valor.append(actual!.data![1]+1)
@@ -110,7 +106,7 @@ class Tree {
             
             valor.removeAll()
             
-            if (actual!.data![1]-1 >= 0) && (actual!.data![1]-1 < columns) {
+            if (actual!.data![1]-1 >= 0) && (actual!.data![1]-1 <= columns) {
                 
                 valor.append(actual!.data![0])
                 valor.append(actual!.data![1]-1)
@@ -125,7 +121,7 @@ class Tree {
             valor.removeAll()
             
             
-            if (actual!.data![0]+1 >= 0) && (actual!.data![0] < lines) {
+            if (actual!.data![0]+1 >= 0) && (actual!.data![0] <= lines) {
                 
                 valor.append(actual!.data![0]+1)
                 valor.append(actual!.data![1])
