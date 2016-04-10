@@ -33,8 +33,10 @@ class ViewController: UIViewController {
     let clearButton = UIButton()
     
     let costLabel = UILabel()
+    let sizeLabel = UILabel()
     
     var cost : Double = 0.0
+    var size : Int = 0
     
     /* **************************************************************************************************
     **
@@ -86,12 +88,19 @@ class ViewController: UIViewController {
         clearButton.addTarget(self, action: "clearPressed", forControlEvents: .TouchUpInside)
         self.view.addSubview(clearButton)
         
-        costLabel.frame = CGRectMake(0, 0, 300, 80)
+        costLabel.frame = CGRectMake(0, 0, 300, 50)
         costLabel.center.y = 1200
         costLabel.center.x = centerX * 1
         costLabel.font = UIFont(name: costLabel.font!.fontName, size: 20.0)
         costLabel.text = "Custo do caminho: \(cost)"
         self.view.addSubview(costLabel)
+        
+        sizeLabel.frame = CGRectMake(0, 0, 300, 50)
+        sizeLabel.center.y = 1250
+        sizeLabel.center.x = centerX * 1
+        sizeLabel.font = UIFont(name: costLabel.font!.fontName, size: 20.0)
+        sizeLabel.text = "Tamanho do caminho: \(size)"
+        self.view.addSubview(sizeLabel)
         
         
         for i in 0...matrix.lines {
@@ -153,24 +162,13 @@ class ViewController: UIViewController {
             
             let squareView = SquareView(line: new.first!.data![0], column: new.first!.data![1], value: "v", numLines: matrix.lines, numColumns: matrix.columns)
             
-            if(matrix[new.first!.data![0], new.first!.data![1]]!.character == "M"){
-                cost += 200
-            }
-            
-            if(matrix[new.first!.data![0], new.first!.data![1]]!.character == "R"){
-                cost += 5
-            }
-            if(matrix[new.first!.data![0], new.first!.data![1]]!.character == "B") {
-                cost += Tree.valorBase(new.first!.data![0], coluna: new.first!.data![1])
-            }
-            if(matrix[new.first!.data![0], new.first!.data![1]]!.character == "C") {
-                cost += 50
-            }
-            else {
-                cost += 1
-            }
+            cost += returnCost(new.first!.data![0], coluna: new.first!.data![1])
             
             costLabel.text = "Custo do caminho: \(Double(round(1000*cost)/1000))"
+            
+            size++
+            
+            sizeLabel.text = "Tamanho do caminho: \(size)"
             
             self.view.addSubview(squareView)
             
@@ -190,8 +188,6 @@ class ViewController: UIViewController {
     func visitedPressed() {
         
         clearPressed()
-        
-        print("here")
         
         new.removeAll()
         
@@ -218,22 +214,7 @@ class ViewController: UIViewController {
             
             new.append(ultimo)
             
-            if(matrix[ultimo.data![0], ultimo.data![1]]!.character == "M"){
-                custoCaminho += 200
-            }
-            
-            if(matrix[ultimo.data![0], ultimo.data![1]]!.character == "R"){
-                custoCaminho += 5
-            }
-            if(matrix[ultimo.data![0], ultimo.data![1]]!.character == "B") {
-                custoCaminho += Tree.valorBase(ultimo.data![0], coluna:ultimo.data![1])
-            }
-            if(matrix[ultimo.data![0], ultimo.data![1]]!.character == "C") {
-                custoCaminho += 50
-            }
-            else {
-                custoCaminho += 1
-            }
+            custoCaminho += returnCost(ultimo.data![0], coluna: ultimo.data![1])
             
             ultimo = ultimo.parent!
             
@@ -246,6 +227,32 @@ class ViewController: UIViewController {
         print(new.count)
         
         timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "addImages", userInfo: nil, repeats: true)
-    }    
+    }
+    
+    func returnCost(linha : Int, coluna : Int) -> Double {
+        
+        let c = matrix[linha, coluna]!.character
+        
+        switch(c) {
+            
+            case "M":
+                return 200
+            
+            case "R":
+                return 5
+            
+            case "B":
+                return Tree.valorBase(linha, coluna: coluna)
+            
+            case "C":
+                return 50
+            
+            default:
+                return 1
+            
+        }
+        
+    }
+    
 }
 
