@@ -254,8 +254,11 @@ class ViewController: UIViewController {
             case "C":
                 return 50
             
-            default:
+            case ".":
                 return 1
+            
+            default:
+                return 0
             
         }
         

@@ -199,7 +199,11 @@ class Tree {
             return 50
         }
         
-        return 1
+        if(matrix[prox[0], prox[1]]!.character == ".") {
+            return 1
+        }
+        
+        return 0
         
     }
     
