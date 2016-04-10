@@ -176,9 +176,9 @@ class Tree {
     
     func heuristic(fim: [Int], prox: [Int]) -> Double {
         
-        //return Double(abs(prox[0]-fim[0])) + Double(abs(prox[1]-fim[1]))
+        return Double(abs(prox[0]-fim[0])) + Double(abs(prox[1]-fim[1]))
         
-        return sqrt(pow(Double(abs(fim[0] - prox[0])), 2) + pow(Double(abs(fim[1] - prox[1])), 2))
+        //return sqrt(pow(Double(abs(fim[0] - prox[0])), 2) + pow(Double(abs(fim[1] - prox[1])), 2))
     }
     
     func new_cost(prox: [Int]) -> Double {
