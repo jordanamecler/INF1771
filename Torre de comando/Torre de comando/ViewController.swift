@@ -142,6 +142,9 @@ class ViewController: UIViewController {
             
         }
         
+        cost = 0.0
+        size = 0
+        
         arrayViews.removeAll()
         
     }
