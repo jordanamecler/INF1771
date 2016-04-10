@@ -145,6 +145,10 @@ class ViewController: UIViewController {
         cost = 0.0
         size = 0
         
+        costLabel.text = "Custo do caminho: \(Double(round(1000*cost)/1000))"
+        
+        sizeLabel.text = "Tamanho do caminho: \(size)"
+        
         arrayViews.removeAll()
         
     }
