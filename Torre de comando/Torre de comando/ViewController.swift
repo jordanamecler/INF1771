@@ -167,8 +167,11 @@ class ViewController: UIViewController {
         arvore.fim = fim
         arvore.matrix = matrix
         
-        visited = arvore.treeSearch()
-    
+        visited = arvore.treeSearch(plans)
+        
+        for plan in plans {
+            plan.energy = 5
+        }
         
     }
     
@@ -327,68 +330,13 @@ class ViewController: UIViewController {
                 return 5
             
             case "B":
-                return self.valorBase(linha, coluna: coluna, plans: plans)
+                return Tree.valorBase(linha, coluna: coluna, plans: plans)
             
             case "C":
                 return 50
             
             case ".":
                 return 1
-            
-            default:
-                return 0
-            
-        }
-        
-    }
-    
-    private func valorBase(i: Int, coluna: Int, plans: [Plan]) -> Double {
-        
-        switch(i, coluna){
-            
-            //base 11:
-            case (4, 13):
-                return 120 / (plans[4].setFire() + plans[3].setFire() + plans[0].setFire())
-            
-            //base 10:
-            case (9, 14):
-                return 110 / (plans[4].setFire() + plans[3].setFire() + plans[0].setFire())
-            
-            //base 9:
-            case (9, 30):
-                return 100 / (plans[4].setFire() + plans[3].setFire())
-            
-            //base 8:
-            case (13, 36):
-                return 95 / (plans[4].setFire() + plans[3].setFire())
-            
-            //base 7:
-            case (17, 26):
-                return 90 / (plans[4].setFire() + plans[3].setFire())
-            
-            //base 6:
-            case (17, 9):
-                return 85  / (plans[2].setFire() + plans[1].setFire())
-            
-            //base 5:
-            case (24, 9):
-                return 80 / (plans[2].setFire() + plans[1].setFire())
-            
-            //base 4:
-            case (24, 26):
-                return 75 / (plans[2].setFire() + plans[1].setFire())
-            
-            //base 3:
-            case (31,33):
-                return 70 / (plans[2].setFire() + plans[1].setFire())
-            
-            //base 2:
-            case (31, 17):
-                return 65 / (plans[2].setFire() + plans[0].setFire())
-            
-            //base 1:
-            case (37, 19):
-                return 60 / (plans[1].setFire() + plans[0].setFire())
             
             default:
                 return 0

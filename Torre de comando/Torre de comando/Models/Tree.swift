@@ -20,11 +20,15 @@ class Tree {
     var matrix = Matrix2D<Int, Int>()
     var priority : Double!
     
+    var plans : [Plan] = []
+    
     init() {
         
     }
        
-    func treeSearch() -> [Tree] {
+    func treeSearch(planArray : [Plan]) -> [Tree] {
+        
+        plans = planArray
         
         let inicio = Tree()
         var neighbors = [Tree]()
@@ -194,7 +198,7 @@ class Tree {
             return 5
             
         case "B":
-            return valorBase(prox[0], coluna: prox[1])
+            return Tree.valorBase(prox[0], coluna: prox[1], plans : plans)
             
         case "C":
             return 50
@@ -209,55 +213,59 @@ class Tree {
         
     }
     
-    private func valorBase(i: Int, coluna: Int) -> Double {
+    static func valorBase(i: Int, coluna: Int, plans: [Plan]) -> Double {
         
-        //base 11
-        if(i == 4 && coluna == 13) {
-            return 120 / (1.5 + 1.4 + 1.1)
-        }
-        //base 10
-        else if(i == 9 && coluna == 14) {
-            return 110 / (1.5 + 1.4 + 1.1)
-        }
-        //base 9
-        else if(i == 9 && coluna == 30) {
-            return 100 / (1.5 + 1.4)
-        }
-        //base 8
-        else if(i == 13 && coluna == 36) {
-            return 95 / (1.5 + 1.4)
-        }
-        //base 7
-        else if(i == 17 && coluna == 26) {
-            return 90 / (1.5 + 1.4)
-        }
-        //base 6
-        else if(i == 17 && coluna == 9) {
-            return 85  / (1.3 + 1.2)
-        }
-        //base 5
-        else if(i == 24 && coluna == 9) {
-            return 80 / (1.3 + 1.2)
-        }
-        //base 4
-        else if(i == 24 && coluna == 26) {
-            return 75 / (1.3 + 1.2)
-        }
-        //base 3
-        else if(i == 31 && coluna == 33) {
-            return 70 / (1.3 + 1.2)
-        }
-        //base 2
-        else if(i == 31 && coluna == 17) {
-            return 65 / (1.3 + 1.1)
-        }
-        //base 1
-        //Aviões: 1
-        else if(i == 37 && coluna == 19) {
-            return 60 / (1.1 + 1.2)
+        switch(i, coluna){
+            
+            //base 11:
+        case (4, 13):
+            return 120 / (plans[4].setFire() + plans[3].setFire() + plans[0].setFire())
+            
+            //base 10:
+        case (9, 14):
+            return 110 / (plans[4].setFire() + plans[3].setFire() + plans[0].setFire())
+            
+            //base 9:
+        case (9, 30):
+            return 100 / (plans[4].setFire() + plans[3].setFire())
+            
+            //base 8:
+        case (13, 36):
+            return 95 / (plans[4].setFire() + plans[3].setFire())
+            
+            //base 7:
+        case (17, 26):
+            return 90 / (plans[4].setFire() + plans[3].setFire())
+            
+            //base 6:
+        case (17, 9):
+            return 85  / (plans[2].setFire() + plans[1].setFire())
+            
+            //base 5:
+        case (24, 9):
+            return 80 / (plans[2].setFire() + plans[1].setFire())
+            
+            //base 4:
+        case (24, 26):
+            return 75 / (plans[2].setFire() + plans[1].setFire())
+            
+            //base 3:
+        case (31,33):
+            return 70 / (plans[2].setFire() + plans[1].setFire())
+            
+            //base 2:
+        case (31, 17):
+            return 65 / (plans[2].setFire() + plans[0].setFire())
+            
+            //base 1:
+        case (37, 19):
+            return 60 / (plans[1].setFire() + plans[0].setFire())
+            
+        default:
+            return 0
+            
         }
         
-        return 0
     }
     
     func orginizeArray(array : [Tree], new: Tree) -> [Tree] {
