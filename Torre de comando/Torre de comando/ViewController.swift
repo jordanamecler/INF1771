@@ -302,6 +302,10 @@ class ViewController: UIViewController {
             tamCaminho++
         }
         
+        for plan in plans {
+            plan.energy = 5
+        }
+        
         print("Tamanho do caminho: \(tamCaminho)")
         
         new = new.reverse()
