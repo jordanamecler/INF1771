@@ -183,31 +183,33 @@ class Tree {
     
     func new_cost(prox: [Int]) -> Double {
         
-        if(matrix[prox[0], prox[1]]!.character == "M"){
+        let c = matrix[prox[0], prox[1]]!.character
+        
+        switch(c) {
+            
+        case "M":
             return 200
-        }
-        
-        if(matrix[prox[0], prox[1]]!.character == "R"){
+            
+        case "R":
             return 5
-        }
-        
-        if(matrix[prox[0], prox[1]]!.character == "B") {
-            return Tree.valorBase(prox[0], coluna:prox[1])
-        }
-        
-        if(matrix[prox[0], prox[1]]!.character == "C") {
+            
+        case "B":
+            return valorBase(prox[0], coluna: prox[1])
+            
+        case "C":
             return 50
-        }
-        
-        if(matrix[prox[0], prox[1]]!.character == ".") {
+            
+        case ".":
             return 1
+            
+        default:
+            return 0
+            
         }
-        
-        return 0
         
     }
     
-    private static func valorBase(i: Int, coluna: Int) -> Double {
+    private func valorBase(i: Int, coluna: Int) -> Double {
         
         //base 11
         if(i == 4 && coluna == 13) {

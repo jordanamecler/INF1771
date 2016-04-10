@@ -13,4 +13,9 @@ class Plan {
     var energy : Int = 5
     var fire   : Double!
     
+    func setFire() -> Double {
+        energy--
+        return fire
+    }
+    
 }
