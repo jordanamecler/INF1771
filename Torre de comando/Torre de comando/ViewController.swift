@@ -26,6 +26,8 @@ class ViewController: UIViewController {
     var new = [Tree]();
     var new2 = [Tree]();
     
+    var plans : [Plan] = []
+    
     var arrayViews : [UIImageView] = []
     
     let visitedButton = UIButton()
@@ -38,6 +40,12 @@ class ViewController: UIViewController {
     var cost : Double = 0.0
     var size : Int = 0
     
+    let plan1 = UIImageView()
+    let plan2 = UIImageView()
+    let plan3 = UIImageView()
+    let plan4 = UIImageView()
+    let plan5 = UIImageView()
+    
     /* **************************************************************************************************
     **
     **  MARK: Views
@@ -47,10 +55,18 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let backgroundView = UIView(frame: CGRect(x: 0, y: 44, width: 615, height: 630))
-//        backgroundView.backgroundColor = UIColor.blackColor()
-//        
-//        view.addSubview(backgroundView)
+        //Plans array:
+        
+        for(var i=0; i<5; i++){
+            
+            let plan = Plan()
+            
+            plan.energy = 5
+            plan.fire = 1.1 + Double(i)*0.1
+            
+            plans.append(plan)
+            
+        }
         
         for i in 0...matrix.lines{
             for j in 0...matrix.columns{
@@ -102,6 +118,35 @@ class ViewController: UIViewController {
         sizeLabel.text = "Tamanho do caminho: \(size)"
         self.view.addSubview(sizeLabel)
         
+        plan1.frame = CGRectMake(0, 0, 50, 50)
+        plan1.center.y = 1300
+        plan1.center.x = centerX * 1
+        plan1.image = UIImage(named: "Fighter1")
+        self.view.addSubview(plan1)
+        
+        plan2.frame = CGRectMake(0, 0, 50, 50)
+        plan2.center.y = 1300
+        plan2.center.x = centerX * 1 + 80
+        plan2.image = UIImage(named: "Fighter2")
+        self.view.addSubview(plan2)
+        
+        plan3.frame = CGRectMake(0, 0, 50, 50)
+        plan3.center.y = 1300
+        plan3.center.x = centerX * 1 + 160
+        plan3.image = UIImage(named: "Fighter3")
+        self.view.addSubview(plan3)
+        
+        plan4.frame = CGRectMake(0, 0, 50, 50)
+        plan4.center.y = 1300
+        plan4.center.x = centerX * 1 + 240
+        plan4.image = UIImage(named: "Fighter4")
+        self.view.addSubview(plan4)
+        
+        plan5.frame = CGRectMake(0, 0, 50, 50)
+        plan5.center.y = 1300
+        plan5.center.x = centerX * 1 + 320
+        plan5.image = UIImage(named: "Fighter5")
+        self.view.addSubview(plan5)
         
         for i in 0...matrix.lines {
             for j in 0...matrix.columns {
@@ -145,6 +190,16 @@ class ViewController: UIViewController {
         cost = 0.0
         size = 0
         
+        plan1.hidden = false
+        plan2.hidden = false
+        plan3.hidden = false
+        plan4.hidden = false
+        plan5.hidden = false
+        
+        for plan in plans {
+            plan.energy = 5
+        }
+        
         costLabel.text = "Custo do caminho: \(Double(round(1000*cost)/1000))"
         
         sizeLabel.text = "Tamanho do caminho: \(size)"
@@ -176,6 +231,26 @@ class ViewController: UIViewController {
             size++
             
             sizeLabel.text = "Tamanho do caminho: \(size)"
+            
+            if(plans[0].energy == 0){
+                plan1.hidden = true
+            }
+            
+            if(plans[1].energy == 0){
+                plan2.hidden = true
+            }
+            
+            if(plans[2].energy == 0){
+                plan3.hidden = true
+            }
+            
+            if(plans[3].energy == 0){
+                plan4.hidden = true
+            }
+            
+            if(plans[4].energy == 0){
+                plan5.hidden = true
+            }
             
             self.view.addSubview(squareView)
             
@@ -249,7 +324,7 @@ class ViewController: UIViewController {
                 return 5
             
             case "B":
-                return Tree.valorBase(linha, coluna: coluna)
+                return self.valorBase(linha, coluna: coluna, plans: plans)
             
             case "C":
                 return 50
@@ -262,6 +337,81 @@ class ViewController: UIViewController {
             
         }
         
+    }
+    
+    private func valorBase(i: Int, coluna: Int, plans: [Plan]) -> Double {
+        
+        //base 11
+        if(i == 4 && coluna == 13) {
+            plans[4].energy--
+            plans[3].energy--
+            plans[0].energy--
+            return 120 / (1.5 + 1.4 + 1.1)
+        }
+            //base 10
+        else if(i == 9 && coluna == 14) {
+            plans[4].energy--
+            plans[3].energy--
+            plans[0].energy--
+            return 110 / (1.5 + 1.4 + 1.1)
+        }
+            //base 9
+        else if(i == 9 && coluna == 30) {
+            plans[4].energy--
+            plans[3].energy--
+            return 100 / (1.5 + 1.4)
+        }
+            //base 8
+        else if(i == 13 && coluna == 36) {
+            plans[4].energy--
+            plans[3].energy--
+            return 95 / (1.5 + 1.4)
+        }
+            //base 7
+        else if(i == 17 && coluna == 26) {
+            plans[4].energy--
+            plans[3].energy--
+            return 90 / (1.5 + 1.4)
+        }
+            //base 6
+        else if(i == 17 && coluna == 9) {
+            plans[2].energy--
+            plans[1].energy--
+            return 85  / (1.3 + 1.2)
+        }
+            //base 5
+        else if(i == 24 && coluna == 9) {
+            plans[2].energy--
+            plans[1].energy--
+            return 80 / (1.3 + 1.2)
+        }
+            //base 4
+        else if(i == 24 && coluna == 26) {
+            plans[2].energy--
+            plans[1].energy--
+            return 75 / (1.3 + 1.2)
+        }
+            //base 3
+        else if(i == 31 && coluna == 33) {
+            plans[2].energy--
+            plans[1].energy--
+            return 70 / (1.3 + 1.2)
+        }
+            //base 2
+        else if(i == 31 && coluna == 17) {
+            plans[2].energy--
+            plans[0].energy--
+            return 65 / (1.3 + 1.1)
+        }
+            //base 1
+            //Aviões: 1
+        else if(i == 37 && coluna == 19) {
+            plans[0].energy--
+            plans[1].energy--
+            return 60 / (1.1 + 1.2)
+        }
+        
+        return 0
     }
     
 }

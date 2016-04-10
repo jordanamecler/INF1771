@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E26D5EC1CB9DD2A009B2B1C /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E26D5EB1CB9DD2A009B2B1C /* Plan.swift */; };
 		8EAEDF0A1CB3514000FA3ADF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAEDF091CB3514000FA3ADF /* AppDelegate.swift */; };
 		8EAEDF0C1CB3514000FA3ADF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAEDF0B1CB3514000FA3ADF /* ViewController.swift */; };
 		8EAEDF0F1CB3514000FA3ADF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EAEDF0D1CB3514000FA3ADF /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E26D5EB1CB9DD2A009B2B1C /* Plan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Plan.swift; path = Models/Plan.swift; sourceTree = "<group>"; };
 		8EAEDF061CB3514000FA3ADF /* Torre de comando.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Torre de comando.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EAEDF091CB3514000FA3ADF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8EAEDF0B1CB3514000FA3ADF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				8EAEDF231CB351D800FA3ADF /* Matrix.swift */,
 				8EAEDF251CB351EE00FA3ADF /* Tree.swift */,
 				8EAEDF2B1CB5A1E700FA3ADF /* MatrixCharacters.swift */,
+				8E26D5EB1CB9DD2A009B2B1C /* Plan.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E26D5EC1CB9DD2A009B2B1C /* Plan.swift in Sources */,
 				8EAEDF261CB351EF00FA3ADF /* Tree.swift in Sources */,
 				8EAEDF241CB351D900FA3ADF /* Matrix.swift in Sources */,
 				8EAEDF221CB351BE00FA3ADF /* FileManager.swift in Sources */,
