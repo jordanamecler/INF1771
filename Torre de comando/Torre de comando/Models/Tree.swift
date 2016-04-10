@@ -207,7 +207,7 @@ class Tree {
         
     }
     
-    static func valorBase(i: Int, coluna: Int) -> Double {
+    private static func valorBase(i: Int, coluna: Int) -> Double {
         
         //base 11
         if(i == 4 && coluna == 13) {

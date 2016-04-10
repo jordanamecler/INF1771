@@ -49,7 +49,7 @@ class SquareView: UIImageView {
             //self.backgroundColor = UIColor(red: 255/255, green: 0/255, blue: 0/255, alpha: 1.0)
         }
         else {
-            self.image = UIImage(named: "fighter")
+            self.image = UIImage(named: "Fighter1")
             //self.backgroundColor = UIColor.orangeColor()
         }
         
