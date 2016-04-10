@@ -42,14 +42,14 @@ class SquareView: UIImageView {
             //self.backgroundColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1.0)
         }
         else if value == "B" {
-            self.backgroundColor = UIColor.yellowColor()
+            self.image = UIImage(named: "cannon")
         }
         else if value == "C" {
             self.image = UIImage(named: "tanque")
             //self.backgroundColor = UIColor(red: 255/255, green: 0/255, blue: 0/255, alpha: 1.0)
         }
         else {
-            self.image = UIImage(named: "airplane")
+            self.image = UIImage(named: "fighter")
             //self.backgroundColor = UIColor.orangeColor()
         }
         
