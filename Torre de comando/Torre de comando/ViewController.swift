@@ -32,6 +32,10 @@ class ViewController: UIViewController {
     let routeButton = UIButton()
     let clearButton = UIButton()
     
+    let costLabel = UILabel()
+    
+    var cost : Double = 0.0
+    
     /* **************************************************************************************************
     **
     **  MARK: Views
@@ -81,6 +85,13 @@ class ViewController: UIViewController {
         clearButton.backgroundColor = UIColor.lightGrayColor()
         clearButton.addTarget(self, action: "clearPressed", forControlEvents: .TouchUpInside)
         self.view.addSubview(clearButton)
+        
+        costLabel.frame = CGRectMake(0, 0, 300, 80)
+        costLabel.center.y = 1200
+        costLabel.center.x = centerX * 1
+        costLabel.font = UIFont(name: costLabel.font!.fontName, size: 20.0)
+        costLabel.text = "Custo do caminho: \(cost)"
+        self.view.addSubview(costLabel)
         
         
         for i in 0...matrix.lines {
@@ -141,6 +152,25 @@ class ViewController: UIViewController {
         else if ((new.first!.data![0] != self.inicio[0]) || (new.first!.data![1] != self.inicio[1])) && ((new.first!.data![0] != self.fim[0]) || (new.first!.data![1] != self.fim[1])) {
             
             let squareView = SquareView(line: new.first!.data![0], column: new.first!.data![1], value: "v", numLines: matrix.lines, numColumns: matrix.columns)
+            
+            if(matrix[new.first!.data![0], new.first!.data![1]]!.character == "M"){
+                cost += 200
+            }
+            
+            if(matrix[new.first!.data![0], new.first!.data![1]]!.character == "R"){
+                cost += 5
+            }
+            if(matrix[new.first!.data![0], new.first!.data![1]]!.character == "B") {
+                cost += Tree.valorBase(new.first!.data![0], coluna: new.first!.data![1])
+            }
+            if(matrix[new.first!.data![0], new.first!.data![1]]!.character == "C") {
+                cost += 50
+            }
+            else {
+                cost += 1
+            }
+            
+            costLabel.text = "Custo do caminho: \(Double(round(1000*cost)/1000))"
             
             self.view.addSubview(squareView)
             
