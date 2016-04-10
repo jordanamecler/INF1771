@@ -22,7 +22,7 @@ class SquareView: UIImageView {
         
 //        let moldura : CGFloat = 0.5
         
-        super.init(frame: CGRect(x: (width * CGFloat(column)) /*+ moldura*/, y: (height * CGFloat(line))/* + moldura + 44*/, width: width/* - (moldura*2)*/, height: height /*- (moldura*2)*/))
+        super.init(frame: CGRect(x: (width * CGFloat(column)) /*+ moldura*/, y: (height * CGFloat(line)) + 30, width: width/* - (moldura*2)*/, height: height /*- (moldura*2)*/))
         
         if(value == "M"){
             self.image = UIImage(named: "mountain")
