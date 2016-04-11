@@ -35,6 +35,7 @@ class ViewController: UIViewController {
     let visitedButton = UIButton()
     let routeButton = UIButton()
     let clearButton = UIButton()
+    let otimiButton = UIButton()
     
     let costLabel = UILabel()
     let sizeLabel = UILabel()
@@ -54,6 +55,8 @@ class ViewController: UIViewController {
     let plan3Energy = UILabel()
     let plan4Energy = UILabel()
     let plan5Energy = UILabel()
+    
+    var otimiza : Int = 0
     
     /* **************************************************************************************************
     **
@@ -111,6 +114,14 @@ class ViewController: UIViewController {
         clearButton.backgroundColor = UIColor.lightGrayColor()
         clearButton.addTarget(self, action: "clearPressed", forControlEvents: .TouchUpInside)
         self.view.addSubview(clearButton)
+        
+        otimiButton.frame = CGRectMake(0, 0, 120, 40)
+        otimiButton.center.y = 1120
+        otimiButton.center.x = centerX * 4
+        otimiButton.setTitle("Otimiza", forState: .Normal)
+        otimiButton.backgroundColor = UIColor.lightGrayColor()
+        otimiButton.addTarget(self, action: "otimizaPressed", forControlEvents: .TouchUpInside)
+        self.view.addSubview(otimiButton)
         
         costLabel.frame = CGRectMake(0, 0, 300, 50)
         costLabel.center.y = 1200
@@ -227,6 +238,19 @@ class ViewController: UIViewController {
     **
     ****************************************************************************************************/
     
+    func otimizaPressed() {
+        
+        clearPressed()
+        
+        Tree.otimiza = 1
+        otimiza = 1
+        
+        routePressed()
+        
+        otimiza=0
+        
+    }
+    
     func clearPressed() {
         
         for square in arrayViews {
@@ -235,9 +259,12 @@ class ViewController: UIViewController {
             
         }
         
+        Tree.otimiza = 0
+        
         cost = 0.0
         custosBase = 0.0
         size = 0
+        otimiza = 0
         
         for plan in plans {
             plan.energy = 5
@@ -252,6 +279,8 @@ class ViewController: UIViewController {
         costLabel.text = "Custo do caminho: \(Double(round(1000*cost)/1000))"
         
         sizeLabel.text = "Tamanho do caminho: \(size)"
+        
+        combLabel.text = "Combinatória: \(Double(round(1000*custosBase)/1000))"
         
         arrayViews.removeAll()
         
@@ -318,7 +347,9 @@ class ViewController: UIViewController {
     
     func routePressed() {
         
-        clearPressed()
+        if(otimiza == 0){
+            clearPressed()
+        }
         
         ultimo = (visited.last?.parent)!
         
@@ -383,6 +414,7 @@ class ViewController: UIViewController {
         }
         
     }
+    
     
 }
 

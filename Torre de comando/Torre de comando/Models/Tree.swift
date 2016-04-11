@@ -20,6 +20,8 @@ class Tree {
     var matrix = Matrix2D<Int, Int>()
     var priority : Double!
     
+    static var otimiza : Int = 0
+    
     var plans : [Plan] = []
     
     init() {
@@ -180,9 +182,9 @@ class Tree {
     
     func heuristic(fim: [Int], prox: [Int]) -> Double {
         
-        return Double(abs(prox[0]-fim[0])) + Double(abs(prox[1]-fim[1]))
+        //return Double(abs(prox[0]-fim[0])) + Double(abs(prox[1]-fim[1]))
         
-        //return sqrt(pow(Double(abs(fim[0] - prox[0])), 2) + pow(Double(abs(fim[1] - prox[1])), 2))
+        return sqrt(pow(Double(abs(fim[0] - prox[0])), 2) + pow(Double(abs(fim[1] - prox[1])), 2))
     }
     
     func new_cost(prox: [Int]) -> Double {
@@ -215,15 +217,17 @@ class Tree {
     
     static func valorBase(i: Int, coluna: Int, plans: [Plan]) -> Double {
         
+        if(otimiza == 0){
+        
         switch(i, coluna){
             
             //base 11:
         case (4, 13):
-            return 120 / (plans[4].setFire() + plans[3].setFire() + plans[0].setFire())
+            return 120 / (plans[4].setFire() + plans[3].setFire())
             
             //base 10:
         case (9, 14):
-            return 110 / (plans[4].setFire() + plans[3].setFire() + plans[0].setFire())
+            return 110 / (plans[4].setFire() + plans[3].setFire())
             
             //base 9:
         case (9, 30):
@@ -231,11 +235,11 @@ class Tree {
             
             //base 8:
         case (13, 36):
-            return 95 / (plans[4].setFire() + plans[3].setFire())
+            return 95 / (plans[4].setFire() + plans[3].setFire() + plans[0].setFire())
             
             //base 7:
         case (17, 26):
-            return 90 / (plans[4].setFire() + plans[3].setFire())
+            return 90 / (plans[4].setFire() + plans[3].setFire() + plans[0].setFire())
             
             //base 6:
         case (17, 9):
@@ -265,6 +269,41 @@ class Tree {
             return 0
             
         }
+            
+        }
+        
+        if(otimiza == 1){
+            
+            switch(i, coluna){
+
+                //base 9:
+            case (9, 30):
+                return 100 / (plans[4].setFire() + plans[3].setFire() + plans[1].setFire() + plans[0].setFire() + plans[2].setFire())
+                
+                //base 8:
+            case (13, 36):
+                return 95 / (plans[4].setFire() + plans[3].setFire() + plans[1].setFire() + plans[2].setFire() + plans[0].setFire())
+                
+                //base 3:
+            case (31,33):
+                return 70 / (plans[2].setFire() + plans[0].setFire() + plans[4].setFire() + plans[1].setFire() + plans[3].setFire())
+                
+                //base 2:
+            case (31, 17):
+                return 65 / (plans[2].setFire() + plans[0].setFire() + plans[3].setFire() + plans[1].setFire() + plans[4].setFire())
+                
+                //base 1:
+            case (37, 19):
+                return 60 / (plans[1].setFire() + plans[2].setFire() + plans[3].setFire() + plans[4].setFire() )
+                
+            default:
+                return 5000
+                
+            }
+            
+        }
+
+        return 0
         
     }
     
