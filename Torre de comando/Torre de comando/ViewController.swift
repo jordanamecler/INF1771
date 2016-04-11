@@ -46,6 +46,12 @@ class ViewController: UIViewController {
     let plan4 = UIImageView()
     let plan5 = UIImageView()
     
+    let plan1Energy = UILabel()
+    let plan2Energy = UILabel()
+    let plan3Energy = UILabel()
+    let plan4Energy = UILabel()
+    let plan5Energy = UILabel()
+    
     /* **************************************************************************************************
     **
     **  MARK: Views
@@ -123,29 +129,59 @@ class ViewController: UIViewController {
         plan1.image = UIImage(named: "Fighter1")
         self.view.addSubview(plan1)
         
+        plan1Energy.frame = CGRectMake(0, 0, 100, 50)
+        plan1Energy.center.y = 1350
+        plan1Energy.center.x = centerX * 1
+        plan1Energy.text = "Energy: \(plans[0].energy)"
+        self.view.addSubview(plan1Energy)
+        
         plan2.frame = CGRectMake(0, 0, 50, 50)
         plan2.center.y = 1300
-        plan2.center.x = centerX * 1 + 80
+        plan2.center.x = centerX * 1 + 120
         plan2.image = UIImage(named: "Fighter2")
         self.view.addSubview(plan2)
         
+        plan2Energy.frame = CGRectMake(0, 0, 100, 50)
+        plan2Energy.center.y = 1350
+        plan2Energy.center.x = centerX * 1 + 120
+        plan2Energy.text = "Energy: \(plans[1].energy)"
+        self.view.addSubview(plan2Energy)
+        
         plan3.frame = CGRectMake(0, 0, 50, 50)
         plan3.center.y = 1300
-        plan3.center.x = centerX * 1 + 160
+        plan3.center.x = centerX * 1 + 250
         plan3.image = UIImage(named: "Fighter3")
         self.view.addSubview(plan3)
         
+        plan3Energy.frame = CGRectMake(0, 0, 100, 50)
+        plan3Energy.center.y = 1350
+        plan3Energy.center.x = centerX * 1 + 250
+        plan3Energy.text = "Energy: \(plans[2].energy)"
+        self.view.addSubview(plan3Energy)
+        
         plan4.frame = CGRectMake(0, 0, 50, 50)
         plan4.center.y = 1300
-        plan4.center.x = centerX * 1 + 240
+        plan4.center.x = centerX * 1 + 380
         plan4.image = UIImage(named: "Fighter4")
         self.view.addSubview(plan4)
         
+        plan4Energy.frame = CGRectMake(0, 0, 100, 50)
+        plan4Energy.center.y = 1350
+        plan4Energy.center.x = centerX * 1 + 380
+        plan4Energy.text = "Energy: \(plans[3].energy)"
+        self.view.addSubview(plan4Energy)
+        
         plan5.frame = CGRectMake(0, 0, 50, 50)
         plan5.center.y = 1300
-        plan5.center.x = centerX * 1 + 320
+        plan5.center.x = centerX * 1 + 500
         plan5.image = UIImage(named: "Fighter5")
         self.view.addSubview(plan5)
+        
+        plan5Energy.frame = CGRectMake(0, 0, 100, 50)
+        plan5Energy.center.y = 1350
+        plan5Energy.center.x = centerX * 1 + 500
+        plan5Energy.text = "Energy: \(plans[4].energy)"
+        self.view.addSubview(plan5Energy)
         
         for i in 0...matrix.lines {
             for j in 0...matrix.columns {
@@ -192,12 +228,6 @@ class ViewController: UIViewController {
         cost = 0.0
         size = 0
         
-        plan1.hidden = false
-        plan2.hidden = false
-        plan3.hidden = false
-        plan4.hidden = false
-        plan5.hidden = false
-        
         for plan in plans {
             plan.energy = 5
         }
@@ -228,31 +258,17 @@ class ViewController: UIViewController {
             
             cost += returnCost(new.first!.data![0], coluna: new.first!.data![1])
             
+            plan1Energy.text = "Energy: \(plans[0].energy)"
+            plan2Energy.text = "Energy: \(plans[1].energy)"
+            plan3Energy.text = "Energy: \(plans[2].energy)"
+            plan4Energy.text = "Energy: \(plans[3].energy)"
+            plan5Energy.text = "Energy: \(plans[4].energy)"
+            
             costLabel.text = "Custo do caminho: \(Double(round(1000*cost)/1000))"
             
             size++
             
             sizeLabel.text = "Tamanho do caminho: \(size)"
-            
-            if(plans[0].energy == 0){
-                plan1.hidden = true
-            }
-            
-            if(plans[1].energy == 0){
-                plan2.hidden = true
-            }
-            
-            if(plans[2].energy == 0){
-                plan3.hidden = true
-            }
-            
-            if(plans[3].energy == 0){
-                plan4.hidden = true
-            }
-            
-            if(plans[4].energy == 0){
-                plan5.hidden = true
-            }
             
             self.view.addSubview(squareView)
             
