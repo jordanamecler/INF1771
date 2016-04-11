@@ -69,7 +69,7 @@ class Tree {
             if((actual?.data)! == fim!) {
                 //print("\(actual!.data![0])")
                 //print(actual?.data![1])
-                print("Visitados: \(visited.count)")
+//                print("Visitados: \(visited.count)")
                 //print(queue.count)
                 return visited
             }

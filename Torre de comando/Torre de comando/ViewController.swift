@@ -22,6 +22,8 @@ class ViewController: UIViewController {
     var visited = [Tree]()
     var ultimo = Tree()
     
+    var custosBase : Double = 0.0
+    
     var timer = NSTimer();
     var new = [Tree]();
     var new2 = [Tree]();
@@ -36,6 +38,7 @@ class ViewController: UIViewController {
     
     let costLabel = UILabel()
     let sizeLabel = UILabel()
+    let combLabel = UILabel()
     
     var cost : Double = 0.0
     var size : Int = 0
@@ -122,6 +125,13 @@ class ViewController: UIViewController {
         sizeLabel.font = UIFont(name: costLabel.font!.fontName, size: 20.0)
         sizeLabel.text = "Tamanho do caminho: \(size)"
         self.view.addSubview(sizeLabel)
+        
+        combLabel.frame = CGRectMake(0, 0, 300, 50)
+        combLabel.center.y = 1250
+        combLabel.center.x = centerX * 3
+        combLabel.font = UIFont(name: costLabel.font!.fontName, size: 20.0)
+        combLabel.text = "Combinatória: \(custosBase)"
+        self.view.addSubview(combLabel)
         
         plan1.frame = CGRectMake(0, 0, 50, 50)
         plan1.center.y = 1300
@@ -226,11 +236,18 @@ class ViewController: UIViewController {
         }
         
         cost = 0.0
+        custosBase = 0.0
         size = 0
         
         for plan in plans {
             plan.energy = 5
         }
+        
+        plan1Energy.text = "Energy: \(plans[0].energy)"
+        plan2Energy.text = "Energy: \(plans[1].energy)"
+        plan3Energy.text = "Energy: \(plans[2].energy)"
+        plan4Energy.text = "Energy: \(plans[3].energy)"
+        plan5Energy.text = "Energy: \(plans[4].energy)"
         
         costLabel.text = "Custo do caminho: \(Double(round(1000*cost)/1000))"
         
@@ -257,6 +274,8 @@ class ViewController: UIViewController {
             let squareView = SquareView(line: new.first!.data![0], column: new.first!.data![1], value: "v", numLines: matrix.lines, numColumns: matrix.columns)
             
             cost += returnCost(new.first!.data![0], coluna: new.first!.data![1])
+            
+            combLabel.text = "Combinatória: \(Double(round(1000*custosBase)/1000))"
             
             plan1Energy.text = "Energy: \(plans[0].energy)"
             plan2Energy.text = "Energy: \(plans[1].energy)"
@@ -303,7 +322,7 @@ class ViewController: UIViewController {
         
         ultimo = (visited.last?.parent)!
         
-        print("Custo do caminho: \(matrix[fim[0], fim[1]]?.custo)")
+//        print("Custo do caminho: \(matrix[fim[0], fim[1]]?.custo)")
         
         var tamCaminho = 0
         var custoCaminho : Double = 0
@@ -325,10 +344,12 @@ class ViewController: UIViewController {
             plan.energy = 5
         }
         
-        print("Tamanho do caminho: \(tamCaminho)")
+        custosBase = 0.0
+        
+//        print("Tamanho do caminho: \(tamCaminho)")
         
         new = new.reverse()
-        print(new.count)
+//        print(new.count)
         
         timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "addImages", userInfo: nil, repeats: true)
     }
@@ -346,7 +367,9 @@ class ViewController: UIViewController {
                 return 5
             
             case "B":
-                return Tree.valorBase(linha, coluna: coluna, plans: plans)
+                let custo = Tree.valorBase(linha, coluna: coluna, plans: plans)
+                custosBase += custo
+                return custo
             
             case "C":
                 return 50
