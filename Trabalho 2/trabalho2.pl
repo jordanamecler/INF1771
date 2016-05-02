@@ -8,6 +8,7 @@
 
 :-dynamic posicao/3.
 :-dynamic ouro/2.
+:-dynamic tiros/1.
 :-dynamic energia/1.
 :-dynamic posicaoInimigo1Dano20/2.
 :-dynamic inimigo1Dano20/2.
@@ -24,14 +25,15 @@ posicao(1,1, norte).
 
 ouro(0, 0).
 
+tiros(5).
+
 energia(100).
 
-posicaoInimigo1Dano20(0, 0).
+posicaoInimigo1Dano20(2, 2).
 inimigo1Dano20(20, 100).
 
 posicaoInimigo2Dano20(0, 0).
 inimigo2Dano20(50, 100).
-
 
 /******************************************************************
 **
@@ -39,9 +41,9 @@ inimigo2Dano20(50, 100).
 **
 *******************************************************************/
 
-getPosicaoInimigo(X, TYPE) :- X == 1, TYPE == 1, posicaoInimigo1Dano20(PX, PY), write('X = '), write(PX), write(', Y = '), write(PY),!.
+getPosicaoInimigo(X, TYPE) :- X == 1, TYPE == 1, posicaoInimigo1Dano20(PX, PY), imprime_posicao(PX, PY),!.
 
-getPosicaoInimigo(X, TYPE) :- X == 2, TYPE == 1, posicaoInimigo2Dano20(PX, PY), write('X = '), write(PX), write(', Y = '), write(PY),!.
+getPosicaoInimigo(X, TYPE) :- X == 2, TYPE == 1, posicaoInimigo2Dano20(PX, PY), imprime_posicao(PX, PY),!.
 
 /******************************************************************
 **
@@ -59,7 +61,11 @@ existe_Inimigo_Posicao(X, Y) :- posicaoInimigo2Dano20(PX, PY), PX == X, PY == Y,
 **
 *******************************************************************/
 
-iniciar_jogo :- gerar_Posicao_Ouro, gerar_Posicao_Inimigo(1,1), gerar_Posicao_Inimigo(2,1),!.
+iniciar_valores :- recuperar_energia, recuperar_tiros, recuperar_inimigo(1,1), recuperar_inimigo(2,1),!.
+
+gerar_posicoes :- gerar_Posicao_Ouro, gerar_Posicao_Inimigo(1,1), gerar_Posicao_Inimigo(2,1),!.
+
+iniciar_jogo :- gerar_posicoes, iniciar_valores,!.
 
 /******************************************************************
 **
@@ -69,7 +75,11 @@ iniciar_jogo :- gerar_Posicao_Ouro, gerar_Posicao_Inimigo(1,1), gerar_Posicao_In
 
 recuperar_energia :- retract(energia(_)), assert(energia(100)),!.
 
-recuperar_inimigo1 :- retract(inimigo1Dano20(_, _)), assert(inimigo1Dano20(10, 100)),!.
+recuperar_tiros :- retract(tiros(_)), assert(tiros(5)),!.
+
+recuperar_inimigo(X, TYPE) :-  X == 1, TYPE == 1, retract(inimigo1Dano20(_, _)), assert(inimigo1Dano20(10, 100)),!.
+
+recuperar_inimigo(X, TYPE) :-  X == 2, TYPE == 1, retract(inimigo2Dano20(_, _)), assert(inimigo2Dano20(10, 100)),!.
 
 /******************************************************************
 **
@@ -77,11 +87,11 @@ recuperar_inimigo1 :- retract(inimigo1Dano20(_, _)), assert(inimigo1Dano20(10, 1
 **
 *******************************************************************/
 
-gerar_Posicao_Ouro :- random(0,24,X), random(0,24,Y), retract(ouro(_,_)), assert(ouro(X, Y)).
+gerar_Posicao_Ouro :- random(1,25,X), random(1,25,Y), retract(ouro(_,_)), assert(ouro(X, Y)).
 
-gerar_Posicao_Inimigo(X, TYPE) :- X == 1, TYPE == 1, random(0,24,PX), random(0,24,PY), retract(posicaoInimigo1Dano20(_,_)), assert(posicaoInimigo1Dano20(PX, PY)),!.
+gerar_Posicao_Inimigo(X, TYPE) :- X == 1, TYPE == 1, random(1,25,PX), random(1,25,PY), retract(posicaoInimigo1Dano20(_,_)), assert(posicaoInimigo1Dano20(PX, PY)),!.
 
-gerar_Posicao_Inimigo(X, TYPE) :- X == 2, TYPE == 1, random(0,24,PX), random(0,24,PY), retract(posicaoInimigo2Dano20(_,_)), assert(posicaoInimigo2Dano20(PX, PY)),!.
+gerar_Posicao_Inimigo(X, TYPE) :- X == 2, TYPE == 1, random(1,25,PX), random(1,25,PY), retract(posicaoInimigo2Dano20(_,_)), assert(posicaoInimigo2Dano20(PX, PY)),!.
 
 
 /******************************************************************
@@ -94,7 +104,7 @@ mover_para_frente :- posicao(X,Y,P), P = norte,  Y > 0, YY is Y - 1,
 				 energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),
          	     retract(posicao(_,_,_)), assert(posicao(X, YY, P)),!.
 		 
-mover_para_frente :- posicao(X,Y,P), P = sul,  Y < 24, YY is Y + 1, 
+mover_para_frente :- posicao(X,Y,P), P = sul,  Y < 25, YY is Y + 1, 
 				 energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),
          	     retract(posicao(_,_,_)), assert(posicao(X, YY, P)),!.
 
@@ -102,7 +112,7 @@ mover_para_frente :- posicao(X,Y,P), P = leste,  X > 0, XX is X - 1,
 				 energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),
         	     retract(posicao(_,_,_)), assert(posicao(XX, Y, P)),!.
 
-mover_para_frente :- posicao(X,Y,P), P = oeste,  X < 24, XX is X + 1, 
+mover_para_frente :- posicao(X,Y,P), P = oeste,  X < 25, XX is X + 1, 
 				 energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),
          	     retract(posicao(_,_,_)), assert(posicao(XX, Y, P)),!.
          	     
@@ -143,7 +153,21 @@ pegar_objeto :- posicao(PX, PY, _), ouro(OX, OY), PX == OX, PY == OY,
 **
 *******************************************************************/
 
-atirar :- energia(E), EE is E - 10, retract(energia(_)), assert(energia(EE)),!.
+atirar :-   posicao(X, Y, _), existe_Inimigo_Posicao(X, Y),
+			energia(E), EE is E - 10, retract(energia(_)), assert(energia(EE)),!.
+			
+atirar :-   posicao(X, Y, norte), PY is Y - 1, existe_Inimigo_Posicao(X, PY),
+			energia(E), EE is E - 10, retract(energia(_)), assert(energia(EE)),!.
+			
+atirar :-   posicao(X, Y, sul), PY is Y + 1, existe_Inimigo_Posicao(X, PY),
+			energia(E), EE is E - 10, retract(energia(_)), assert(energia(EE)),!.	
+			
+atirar :-   posicao(X, Y, leste), PX is X - 1, existe_Inimigo_Posicao(PX, Y),
+			energia(E), EE is E - 10, retract(energia(_)), assert(energia(EE)),!.	
+			
+atirar :-   posicao(X, Y, oeste), PX is X + 1, existe_Inimigo_Posicao(PX, Y),
+			energia(E), EE is E - 10, retract(energia(_)), assert(energia(EE)),!.	
+			
 				
 /******************************************************************
 **
@@ -153,3 +177,11 @@ atirar :- energia(E), EE is E - 10, retract(energia(_)), assert(energia(EE)),!.
 
 subir :- posicao(X, Y, _), X == 1, Y == 1,
          energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),!.
+         
+/******************************************************************
+**
+** Funções Genéricas
+**
+*******************************************************************/
+
+imprime_posicao(X, Y) :-  write('X = '), write(X), write(', Y = '), write(Y),!.
