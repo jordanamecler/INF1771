@@ -1,4 +1,4 @@
-/*MAPA 12 x 12*/
+/*MAPA 24 x 24*/
 
 /******************************************************************
 **
@@ -18,7 +18,7 @@
 
 /******************************************************************
 **
-** Iniciando Valores:
+** Declarando 
 **
 *******************************************************************/
 
@@ -39,39 +39,71 @@ inimigo3(100).
 
 /******************************************************************
 **
+** Funções Get - Inimigos
+**
+*******************************************************************/
+
+
+
+/******************************************************************
+**
+** Iniciar jogo
+**
+*******************************************************************/
+
+iniciar_jogo :- gerar_Posicao_Ouro, gerar_Posicao_Inimigo1, gerar_Posicao_Inimigo2, gerar_Posicao_Inimigo3,!.
+
+/******************************************************************
+**
+** Inicializando valores
+**
+*******************************************************************/
+
+recuperar_energia :- retract(energia(_)), assert(energia(100)),!.
+
+recuperar_inimigo1 :- retract(inimigo1(_, _)), assert(inimigo1(10, 100)),!.
+
+/******************************************************************
+**
 ** Gerar posições
 **
 *******************************************************************/
 
-gerar_Posicao_Ouro :- random(1,12,X), random(1,12,Y), retract(ouro(_,_)), assert(ouro(X, Y)).
+gerar_Posicao_Ouro :- random(1,24,X), random(1,24,Y), retract(ouro(_,_)), assert(ouro(X, Y)).
 
-gerar_Posicao_Inimigo1 :- random(1,12,X), random(1,12,Y), retract(posicaoInimigo1(_,_)), assert(posicaoInimigo1(X, Y)).
+gerar_Posicao_Inimigo1 :- random(1,24,X), random(1,24,Y), retract(posicaoInimigo1(_,_)), assert(posicaoInimigo1(X, Y)).
 
-gerar_Posicao_Inimigo2 :- random(1,12,X), random(1,12,Y), retract(posicaoInimigo2(_,_)), assert(posicaoInimigo2(X, Y)).
+gerar_Posicao_Inimigo2 :- random(1,24,X), random(1,24,Y), retract(posicaoInimigo2(_,_)), assert(posicaoInimigo2(X, Y)).
 
-gerar_Posicao_Inimigo3 :- random(1,12,X), random(1,12,Y), retract(posicaoInimigo3(_,_)), assert(posicaoInimigo3(X, Y)).
+gerar_Posicao_Inimigo3 :- random(1,24,X), random(1,24,Y), retract(posicaoInimigo3(_,_)), assert(posicaoInimigo3(X, Y)).
 
 /******************************************************************
 **
-** AÇÕES
+** AÇÕES - Mover para a frente
 **
 *******************************************************************/
 
-mover_para_frente :- posicao(X,Y,P), P = norte,  Y < 12, YY is Y + 1,
+mover_para_frente :- posicao(X,Y,P), P = norte,  Y > 1, YY is Y - 1,
 				 energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),
          	     retract(posicao(_,_,_)), assert(posicao(X, YY, P)),!.
 		 
-mover_para_frente :- posicao(X,Y,P), P = sul,  Y > 1, YY is Y - 1, 
+mover_para_frente :- posicao(X,Y,P), P = sul,  Y < 24, YY is Y + 1, 
 				 energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),
          	     retract(posicao(_,_,_)), assert(posicao(X, YY, P)),!.
 
-mover_para_frente :- posicao(X,Y,P), P = leste,  X < 12, XX is X + 1, 
+mover_para_frente :- posicao(X,Y,P), P = leste,  X > 1, XX is X - 1, 
 				 energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),
         	     retract(posicao(_,_,_)), assert(posicao(XX, Y, P)),!.
 
-mover_para_frente :- posicao(X,Y,P), P = oeste,  X > 1, XX is X - 1, 
+mover_para_frente :- posicao(X,Y,P), P = oeste,  X < 24, XX is X + 1, 
 				 energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),
          	     retract(posicao(_,_,_)), assert(posicao(XX, Y, P)),!.
+         	     
+/******************************************************************
+**
+** AÇÕES - Virar a direita
+**
+*******************************************************************/
 
 virar_a_direita :- posicao(X,Y, norte), 
 				   energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),
@@ -88,6 +120,30 @@ virar_a_direita :- posicao(X,Y, sul),
 virar_a_direita :- posicao(X,Y, leste), 
 				   energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),
 				   retract(posicao(_,_,_)), assert(posicao(X, Y, sul)),!.
+				   
+/******************************************************************
+**
+** AÇÕES - Pegar Objeto
+**
+*******************************************************************/
 
+pegar_objeto :- energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),
+				posicao(PX, PY, _), ouro(OX, OY), PX == OX, PY == OY,
+				energia(E2), EE2 is E2 + 1000, retract(energia(_)), assert(energia(EE2)),!.
+				
+/******************************************************************
+**
+** AÇÕES - Atirar
+**
+*******************************************************************/
 
+atirar :- energia(E), EE is E - 10, retract(energia(_)), assert(energia(EE)),!.
+				
+/******************************************************************
+**
+** AÇÕES - Subir
+**
+*******************************************************************/				
 
+subir :- posicao(X, Y, _), X == 1, Y == 1,
+         energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),!.
