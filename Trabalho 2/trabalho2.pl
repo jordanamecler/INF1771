@@ -9,12 +9,10 @@
 :-dynamic posicao/3.
 :-dynamic ouro/2.
 :-dynamic energia/1.
-:-dynamic posicaoInimigo1/2.
-:-dynamic inimigo1/2.
-:-dynamic posicaoInimigo2/2.
-:-dynamic inimigo2/2.
-:-dynamic posicaoInimigo3/2.
-:-dynamic inimigo3/1.
+:-dynamic posicaoInimigo1Dano20/2.
+:-dynamic inimigo1Dano20/2.
+:-dynamic posicaoInimigo2Dano20/2.
+:-dynamic inimigo2Dano20/2.
 
 /******************************************************************
 **
@@ -28,22 +26,32 @@ ouro(0, 0).
 
 energia(100).
 
-posicaoInimigo1(0, 0).
-inimigo1(20, 100).
+posicaoInimigo1Dano20(0, 0).
+inimigo1Dano20(20, 100).
 
-posicaoInimigo2(0, 0).
-inimigo2(50, 100).
+posicaoInimigo2Dano20(0, 0).
+inimigo2Dano20(50, 100).
 
-posicaoInimigo3(0, 0).
-inimigo3(100).
 
 /******************************************************************
 **
-** Funções Get - Inimigos
+** Funções Get - Posição Inimigos
 **
 *******************************************************************/
 
+getPosicaoInimigo(X, TYPE) :- X == 1, TYPE == 1, posicaoInimigo1Dano20(PX, PY), write('X = '), write(PX), write(', Y = '), write(PY),!.
 
+getPosicaoInimigo(X, TYPE) :- X == 2, TYPE == 1, posicaoInimigo2Dano20(PX, PY), write('X = '), write(PX), write(', Y = '), write(PY),!.
+
+/******************************************************************
+**
+** Funções Existe - Existe Inimigo na Posição X,Y
+**
+*******************************************************************/
+
+existe_Inimigo_Posicao(X, Y) :- posicaoInimigo1Dano20(PX, PY), PX == X, PY == Y,!.
+
+existe_Inimigo_Posicao(X, Y) :- posicaoInimigo2Dano20(PX, PY), PX == X, PY == Y,!.
 
 /******************************************************************
 **
@@ -51,7 +59,7 @@ inimigo3(100).
 **
 *******************************************************************/
 
-iniciar_jogo :- gerar_Posicao_Ouro, gerar_Posicao_Inimigo1, gerar_Posicao_Inimigo2, gerar_Posicao_Inimigo3,!.
+iniciar_jogo :- gerar_Posicao_Ouro, gerar_Posicao_Inimigo(1,1), gerar_Posicao_Inimigo(2,1),!.
 
 /******************************************************************
 **
@@ -61,7 +69,7 @@ iniciar_jogo :- gerar_Posicao_Ouro, gerar_Posicao_Inimigo1, gerar_Posicao_Inimig
 
 recuperar_energia :- retract(energia(_)), assert(energia(100)),!.
 
-recuperar_inimigo1 :- retract(inimigo1(_, _)), assert(inimigo1(10, 100)),!.
+recuperar_inimigo1 :- retract(inimigo1Dano20(_, _)), assert(inimigo1Dano20(10, 100)),!.
 
 /******************************************************************
 **
@@ -69,13 +77,12 @@ recuperar_inimigo1 :- retract(inimigo1(_, _)), assert(inimigo1(10, 100)),!.
 **
 *******************************************************************/
 
-gerar_Posicao_Ouro :- random(1,24,X), random(1,24,Y), retract(ouro(_,_)), assert(ouro(X, Y)).
+gerar_Posicao_Ouro :- random(0,24,X), random(0,24,Y), retract(ouro(_,_)), assert(ouro(X, Y)).
 
-gerar_Posicao_Inimigo1 :- random(1,24,X), random(1,24,Y), retract(posicaoInimigo1(_,_)), assert(posicaoInimigo1(X, Y)).
+gerar_Posicao_Inimigo(X, TYPE) :- X == 1, TYPE == 1, random(0,24,PX), random(0,24,PY), retract(posicaoInimigo1Dano20(_,_)), assert(posicaoInimigo1Dano20(PX, PY)),!.
 
-gerar_Posicao_Inimigo2 :- random(1,24,X), random(1,24,Y), retract(posicaoInimigo2(_,_)), assert(posicaoInimigo2(X, Y)).
+gerar_Posicao_Inimigo(X, TYPE) :- X == 2, TYPE == 1, random(0,24,PX), random(0,24,PY), retract(posicaoInimigo2Dano20(_,_)), assert(posicaoInimigo2Dano20(PX, PY)),!.
 
-gerar_Posicao_Inimigo3 :- random(1,24,X), random(1,24,Y), retract(posicaoInimigo3(_,_)), assert(posicaoInimigo3(X, Y)).
 
 /******************************************************************
 **
@@ -83,7 +90,7 @@ gerar_Posicao_Inimigo3 :- random(1,24,X), random(1,24,Y), retract(posicaoInimigo
 **
 *******************************************************************/
 
-mover_para_frente :- posicao(X,Y,P), P = norte,  Y > 1, YY is Y - 1,
+mover_para_frente :- posicao(X,Y,P), P = norte,  Y > 0, YY is Y - 1,
 				 energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),
          	     retract(posicao(_,_,_)), assert(posicao(X, YY, P)),!.
 		 
@@ -91,7 +98,7 @@ mover_para_frente :- posicao(X,Y,P), P = sul,  Y < 24, YY is Y + 1,
 				 energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),
          	     retract(posicao(_,_,_)), assert(posicao(X, YY, P)),!.
 
-mover_para_frente :- posicao(X,Y,P), P = leste,  X > 1, XX is X - 1, 
+mover_para_frente :- posicao(X,Y,P), P = leste,  X > 0, XX is X - 1, 
 				 energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),
         	     retract(posicao(_,_,_)), assert(posicao(XX, Y, P)),!.
 
@@ -127,8 +134,7 @@ virar_a_direita :- posicao(X,Y, leste),
 **
 *******************************************************************/
 
-pegar_objeto :- energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),
-				posicao(PX, PY, _), ouro(OX, OY), PX == OX, PY == OY,
+pegar_objeto :- posicao(PX, PY, _), ouro(OX, OY), PX == OX, PY == OY,
 				energia(E2), EE2 is E2 + 1000, retract(energia(_)), assert(energia(EE2)),!.
 				
 /******************************************************************
