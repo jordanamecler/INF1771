@@ -11,9 +11,9 @@
 :-dynamic tiros/1.
 :-dynamic energia/1.
 :-dynamic posicaoInimigo1Dano20/2.
-:-dynamic inimigo1Dano20/2.
+:-dynamic inimigo1Dano20/1.
 :-dynamic posicaoInimigo2Dano20/2.
-:-dynamic inimigo2Dano20/2.
+:-dynamic inimigo2Dano20/1.
 
 /******************************************************************
 **
@@ -30,10 +30,10 @@ tiros(5).
 energia(100).
 
 posicaoInimigo1Dano20(2, 2).
-inimigo1Dano20(20, 100).
+inimigo1Dano20(100).
 
 posicaoInimigo2Dano20(0, 0).
-inimigo2Dano20(50, 100).
+inimigo2Dano20(100).
 
 /******************************************************************
 **
@@ -149,25 +149,43 @@ pegar_objeto :- posicao(PX, PY, _), ouro(OX, OY), PX == OX, PY == OY,
 				
 /******************************************************************
 **
+** AÇÕES - Diminuir energia do inimigo 
+**
+*******************************************************************/
+
+diminuir_energia_inimigo(X,Y,FA) :- posicaoInimigo1Dano20(PX, PY), PX == X, PY == Y,
+									inimigo1Dano20(FATUAL), NF is FATUAL - FA, 
+									retract(inimigo1Dano20(_)), assert(inimigo1Dano20(NF)),!.
+
+diminuir_energia_inimigo(X,Y,FA) :- posicaoInimigo2Dano20(PX, PY), PX == X, PY == Y,
+									inimigo2Dano20(FATUAL), NF is FATUAL - FA, 
+									retract(inimigo2Dano20(_)), assert(inimigo2Dano20(NF)),!.
+
+/******************************************************************
+**
 ** AÇÕES - Atirar
 **
 *******************************************************************/
 
 atirar :-   posicao(X, Y, _), existe_Inimigo_Posicao(X, Y),
+			tiros(T), T > 1, TT is T - 1, retract(tiros(_)), assert(tiros(TT)),
 			energia(E), EE is E - 10, retract(energia(_)), assert(energia(EE)),!.
 			
 atirar :-   posicao(X, Y, norte), PY is Y - 1, existe_Inimigo_Posicao(X, PY),
+			tiros(T), T > 1, TT is T - 1, retract(tiros(_)), assert(tiros(TT)),
 			energia(E), EE is E - 10, retract(energia(_)), assert(energia(EE)),!.
 			
 atirar :-   posicao(X, Y, sul), PY is Y + 1, existe_Inimigo_Posicao(X, PY),
+			tiros(T), T > 1, TT is T - 1, retract(tiros(_)), assert(tiros(TT)),
 			energia(E), EE is E - 10, retract(energia(_)), assert(energia(EE)),!.	
 			
 atirar :-   posicao(X, Y, leste), PX is X - 1, existe_Inimigo_Posicao(PX, Y),
+			tiros(T), T > 1, TT is T - 1, retract(tiros(_)), assert(tiros(TT)),
 			energia(E), EE is E - 10, retract(energia(_)), assert(energia(EE)),!.	
 			
 atirar :-   posicao(X, Y, oeste), PX is X + 1, existe_Inimigo_Posicao(PX, Y),
+			tiros(T), T > 1, TT is T - 1, retract(tiros(_)), assert(tiros(TT)),
 			energia(E), EE is E - 10, retract(energia(_)), assert(energia(EE)),!.	
-			
 				
 /******************************************************************
 **
