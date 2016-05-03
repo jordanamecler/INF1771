@@ -77,9 +77,9 @@ recuperar_energia :- retract(energia(_)), assert(energia(100)),!.
 
 recuperar_tiros :- retract(tiros(_)), assert(tiros(5)),!.
 
-recuperar_inimigo(X, TYPE) :-  X == 1, TYPE == 1, retract(inimigo1Dano20(_, _)), assert(inimigo1Dano20(10, 100)),!.
+recuperar_inimigo(X, TYPE) :-  X == 1, TYPE == 1, retract(inimigo1Dano20(_)), assert(inimigo1Dano20(100)),!.
 
-recuperar_inimigo(X, TYPE) :-  X == 2, TYPE == 1, retract(inimigo2Dano20(_, _)), assert(inimigo2Dano20(10, 100)),!.
+recuperar_inimigo(X, TYPE) :-  X == 2, TYPE == 1, retract(inimigo2Dano20(_)), assert(inimigo2Dano20(100)),!.
 
 /******************************************************************
 **
@@ -100,7 +100,7 @@ gerar_Posicao_Inimigo(X, TYPE) :- X == 2, TYPE == 1, random(1,25,PX), random(1,2
 **
 *******************************************************************/
 
-mover_para_frente :- posicao(X,Y,P), P = norte,  Y > 0, YY is Y - 1,
+mover_para_frente :- posicao(X,Y,P), P = norte,  Y > 1, YY is Y - 1,
 				 energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),
          	     retract(posicao(_,_,_)), assert(posicao(X, YY, P)),!.
 		 
@@ -108,11 +108,11 @@ mover_para_frente :- posicao(X,Y,P), P = sul,  Y < 25, YY is Y + 1,
 				 energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),
          	     retract(posicao(_,_,_)), assert(posicao(X, YY, P)),!.
 
-mover_para_frente :- posicao(X,Y,P), P = leste,  X > 0, XX is X - 1, 
+mover_para_frente :- posicao(X,Y,P), P = leste,  X < 25, XX is X + 1, 
 				 energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),
         	     retract(posicao(_,_,_)), assert(posicao(XX, Y, P)),!.
 
-mover_para_frente :- posicao(X,Y,P), P = oeste,  X < 25, XX is X + 1, 
+mover_para_frente :- posicao(X,Y,P), P = oeste,  X > 1, XX is X - 1, 
 				 energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),
          	     retract(posicao(_,_,_)), assert(posicao(XX, Y, P)),!.
          	     
@@ -146,6 +146,22 @@ virar_a_direita :- posicao(X,Y, leste),
 
 pegar_objeto :- posicao(PX, PY, _), ouro(OX, OY), PX == OX, PY == OY,
 				energia(E2), EE2 is E2 + 1000, retract(energia(_)), assert(energia(EE2)),!.
+
+/******************************************************************
+**
+** AÇÕES - Mostrar inimigo morto
+**
+*******************************************************************/
+
+inimigo_morreu(X,Y,NF) :- NF < 0, Y > 0, X > 0,!.
+
+inimigo_morreu(X,Y,NF) :- NF < 0,  posicaoInimigo1Dano20(PX, PY), PX == X, PY == Y,
+						  retract(posicaoInimigo1Dano20(_,_)), assert(posicaoInimigo1Dano20(-5, -5)),
+						  write('grito'),!.
+
+inimigo_morreu(X,Y,NF) :- NF < 0,  posicaoInimigo2Dano20(PX, PY), PX == X, PY == Y,
+						  retract(posicaoInimigo2Dano20(_,_)), assert(posicaoInimigo2Dano20(-5, -5)),
+						  write('grito'),!.
 				
 /******************************************************************
 **
@@ -155,10 +171,12 @@ pegar_objeto :- posicao(PX, PY, _), ouro(OX, OY), PX == OX, PY == OY,
 
 diminuir_energia_inimigo(X,Y,FA) :- posicaoInimigo1Dano20(PX, PY), PX == X, PY == Y,
 									inimigo1Dano20(FATUAL), NF is FATUAL - FA, 
+									inimigo_morreu(X,Y,NF),
 									retract(inimigo1Dano20(_)), assert(inimigo1Dano20(NF)),!.
 
 diminuir_energia_inimigo(X,Y,FA) :- posicaoInimigo2Dano20(PX, PY), PX == X, PY == Y,
 									inimigo2Dano20(FATUAL), NF is FATUAL - FA, 
+									inimigo_morreu(X,Y,NF),
 									retract(inimigo2Dano20(_)), assert(inimigo2Dano20(NF)),!.
 
 /******************************************************************
@@ -168,23 +186,28 @@ diminuir_energia_inimigo(X,Y,FA) :- posicaoInimigo2Dano20(PX, PY), PX == X, PY =
 *******************************************************************/
 
 atirar :-   posicao(X, Y, _), existe_Inimigo_Posicao(X, Y),
-			tiros(T), T > 1, TT is T - 1, retract(tiros(_)), assert(tiros(TT)),
+			random(20, 51, FA), diminuir_energia_inimigo(X,Y,FA),
+			tiros(T), T > 0, TT is T - 1, retract(tiros(_)), assert(tiros(TT)),
 			energia(E), EE is E - 10, retract(energia(_)), assert(energia(EE)),!.
 			
 atirar :-   posicao(X, Y, norte), PY is Y - 1, existe_Inimigo_Posicao(X, PY),
-			tiros(T), T > 1, TT is T - 1, retract(tiros(_)), assert(tiros(TT)),
+			random(20, 51, FA), diminuir_energia_inimigo(X,PY,FA),
+			tiros(T), T > 0, TT is T - 1, retract(tiros(_)), assert(tiros(TT)),
 			energia(E), EE is E - 10, retract(energia(_)), assert(energia(EE)),!.
 			
 atirar :-   posicao(X, Y, sul), PY is Y + 1, existe_Inimigo_Posicao(X, PY),
-			tiros(T), T > 1, TT is T - 1, retract(tiros(_)), assert(tiros(TT)),
+			random(20, 51, FA), diminuir_energia_inimigo(X,PY,FA),
+			tiros(T), T > 0, TT is T - 1, retract(tiros(_)), assert(tiros(TT)),
 			energia(E), EE is E - 10, retract(energia(_)), assert(energia(EE)),!.	
 			
-atirar :-   posicao(X, Y, leste), PX is X - 1, existe_Inimigo_Posicao(PX, Y),
-			tiros(T), T > 1, TT is T - 1, retract(tiros(_)), assert(tiros(TT)),
+atirar :-   posicao(X, Y, leste), PX is X + 1, existe_Inimigo_Posicao(PX, Y),
+			random(20, 51, FA), diminuir_energia_inimigo(PX,Y,FA),
+			tiros(T), T > 0, TT is T - 1, retract(tiros(_)), assert(tiros(TT)),
 			energia(E), EE is E - 10, retract(energia(_)), assert(energia(EE)),!.	
 			
-atirar :-   posicao(X, Y, oeste), PX is X + 1, existe_Inimigo_Posicao(PX, Y),
-			tiros(T), T > 1, TT is T - 1, retract(tiros(_)), assert(tiros(TT)),
+atirar :-   posicao(X, Y, oeste), PX is X - 1, existe_Inimigo_Posicao(PX, Y),
+			random(20, 51, FA), diminuir_energia_inimigo(PX,Y,FA),
+			tiros(T), T > 0, TT is T - 1, retract(tiros(_)), assert(tiros(TT)),
 			energia(E), EE is E - 10, retract(energia(_)), assert(energia(EE)),!.	
 				
 /******************************************************************
