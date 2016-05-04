@@ -14,6 +14,10 @@
 :-dynamic inimigo1Dano20/1.
 :-dynamic posicaoInimigo2Dano20/2.
 :-dynamic inimigo2Dano20/1.
+:-dynamic posicaoInimigo1Dano50/2.
+:-dynamic inimigo1Dano50/1.
+:-dynamic posicaoInimigo2Dano50/2.
+:-dynamic inimigo2Dano50/1.
 
 /******************************************************************
 **
@@ -38,7 +42,7 @@ inimigo2Dano20(100).
 posicaoInimigo1Dano50(5, 5).
 inimigo1Dano50(100).
 
-posicaoInimigo2Dano20(10, 10).
+posicaoInimigo2Dano50(10, 10).
 inimigo2Dano50(100).
 
 /******************************************************************
