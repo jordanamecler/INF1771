@@ -39,10 +39,10 @@ inimigo1Dano20(100).
 posicaoInimigo2Dano20(0, 0).
 inimigo2Dano20(100).
 
-posicaoInimigo1Dano50(5, 5).
+posicaoInimigo1Dano50(0, 0).
 inimigo1Dano50(100).
 
-posicaoInimigo2Dano50(10, 10).
+posicaoInimigo2Dano50(0, 0).
 inimigo2Dano50(100).
 
 /******************************************************************
@@ -178,7 +178,7 @@ pegar_objeto :- posicao(PX, PY, _), ouro(OX, OY), PX == OX, PY == OY,
 **
 *******************************************************************/
 
-inimigo_morreu(X,Y,NF) :- NF < 0, Y > 0, X > 0,!.
+inimigo_morreu(X,Y,NF) :- NF > 0, Y > 0, X > 0,!.
 
 inimigo_morreu(X,Y,NF) :- NF < 0,  posicaoInimigo1Dano20(PX, PY), PX == X, PY == Y,
 						  retract(posicaoInimigo1Dano20(_,_)), assert(posicaoInimigo1Dano20(-5, -5)),
@@ -269,3 +269,47 @@ subir :- posicao(X, Y, _), X == 1, Y == 1,
 *******************************************************************/
 
 imprime_posicao(X, Y) :-  write('X = '), write(X), write(', Y = '), write(Y),!.
+
+/******************************************************************
+**
+** Percepções - Inimigo
+**
+*******************************************************************/
+
+/* Caso Sul */
+percepcoes_inimigo(X,Y) :-  Y < 24, YY is Y + 1,
+							( (posicaoInimigo1Dano20(PX, PY), PX == X, PY == YY); 
+					 		  (posicaoInimigo2Dano20(PX, PY), PX == X, PY == YY); 
+							  (posicaoInimigo1Dano50(PX, PY), PX == X, PY == YY); 
+							  (posicaoInimigo2Dano50(PX, PY), PX == X, PY == YY) ),
+							write('passos'),!.
+						    
+/* Caso Norte */
+percepcoes_inimigo(X,Y) :-  Y > 1, YY is Y - 1,
+							( (posicaoInimigo1Dano20(PX, PY), PX == X, PY == YY); 
+					 		  (posicaoInimigo2Dano20(PX, PY), PX == X, PY == YY); 
+							  (posicaoInimigo1Dano50(PX, PY), PX == X, PY == YY); 
+							  (posicaoInimigo2Dano50(PX, PY), PX == X, PY == YY) ),
+							write('passos'),!.
+
+/* Caso Leste */
+percepcoes_inimigo(X,Y) :-  X < 24, XX is X + 1,
+							( (posicaoInimigo1Dano20(PX, PY), PX == XX, PY == Y); 
+					 		  (posicaoInimigo2Dano20(PX, PY), PX == XX, PY == Y); 
+							  (posicaoInimigo1Dano50(PX, PY), PX == XX, PY == Y); 
+							  (posicaoInimigo2Dano50(PX, PY), PX == XX, PY == Y) ),
+							write('passos'),!.
+							
+/* Caso Oeste */
+percepcoes_inimigo(X,Y) :-  X > 1, XX is X - 1,
+							( (posicaoInimigo1Dano20(PX, PY), PX == XX, PY == Y); 
+					 		  (posicaoInimigo2Dano20(PX, PY), PX == XX, PY == Y); 
+							  (posicaoInimigo1Dano50(PX, PY), PX == XX, PY == Y); 
+							  (posicaoInimigo2Dano50(PX, PY), PX == XX, PY == Y) ),
+							write('passos'),!.
+			
+/******************************************************************
+**
+** Percepções - Melhor movimento
+**
+*******************************************************************/
