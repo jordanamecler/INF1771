@@ -35,6 +35,12 @@ inimigo1Dano20(100).
 posicaoInimigo2Dano20(0, 0).
 inimigo2Dano20(100).
 
+posicaoInimigo1Dano50(5, 5).
+inimigo1Dano50(100).
+
+posicaoInimigo2Dano20(10, 10).
+inimigo2Dano50(100).
+
 /******************************************************************
 **
 ** Funções Get - Posição Inimigos
@@ -45,6 +51,10 @@ getPosicaoInimigo(X, TYPE) :- X == 1, TYPE == 1, posicaoInimigo1Dano20(PX, PY), 
 
 getPosicaoInimigo(X, TYPE) :- X == 2, TYPE == 1, posicaoInimigo2Dano20(PX, PY), imprime_posicao(PX, PY),!.
 
+getPosicaoInimigo(X, TYPE) :- X == 1, TYPE == 2, posicaoInimigo1Dano50(PX, PY), imprime_posicao(PX, PY),!.
+
+getPosicaoInimigo(X, TYPE) :- X == 2, TYPE == 2, posicaoInimigo2Dano50(PX, PY), imprime_posicao(PX, PY),!.
+
 /******************************************************************
 **
 ** Funções Existe - Existe Inimigo na Posição X,Y
@@ -54,6 +64,10 @@ getPosicaoInimigo(X, TYPE) :- X == 2, TYPE == 1, posicaoInimigo2Dano20(PX, PY), 
 existe_Inimigo_Posicao(X, Y) :- posicaoInimigo1Dano20(PX, PY), PX == X, PY == Y,!.
 
 existe_Inimigo_Posicao(X, Y) :- posicaoInimigo2Dano20(PX, PY), PX == X, PY == Y,!.
+
+existe_Inimigo_Posicao(X, Y) :- posicaoInimigo1Dano50(PX, PY), PX == X, PY == Y,!.
+
+existe_Inimigo_Posicao(X, Y) :- posicaoInimigo2Dano50(PX, PY), PX == X, PY == Y,!.
 
 /******************************************************************
 **
@@ -81,6 +95,10 @@ recuperar_inimigo(X, TYPE) :-  X == 1, TYPE == 1, retract(inimigo1Dano20(_)), as
 
 recuperar_inimigo(X, TYPE) :-  X == 2, TYPE == 1, retract(inimigo2Dano20(_)), assert(inimigo2Dano20(100)),!.
 
+recuperar_inimigo(X, TYPE) :-  X == 1, TYPE == 2, retract(inimigo1Dano50(_)), assert(inimigo1Dano50(100)),!.
+
+recuperar_inimigo(X, TYPE) :-  X == 2, TYPE == 2, retract(inimigo2Dano50(_)), assert(inimigo2Dano50(100)),!.
+
 /******************************************************************
 **
 ** Gerar posições
@@ -93,6 +111,9 @@ gerar_Posicao_Inimigo(X, TYPE) :- X == 1, TYPE == 1, random(1,25,PX), random(1,2
 
 gerar_Posicao_Inimigo(X, TYPE) :- X == 2, TYPE == 1, random(1,25,PX), random(1,25,PY), retract(posicaoInimigo2Dano20(_,_)), assert(posicaoInimigo2Dano20(PX, PY)),!.
 
+gerar_Posicao_Inimigo(X, TYPE) :- X == 1, TYPE == 2, random(1,25,PX), random(1,25,PY), retract(posicaoInimigo1Dano50(_,_)), assert(posicaoInimigo1Dano50(PX, PY)),!.
+
+gerar_Posicao_Inimigo(X, TYPE) :- X == 2, TYPE == 2, random(1,25,PX), random(1,25,PY), retract(posicaoInimigo2Dano50(_,_)), assert(posicaoInimigo2Dano50(PX, PY)),!.
 
 /******************************************************************
 **
@@ -162,6 +183,14 @@ inimigo_morreu(X,Y,NF) :- NF < 0,  posicaoInimigo1Dano20(PX, PY), PX == X, PY ==
 inimigo_morreu(X,Y,NF) :- NF < 0,  posicaoInimigo2Dano20(PX, PY), PX == X, PY == Y,
 						  retract(posicaoInimigo2Dano20(_,_)), assert(posicaoInimigo2Dano20(-5, -5)),
 						  write('grito'),!.
+
+inimigo_morreu(X,Y,NF) :- NF < 0,  posicaoInimigo1Dano50(PX, PY), PX == X, PY == Y,
+						  retract(posicaoInimigo1Dano50(_,_)), assert(posicaoInimigo1Dano50(-5, -5)),
+						  write('grito'),!.
+
+inimigo_morreu(X,Y,NF) :- NF < 0,  posicaoInimigo2Dano50(PX, PY), PX == X, PY == Y,
+						  retract(posicaoInimigo2Dano50(_,_)), assert(posicaoInimigo2Dano50(-5, -5)),
+						  write('grito'),!.
 				
 /******************************************************************
 **
@@ -178,6 +207,16 @@ diminuir_energia_inimigo(X,Y,FA) :- posicaoInimigo2Dano20(PX, PY), PX == X, PY =
 									inimigo2Dano20(FATUAL), NF is FATUAL - FA, 
 									inimigo_morreu(X,Y,NF),
 									retract(inimigo2Dano20(_)), assert(inimigo2Dano20(NF)),!.
+
+diminuir_energia_inimigo(X,Y,FA) :- posicaoInimigo1Dano50(PX, PY), PX == X, PY == Y,
+									inimigo1Dano50(FATUAL), NF is FATUAL - FA, 
+									inimigo_morreu(X,Y,NF),
+									retract(inimigo1Dano50(_)), assert(inimigo1Dano50(NF)),!.
+
+diminuir_energia_inimigo(X,Y,FA) :- posicaoInimigo2Dano50(PX, PY), PX == X, PY == Y,
+									inimigo2Dano50(FATUAL), NF is FATUAL - FA, 
+									inimigo_morreu(X,Y,NF),
+									retract(inimigo2Dano50(_)), assert(inimigo2Dano50(NF)),!.
 
 /******************************************************************
 **
