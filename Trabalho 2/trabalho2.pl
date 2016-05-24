@@ -8,7 +8,7 @@
 
 :-dynamic quadrado/3.
 :-dynamic posicao/3.
-:-dynamic ouro/2.
+:-dynamic percepcoes/3.
 :-dynamic tiros/1.
 :-dynamic energia/1.
 :-dynamic custo/1.
@@ -53,7 +53,7 @@ quadrado(11, 2, vazio).
 quadrado(12, 2, vazio).
 quadrado(1, 3, vazio).
 quadrado(2, 3, vazio).
-quadrado(3, 3, inimigo50).
+quadrado(3, 3, inimigo1dano50).
 quadrado(4, 3, vazio).
 quadrado(5, 3, vazio).
 quadrado(6, 3, vazio).
@@ -71,7 +71,7 @@ quadrado(5, 4, vazio).
 quadrado(6, 4, vazio).
 quadrado(7, 4, vazio).
 quadrado(8, 4, vazio).
-quadrado(9, 4, inimigo20).
+quadrado(9, 4, inimigo1dano20).
 quadrado(10, 4, vazio).
 quadrado(11, 4, vazio).
 quadrado(12, 4, vazio).
@@ -116,7 +116,7 @@ quadrado(2, 8, vazio).
 quadrado(3, 8, vazio).
 quadrado(4, 8, vazio).
 quadrado(5, 8, vazio).
-quadrado(6, 8, inimigo50).
+quadrado(6, 8, inimigo2dano50).
 quadrado(7, 8, vazio).
 quadrado(8, 8, poco).
 quadrado(9, 8, vazio).
@@ -125,7 +125,7 @@ quadrado(11, 8, vazio).
 quadrado(12, 8, vazio).
 quadrado(1, 9, vazio).
 quadrado(2, 9, vazio).
-quadrado(3, 9, inimigo20).
+quadrado(3, 9, inimigo2dano20).
 quadrado(4, 9, vazio).
 quadrado(5, 9, vazio).
 quadrado(6, 9, vazio).
@@ -172,11 +172,9 @@ quadrado(10, 12, vida).
 quadrado(11, 12, vazio).
 quadrado(12, 12, vazio).
 
-posicao(1,12, norte).
+posicao(1, 12, norte).
 
-ouro(1, 1).
-ouro(8, 7).
-ouro(12, 11).
+percepcoes(1, 12, nenhuma).
 
 tiros(5).
 
@@ -184,90 +182,38 @@ energia(100).
 
 custo(0).
 
-posicaoInimigo1Dano20(3, 9).
 inimigo1Dano20(100).
-
-posicaoInimigo2Dano20(9, 4).
 inimigo2Dano20(100).
-
-posicaoInimigo1Dano50(3, 3).
 inimigo1Dano50(100).
-
-posicaoInimigo2Dano50(6, 8).
 inimigo2Dano50(100).
 
-/******************************************************************
-**
-** Funções Mapeia Quadrados
-**
-*******************************************************************/
-
-adjacente(X, Y, XX, Y) :- XX is X + 1, XX > 0, XX < 13.
-adjacente(X, Y, XX, Y) :- XX is X - 1, XX > 0, XX < 13.
-adjacente(X, Y, X, YY) :- YY is Y + 1, YY > 0, YY < 13.
-adjacente(X, Y, X, YY) :- YY is X - 1, YY > 0, YY < 13.
-
-percepcao(XX, YY, passos) :- findall(Z, (adjacente(XX, YY, X, Y), posicao(X, Y, Z)), C), C = monstro.
-percepcao(XX, YY, brisa) :- findall(Z, (adjacente(XX, YY, X, Y), posicao(X, Y, Z)), C), C = poco.
-percepcao(XX, YY, flash) :- findall(Z, (adjacente(XX, YY, X, Y), posicao(X, Y, Z)), C), C = flash.
 
 /******************************************************************
 **
-** Funções Get - Posição Inimigos
+** Reconhece Adjacencias
 **
 *******************************************************************/
 
-getPosicaoInimigo(X, TYPE) :- X == 1, TYPE == 1, posicaoInimigo1Dano20(PX, PY), imprime_posicao(PX, PY),!.
 
-getPosicaoInimigo(X, TYPE) :- X == 2, TYPE == 1, posicaoInimigo2Dano20(PX, PY), imprime_posicao(PX, PY),!.
-
-getPosicaoInimigo(X, TYPE) :- X == 1, TYPE == 2, posicaoInimigo1Dano50(PX, PY), imprime_posicao(PX, PY),!.
-
-getPosicaoInimigo(X, TYPE) :- X == 2, TYPE == 2, posicaoInimigo2Dano50(PX, PY), imprime_posicao(PX, PY),!.
+adjacente(X, Y, XX, Y) :- XX is X + 1, XX < 13.
+adjacente(X, Y, XX, Y) :- XX is X - 1, XX > 0.
+adjacente(X, Y, X, YY) :- YY is Y + 1, YY < 13.
+adjacente(X, Y, X, YY) :- YY is Y - 1, YY > 0.
 
 /******************************************************************
 **
-** Funções Existe - Existe Inimigo na Posição X,Y
+** Percepcoes na Posicao
 **
 *******************************************************************/
 
-existe_Inimigo_Posicao(X, Y) :- posicaoInimigo1Dano20(PX, PY), PX == X, PY == Y,!.
+percepcao(X, Y, passos) :- adjacente(X, Y, XX, YY), (quadrado(XX, YY, inimigo1dano20) ; quadrado(XX, YY, inimigo2dano20) ; quadrado(XX, YY, inimigo1dano50) ; quadrado(XX, YY, inimigo2dano50)).
+percepcao(X, Y, brisa) :- adjacente(X, Y, XX, YY), quadrado(XX, YY, poco).
+percepcao(X, Y, flash) :- adjacente(X, Y, XX, YY), quadrado(XX, YY, teletransporte).
 
-existe_Inimigo_Posicao(X, Y) :- posicaoInimigo2Dano20(PX, PY), PX == X, PY == Y,!.
+%percepcao(XX, YY, passos) :- findall(Z, (adjacente(XX, YY, X, Y), posicao(X, Y, Z)), C), C = monstro.
+%percepcao(XX, YY, brisa) :- findall(Z, (adjacente(XX, YY, X, Y), posicao(X, Y, Z)), C), C = poco.
+%percepcao(XX, YY, flash) :- findall(Z, (adjacente(XX, YY, X, Y), posicao(X, Y, Z)), C), C = flash.
 
-existe_Inimigo_Posicao(X, Y) :- posicaoInimigo1Dano50(PX, PY), PX == X, PY == Y,!.
-
-existe_Inimigo_Posicao(X, Y) :- posicaoInimigo2Dano50(PX, PY), PX == X, PY == Y,!.
-
-/******************************************************************
-**
-** Iniciar jogo
-**
-*******************************************************************/
-
-iniciar_valores :- recuperar_energia, recuperar_tiros, recuperar_inimigo(1,1), recuperar_inimigo(2,1),!.
-
-gerar_posicoes :- gerar_Posicao_Ouro, gerar_Posicao_Inimigo(1,1), gerar_Posicao_Inimigo(2,1),!.
-
-iniciar_jogo :- gerar_posicoes, iniciar_valores,!.
-
-/******************************************************************
-**
-** Inicializando valores
-**
-*******************************************************************/
-
-recuperar_energia :- retract(energia(_)), assert(energia(100)),!.
-
-recuperar_tiros :- retract(tiros(_)), assert(tiros(5)),!.
-
-recuperar_inimigo(X, TYPE) :-  X == 1, TYPE == 1, retract(inimigo1Dano20(_)), assert(inimigo1Dano20(100)),!.
-
-recuperar_inimigo(X, TYPE) :-  X == 2, TYPE == 1, retract(inimigo2Dano20(_)), assert(inimigo2Dano20(100)),!.
-
-recuperar_inimigo(X, TYPE) :-  X == 1, TYPE == 2, retract(inimigo1Dano50(_)), assert(inimigo1Dano50(100)),!.
-
-recuperar_inimigo(X, TYPE) :-  X == 2, TYPE == 2, retract(inimigo2Dano50(_)), assert(inimigo2Dano50(100)),!.
 
 /******************************************************************
 **
