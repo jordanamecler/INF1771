@@ -8,7 +8,12 @@
 
 :-dynamic quadrado/3.
 :-dynamic posicao/3.
-:-dynamic percepcoes/3.
+:-dynamic percepcao_passos/2.
+:-dynamic percepcao_brisa/2.
+:-dynamic percepcao_flash/2.
+:-dynamic percepcao_ouro/2.
+:-dynamic percepcao_vida/2.
+:-dynamic possivelOcupado/3.
 :-dynamic tiros/1.
 :-dynamic energia/1.
 :-dynamic custo/1.
@@ -174,8 +179,6 @@ quadrado(12, 12, vazio).
 
 posicao(1, 12, norte).
 
-percepcoes(1, 12, nenhuma).
-
 tiros(5).
 
 energia(100).
@@ -206,9 +209,16 @@ adjacente(X, Y, X, YY) :- YY is Y - 1, YY > 0.
 **
 *******************************************************************/
 
-percepcao(X, Y, passos) :- adjacente(X, Y, XX, YY), (quadrado(XX, YY, inimigo1dano20) ; quadrado(XX, YY, inimigo2dano20) ; quadrado(XX, YY, inimigo1dano50) ; quadrado(XX, YY, inimigo2dano50)).
-percepcao(X, Y, brisa) :- adjacente(X, Y, XX, YY), quadrado(XX, YY, poco).
-percepcao(X, Y, flash) :- adjacente(X, Y, XX, YY), quadrado(XX, YY, teletransporte).
+percepcao_passos(X, Y) :- adjacente(X, Y, XX, YY), (quadrado(XX, YY, inimigo1dano20) ; quadrado(XX, YY, inimigo2dano20) ; quadrado(XX, YY, inimigo1dano50) ; quadrado(XX, YY, inimigo2dano50)).
+percepcao_brisa(X, Y) :- adjacente(X, Y, XX, YY), quadrado(XX, YY, poco).
+percepcao_flash(X, Y) :- adjacente(X, Y, XX, YY), quadrado(XX, YY, teletransporte).
+
+percepcao_ouro(X, Y) :- quadrado(X, Y, ouro).
+percepcao_vida(X, Y) :- quadrado(X, Y, vida).
+
+%possivelOcupado(XX, YY, passos) :- percepcao(X, Y, passos), adjacente(X, Y, XX, YY).
+%possivelOcupado(XX, YY, brisa) :- percepcao(X, Y, brisa), adjacente(X, Y, XX, YY).
+%possivelOcupado(XX, YY, flash) :- percepcao(X, Y, flash), adjacente(X, Y, XX, YY).
 
 %percepcao(XX, YY, passos) :- findall(Z, (adjacente(XX, YY, X, Y), posicao(X, Y, Z)), C), C = monstro.
 %percepcao(XX, YY, brisa) :- findall(Z, (adjacente(XX, YY, X, Y), posicao(X, Y, Z)), C), C = poco.
