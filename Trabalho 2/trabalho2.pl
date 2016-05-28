@@ -190,13 +190,11 @@ inimigo2Dano20(100).
 inimigo1Dano50(100).
 inimigo2Dano50(100).
 
-
 /******************************************************************
 **
-** Reconhece Adjacencias
+** RAdjacencias
 **
 *******************************************************************/
-
 
 adjacente(X, Y, XX, Y) :- XX is X + 1, XX < 13.
 adjacente(X, Y, XX, Y) :- XX is X - 1, XX > 0.
@@ -216,36 +214,27 @@ percepcao_flash(X, Y) :- adjacente(X, Y, XX, YY), quadrado(XX, YY, teletransport
 percepcao_ouro(X, Y) :- quadrado(X, Y, ouro).
 percepcao_vida(X, Y) :- quadrado(X, Y, vida).
 
-%possivelOcupado(XX, YY, passos) :- percepcao(X, Y, passos), adjacente(X, Y, XX, YY).
-%possivelOcupado(XX, YY, brisa) :- percepcao(X, Y, brisa), adjacente(X, Y, XX, YY).
-%possivelOcupado(XX, YY, flash) :- percepcao(X, Y, flash), adjacente(X, Y, XX, YY).
-
-%percepcao(XX, YY, passos) :- findall(Z, (adjacente(XX, YY, X, Y), posicao(X, Y, Z)), C), C = monstro.
-%percepcao(XX, YY, brisa) :- findall(Z, (adjacente(XX, YY, X, Y), posicao(X, Y, Z)), C), C = poco.
-%percepcao(XX, YY, flash) :- findall(Z, (adjacente(XX, YY, X, Y), posicao(X, Y, Z)), C), C = flash.
-
-
 /******************************************************************
 **
 ** AÇÕES - Mover para a frente
 **
 *******************************************************************/
 
-mover_para_frente :- posicao(X,Y,P), P = norte,  Y > 1, YY is Y - 1,
+mover_para_frente :- posicao(X, Y, P), P = norte,  Y > 1, YY is Y - 1,
 				 custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
-         	     retract(posicao(_,_,_)), assert(posicao(X, YY, P)),!.
+         	     retract(posicao(_, _, _)), assert(posicao(X, YY, P)),!.
 		 
-mover_para_frente :- posicao(X,Y,P), P = sul,  Y < 12, YY is Y + 1, 
+mover_para_frente :- posicao(X, Y, P), P = sul,  Y < 12, YY is Y + 1, 
 				 custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
-         	     retract(posicao(_,_,_)), assert(posicao(X, YY, P)),!.
+         	     retract(posicao(_, _, _)), assert(posicao(X, YY, P)),!.
 
-mover_para_frente :- posicao(X,Y,P), P = leste,  X < 12, XX is X + 1, 
+mover_para_frente :- posicao(X, Y, P), P = leste,  X < 12, XX is X + 1, 
 				 custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
-        	     retract(posicao(_,_,_)), assert(posicao(XX, Y, P)),!.
+        	     retract(posicao(_, _, _)), assert(posicao(XX, Y, P)),!.
 
-mover_para_frente :- posicao(X,Y,P), P = oeste,  X > 1, XX is X - 1, 
+mover_para_frente :- posicao(X, Y, P), P = oeste,  X > 1, XX is X - 1, 
 				 custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
-         	     retract(posicao(_,_,_)), assert(posicao(XX, Y, P)),!.
+         	     retract(posicao(_, _, _)), assert(posicao(XX, Y, P)),!.
          	     
 /******************************************************************
 **
@@ -255,27 +244,27 @@ mover_para_frente :- posicao(X,Y,P), P = oeste,  X > 1, XX is X - 1,
 
 virar_a_direita :- posicao(X, Y, norte), 
 				   custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
-	 			   retract(posicao(_,_,_)), assert(posicao(X, Y, leste)),!.
+	 			   retract(posicao(_, _, _)), assert(posicao(X, Y, leste)),!.
 
 virar_a_direita :- posicao(X, Y, oeste), 
 				   custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
-				   retract(posicao(_,_,_)), assert(posicao(X, Y, norte)),!.
+				   retract(posicao(_, _, _)), assert(posicao(X, Y, norte)),!.
 
 virar_a_direita :- posicao(X, Y, sul), 
 				  custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
-			  	  retract(posicao(_,_,_)), assert(posicao(X, Y, oeste)),!.
+			  	  retract(posicao(_, _, _)), assert(posicao(X, Y, oeste)),!.
 
 virar_a_direita :- posicao(X, Y, leste), 
 				   custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
-				   retract(posicao(_,_,_)), assert(posicao(X, Y, sul)),!.
+				   retract(posicao(_, _, _)), assert(posicao(X, Y, sul)),!.
 				   
 /******************************************************************
 **
-** AÇÕES - Pegar Objeto
+** AÇÕES - Pegar Ouro
 **
 *******************************************************************/
 
-pegar_objeto :- posicao(PX, PY, _), ouro(OX, OY), PX == OX, PY == OY,
+pegar_ouro :- posicao(PX, PY, _), quadrado(OX, OY, ouro), PX == OX, PY == OY,
 				energia(E2), EE2 is E2 + 1000, retract(energia(_)), assert(energia(EE2)),!.
 
 /******************************************************************
@@ -286,20 +275,20 @@ pegar_objeto :- posicao(PX, PY, _), ouro(OX, OY), PX == OX, PY == OY,
 
 inimigo_morreu(X,Y,NF) :- NF > 0, Y > 0, X > 0,!.
 
-inimigo_morreu(X,Y,NF) :- NF < 0,  posicaoInimigo1Dano20(PX, PY), PX == X, PY == Y,
-						  retract(posicaoInimigo1Dano20(_,_)), assert(posicaoInimigo1Dano20(-5, -5)),
+inimigo_morreu(X,Y,NF) :- NF < 0,  quadrado(PX, PY, inimigo1dano20), PX == X, PY == Y,
+						  retract(quadrado(PX, PY, inimigo1dano20)), assert(quadrado(PX, PY, vazio)),
 						  write('grito'),!.
 
-inimigo_morreu(X,Y,NF) :- NF < 0,  posicaoInimigo2Dano20(PX, PY), PX == X, PY == Y,
-						  retract(posicaoInimigo2Dano20(_,_)), assert(posicaoInimigo2Dano20(-5, -5)),
+inimigo_morreu(X,Y,NF) :- NF < 0,  quadrado(PX, PY, inimigo2dano20), PX == X, PY == Y,
+						  retract(quadrado(PX, PY, inimigo2dano20)), assert(quadrado(PX, PY, vazio)),
 						  write('grito'),!.
 
-inimigo_morreu(X,Y,NF) :- NF < 0,  posicaoInimigo1Dano50(PX, PY), PX == X, PY == Y,
-						  retract(posicaoInimigo1Dano50(_,_)), assert(posicaoInimigo1Dano50(-5, -5)),
+inimigo_morreu(X,Y,NF) :- NF < 0,  quadrado(PX, PY, inimigo1dano50), PX == X, PY == Y,
+						  retract(quadrado(PX, PY, inimigo1dano50)), assert(quadrado(PX, PY, vazio)),
 						  write('grito'),!.
 
-inimigo_morreu(X,Y,NF) :- NF < 0,  posicaoInimigo2Dano50(PX, PY), PX == X, PY == Y,
-						  retract(posicaoInimigo2Dano50(_,_)), assert(posicaoInimigo2Dano50(-5, -5)),
+inimigo_morreu(X,Y,NF) :- NF < 0,  quadrado(PX, PY, inimigo2dano50), PX == X, PY == Y,
+						  retract(quadrado(PX, PY, inimigo2dano50)), assert(quadrado(PX, PY, vazio)),
 						  write('grito'),!.
 				
 /******************************************************************
@@ -308,22 +297,22 @@ inimigo_morreu(X,Y,NF) :- NF < 0,  posicaoInimigo2Dano50(PX, PY), PX == X, PY ==
 **
 *******************************************************************/
 
-diminuir_energia_inimigo(X,Y,FA) :- posicaoInimigo1Dano20(PX, PY), PX == X, PY == Y,
+diminuir_energia_inimigo(X,Y,FA) :- quadrado(PX, PY, inimigo1dano20), PX == X, PY == Y,
 									inimigo1Dano20(FATUAL), NF is FATUAL - FA, 
 									inimigo_morreu(X,Y,NF),
 									retract(inimigo1Dano20(_)), assert(inimigo1Dano20(NF)),!.
 
-diminuir_energia_inimigo(X,Y,FA) :- posicaoInimigo2Dano20(PX, PY), PX == X, PY == Y,
+diminuir_energia_inimigo(X,Y,FA) :- quadrado(PX, PY, inimigo2dano20), PX == X, PY == Y,
 									inimigo2Dano20(FATUAL), NF is FATUAL - FA, 
 									inimigo_morreu(X,Y,NF),
 									retract(inimigo2Dano20(_)), assert(inimigo2Dano20(NF)),!.
 
-diminuir_energia_inimigo(X,Y,FA) :- posicaoInimigo1Dano50(PX, PY), PX == X, PY == Y,
+diminuir_energia_inimigo(X,Y,FA) :- quadrado(PX, PY, inimigo1dano50), PX == X, PY == Y,
 									inimigo1Dano50(FATUAL), NF is FATUAL - FA, 
 									inimigo_morreu(X,Y,NF),
 									retract(inimigo1Dano50(_)), assert(inimigo1Dano50(NF)),!.
 
-diminuir_energia_inimigo(X,Y,FA) :- posicaoInimigo2Dano50(PX, PY), PX == X, PY == Y,
+diminuir_energia_inimigo(X,Y,FA) :- quadrado(PX, PY, inimigo2dano50), PX == X, PY == Y,
 									inimigo2Dano50(FATUAL), NF is FATUAL - FA, 
 									inimigo_morreu(X,Y,NF),
 									retract(inimigo2Dano50(_)), assert(inimigo2Dano50(NF)),!.
@@ -378,44 +367,6 @@ imprime_posicao(X, Y) :-  write('X = '), write(X), write(', Y = '), write(Y),!.
 
 /******************************************************************
 **
-** Percepções - Inimigo
-**
-*******************************************************************/
-
-/* Caso Sul */
-percepcoes_inimigo(X,Y) :-  Y < 24, YY is Y + 1,
-							( (posicaoInimigo1Dano20(PX, PY), PX == X, PY == YY); 
-					 		  (posicaoInimigo2Dano20(PX, PY), PX == X, PY == YY); 
-							  (posicaoInimigo1Dano50(PX, PY), PX == X, PY == YY); 
-							  (posicaoInimigo2Dano50(PX, PY), PX == X, PY == YY) ),
-							write('passos'),!.
-						    
-/* Caso Norte */
-percepcoes_inimigo(X,Y) :-  Y > 1, YY is Y - 1,
-							( (posicaoInimigo1Dano20(PX, PY), PX == X, PY == YY); 
-					 		  (posicaoInimigo2Dano20(PX, PY), PX == X, PY == YY); 
-							  (posicaoInimigo1Dano50(PX, PY), PX == X, PY == YY); 
-							  (posicaoInimigo2Dano50(PX, PY), PX == X, PY == YY) ),
-							write('passos'),!.
-
-/* Caso Leste */
-percepcoes_inimigo(X,Y) :-  X < 24, XX is X + 1,
-							( (posicaoInimigo1Dano20(PX, PY), PX == XX, PY == Y); 
-					 		  (posicaoInimigo2Dano20(PX, PY), PX == XX, PY == Y); 
-							  (posicaoInimigo1Dano50(PX, PY), PX == XX, PY == Y); 
-							  (posicaoInimigo2Dano50(PX, PY), PX == XX, PY == Y) ),
-							write('passos'),!.
-							
-/* Caso Oeste */
-percepcoes_inimigo(X,Y) :-  X > 1, XX is X - 1,
-							( (posicaoInimigo1Dano20(PX, PY), PX == XX, PY == Y); 
-					 		  (posicaoInimigo2Dano20(PX, PY), PX == XX, PY == Y); 
-							  (posicaoInimigo1Dano50(PX, PY), PX == XX, PY == Y); 
-							  (posicaoInimigo2Dano50(PX, PY), PX == XX, PY == Y) ),
-							write('passos'),!.
-			
-/******************************************************************
-**
-** Percepções - Melhor movimento
+** Melhor movimento
 **
 *******************************************************************/
