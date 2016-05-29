@@ -383,7 +383,7 @@ imprime_posicao(X, Y) :-  write('X = '), write(X), write(', Y = '), write(Y),!.
 **
 *******************************************************************/
 
-melhor_movimento :- ganhar_jogo.
-melhor_movimento :- pegar_ouro.
-melhor_movimento :- mover_para_frente.
-melhor_movimento :- virar_a_direita.
+melhor_movimento :- ganhar_jogo, write('ganhou').
+melhor_movimento :- pegar_ouro, write('pegou ouro').
+melhor_movimento :- mover_para_frente, write('andou para frente').
+melhor_movimento :- virar_a_direita, write('virou a direita').
