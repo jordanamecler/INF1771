@@ -6,6 +6,7 @@
 **
 *******************************************************************/
 
+:-dynamic numOuros/1.
 :-dynamic quadrado/3.
 :-dynamic posicao/3.
 :-dynamic percepcao_passos/2.
@@ -185,6 +186,8 @@ energia(100).
 
 custo(0).
 
+numOuros(3).
+
 inimigo1Dano20(100).
 inimigo2Dano20(100).
 inimigo1Dano50(100).
@@ -192,7 +195,7 @@ inimigo2Dano50(100).
 
 /******************************************************************
 **
-** RAdjacencias
+** Adjacencias
 **
 *******************************************************************/
 
@@ -265,7 +268,16 @@ virar_a_direita :- posicao(X, Y, leste),
 *******************************************************************/
 
 pegar_ouro :- posicao(PX, PY, _), quadrado(OX, OY, ouro), PX == OX, PY == OY,
-				energia(E2), EE2 is E2 + 1000, retract(energia(_)), assert(energia(EE2)),!.
+				custo(C), CC is C + 1000, retract(custo(_)), assert(custo(CC)), 
+				numOuros(O), OO is O + 1, retract(numOuros(_)), assert(numOuros(OO)),!.
+
+/******************************************************************
+**
+** AÇÕES - Ganhar jogo
+**
+*******************************************************************/
+
+ganhar_jogo :- numOuros(3).
 
 /******************************************************************
 **
@@ -370,3 +382,8 @@ imprime_posicao(X, Y) :-  write('X = '), write(X), write(', Y = '), write(Y),!.
 ** Melhor movimento
 **
 *******************************************************************/
+
+melhor_movimento :- ganhar_jogo.
+melhor_movimento :- pegar_ouro.
+melhor_movimento :- mover_para_frente.
+melhor_movimento :- virar_a_direita.
