@@ -6,6 +6,7 @@
 **
 *******************************************************************/
 
+:-dynamic memoria/3.
 :-dynamic numOuros/1.
 :-dynamic quadrado/3.
 :-dynamic posicao/3.
@@ -178,6 +179,151 @@ quadrado(10, 12, vida).
 quadrado(11, 12, vazio).
 quadrado(12, 12, vazio).
 
+memoria(1, 1, nao).
+memoria(2, 1, nao).
+memoria(3, 1, nao).
+memoria(4, 1, nao).
+memoria(5, 1, nao).
+memoria(6, 1, nao).
+memoria(7, 1, nao).
+memoria(8, 1, nao).
+memoria(9, 1, nao).
+memoria(10, 1, nao).
+memoria(11, 1, nao).
+memoria(12, 1, nao).
+memoria(1, 2, nao).
+memoria(2, 2, nao).
+memoria(3, 2, nao).
+memoria(4, 2, nao).
+memoria(5, 2, nao).
+memoria(6, 2, nao).
+memoria(7, 2, nao).
+memoria(8, 2, nao).
+memoria(9, 2, nao).
+memoria(10, 2, nao).
+memoria(11, 2, nao).
+memoria(12, 2, nao).
+memoria(1, 3, nao).
+memoria(2, 3, nao).
+memoria(3, 3, nao).
+memoria(4, 3, nao).
+memoria(5, 3, nao).
+memoria(6, 3, nao).
+memoria(7, 3, nao).
+memoria(8, 3, nao).
+memoria(9, 3, nao).
+memoria(10, 3, nao).
+memoria(11, 3, nao).
+memoria(12, 3, nao).
+memoria(1, 4, nao).
+memoria(2, 4, nao).
+memoria(3, 4, nao).
+memoria(4, 4, nao).
+memoria(5, 4, nao).
+memoria(6, 4, nao).
+memoria(7, 4, nao).
+memoria(8, 4, nao).
+memoria(9, 4, nao).
+memoria(10, 4, nao).
+memoria(11, 4, nao).
+memoria(12, 4, nao).
+memoria(1, 5, nao).
+memoria(2, 5, nao).
+memoria(3, 5, nao).
+memoria(4, 5, nao).
+memoria(5, 5, nao).
+memoria(6, 5, nao).
+memoria(7, 5, nao).
+memoria(8, 5, nao).
+memoria(9, 5, nao).
+memoria(10, 5, nao).
+memoria(11, 5, nao).
+memoria(12, 5, nao).
+memoria(1, 6, nao).
+memoria(2, 6, nao).
+memoria(3, 6, nao).
+memoria(4, 6, nao).
+memoria(5, 6, nao).
+memoria(6, 6, nao).
+memoria(7, 6, nao).
+memoria(8, 6, nao).
+memoria(9, 6, nao).
+memoria(10, 6, nao).
+memoria(11, 6, nao).
+memoria(12, 6, nao).
+memoria(1, 7, nao).
+memoria(2, 7, nao).
+memoria(3, 7, nao).
+memoria(4, 7, nao).
+memoria(5, 7, nao).
+memoria(6, 7, nao).
+memoria(7, 7, nao).
+memoria(8, 7, nao).
+memoria(9, 7, nao).
+memoria(10, 7, nao).
+memoria(11, 7, nao).
+memoria(12, 7, nao).
+memoria(1, 8, nao).
+memoria(2, 8, nao).
+memoria(3, 8, nao).
+memoria(4, 8, nao).
+memoria(5, 8, nao).
+memoria(6, 8, nao).
+memoria(7, 8, nao).
+memoria(8, 8, nao).
+memoria(9, 8, nao).
+memoria(10, 8, nao).
+memoria(11, 8, nao).
+memoria(12, 8, nao).
+memoria(1, 9, nao).
+memoria(2, 9, nao).
+memoria(3, 9, nao).
+memoria(4, 9, nao).
+memoria(5, 9, nao).
+memoria(6, 9, nao).
+memoria(7, 9, nao).
+memoria(8, 9, nao).
+memoria(9, 9, nao).
+memoria(10, 9, nao).
+memoria(11, 9, nao).
+memoria(12, 9, nao).
+memoria(1, 10, nao).
+memoria(2, 10, nao).
+memoria(3, 10, nao).
+memoria(4, 10, nao).
+memoria(5, 10, nao).
+memoria(6, 10, nao).
+memoria(7, 10, nao).
+memoria(8, 10, nao).
+memoria(9, 10, nao).
+memoria(10, 10, nao).
+memoria(11, 10, nao).
+memoria(12, 10, nao).
+memoria(1, 11, nao).
+memoria(2, 11, nao).
+memoria(3, 11, nao).
+memoria(4, 11, nao).
+memoria(5, 11, nao).
+memoria(6, 11, nao).
+memoria(7, 11, nao).
+memoria(8, 11, nao).
+memoria(9, 11, nao).
+memoria(10, 11, nao).
+memoria(11, 11, nao).
+memoria(12, 11, nao).
+memoria(1, 12, sim).
+memoria(2, 12, nao).
+memoria(3, 12, nao).
+memoria(4, 12, nao).
+memoria(5, 12, nao).
+memoria(6, 12, nao).
+memoria(7, 12, nao).
+memoria(8, 12, nao).
+memoria(9, 12, nao).
+memoria(10, 12, nao).
+memoria(11, 12, nao).
+memoria(12, 12, nao).
+
 posicao(1, 12, norte).
 
 tiros(5).
@@ -223,21 +369,25 @@ percepcao_vida(X, Y) :- quadrado(X, Y, vida).
 **
 *******************************************************************/
 
-mover_para_frente :- posicao(X, Y, P), P = norte,  Y > 1, YY is Y - 1,
+mover_para_frente(XX, YY) :- posicao(X, Y, P), P = norte,  Y > 1, YY is Y - 1,
 				 custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
-         	     retract(posicao(_, _, _)), assert(posicao(X, YY, P)),!.
+         	     retract(posicao(_, _, _)), assert(posicao(X, YY, P)),
+		     retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
 		 
-mover_para_frente :- posicao(X, Y, P), P = sul,  Y < 12, YY is Y + 1, 
+mover_para_frente(XX, YY) :- posicao(X, Y, P), P = sul,  Y < 12, YY is Y + 1, 
 				 custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
-         	     retract(posicao(_, _, _)), assert(posicao(X, YY, P)),!.
+         	     retract(posicao(_, _, _)), assert(posicao(X, YY, P)),
+		     retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
 
-mover_para_frente :- posicao(X, Y, P), P = leste,  X < 12, XX is X + 1, 
+mover_para_frente(XX, YY) :- posicao(X, Y, P), P = leste,  X < 12, XX is X + 1, 
 				 custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
-        	     retract(posicao(_, _, _)), assert(posicao(XX, Y, P)),!.
+        	     retract(posicao(_, _, _)), assert(posicao(XX, Y, P)),
+		     retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
 
-mover_para_frente :- posicao(X, Y, P), P = oeste,  X > 1, XX is X - 1, 
+mover_para_frente(XX, YY) :- posicao(X, Y, P), P = oeste,  X > 1, XX is X - 1, 
 				 custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
-         	     retract(posicao(_, _, _)), assert(posicao(XX, Y, P)),!.
+         	     retract(posicao(_, _, _)), assert(posicao(XX, Y, P)),
+		     retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
          	     
 /******************************************************************
 **
@@ -359,15 +509,6 @@ atirar :-   posicao(X, Y, oeste), PX is X - 1, existe_Inimigo_Posicao(PX, Y),
 			random(20, 51, FA), diminuir_energia_inimigo(PX,Y,FA),
 			tiros(T), T > 0, TT is T - 1, retract(tiros(_)), assert(tiros(TT)),
 			energia(E), EE is E - 10, retract(energia(_)), assert(energia(EE)),!.	
-				
-/******************************************************************
-**
-** AÇÕES - Subir
-**
-*******************************************************************/				
-
-subir :- posicao(X, Y, _), X == 1, Y == 1,
-         energia(E), EE is E - 1, retract(energia(_)), assert(energia(EE)),!.
          
 /******************************************************************
 **
@@ -383,7 +524,7 @@ imprime_posicao(X, Y) :-  write('X = '), write(X), write(', Y = '), write(Y),!.
 **
 *******************************************************************/
 
-melhor_movimento :- ganhar_jogo, write('ganhou').
-melhor_movimento :- pegar_ouro, write('pegou ouro').
-melhor_movimento :- mover_para_frente, write('andou para frente').
-melhor_movimento :- virar_a_direita, write('virou a direita').
+melhor_movimento(R) :- ganhar_jogo, R = 'ganhou', !.
+melhor_movimento(R) :- pegar_ouro, R = 'pegou ouro', !.
+melhor_movimento(R) :- mover_para_frente(X, Y), memoria(X, Y, nao), R = 'andou para frente', !.
+melhor_movimento(R) :- virar_a_direita, R = 'virou a direita', !.
