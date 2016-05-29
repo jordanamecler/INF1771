@@ -1,0 +1,9 @@
+package Prolog;
+
+import org.jpl7.Atom;
+
+class Termm {
+
+	Atom testePl = new Atom("teste.pl");
+	
+}

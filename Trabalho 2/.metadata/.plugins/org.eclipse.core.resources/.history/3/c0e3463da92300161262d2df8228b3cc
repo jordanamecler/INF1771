@@ -1,0 +1,28 @@
+package VC;
+
+import java.awt.*;
+import javax.swing.JPanel;
+
+class Tabuleiro extends JPanel{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;`
+	
+	
+	private int width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+	private int height =(int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	
+	private Graphics2D g;
+	
+	public Tabuleiro()
+	{
+		
+		height = height - 150;
+		width = height;
+		
+
+	}
+	
+}

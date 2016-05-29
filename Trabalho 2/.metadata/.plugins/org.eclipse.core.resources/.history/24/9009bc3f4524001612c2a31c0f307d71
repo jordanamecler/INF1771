@@ -1,0 +1,57 @@
+package VC;
+
+import java.awt.*;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+class Frame extends JFrame {
+	
+	/**
+	 * Tela 1
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	Tabuleiro tabuleiro;
+	
+	public Frame()
+	{
+		//Tamanho da tela:
+		setSize(700,500);
+		
+		//Configurações gerais:
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
+		setLocationRelativeTo(null);
+		setLayout(null);
+		
+		//Título da janela:
+		setTitle("Wampus");
+		
+		//Colocando a tabuleiro:
+		tabuleiro = new Tabuleiro();
+		tabuleiro.setBounds(0, 0, 500, 500);
+		
+		add(tabuleiro);
+		
+		this.setBackground(Color.BLACK);
+		
+		//Colocando os botões na tela:
+		setButtons();
+		
+		//Mostrando a janela:
+		setVisible(true); 
+		
+	}
+	
+	private void setButtons() {
+		
+		JButton beginButton = new JButton("Começar");
+		beginButton.setBounds(520, 20, 100, 20);
+		
+		add(beginButton);
+		
+	}
+
+}
+

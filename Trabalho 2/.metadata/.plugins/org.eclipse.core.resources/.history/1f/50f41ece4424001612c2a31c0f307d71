@@ -1,0 +1,51 @@
+package VC;
+
+import java.awt.*;
+
+import javax.swing.JFrame;
+
+class Frame extends JFrame {
+	
+	/**
+	 * Tela 1
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	Tabuleiro tabuleiro;
+	
+	public Frame()
+	{
+		//Tamanho da tela:
+		setSize(600,600);
+		
+		//Configurações gerais:
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
+		setLocationRelativeTo(null);
+		
+		//Título da janela:
+		setTitle("Wampus");
+		
+		//Colocando a tabuleiro:
+		tabuleiro = new Tabuleiro();
+		tabuleiro.setBounds(0, 0, 500, 500);
+		
+		add(tabuleiro);
+		
+		this.setBackground(Color.BLACK);
+		
+		
+		
+		//Mostrando a janela:
+		setVisible(true); 
+		
+	}
+	
+	private void setButtons() {
+		
+		JButton NewGameButton = new JButton("New Game");
+		
+	}
+
+}
+

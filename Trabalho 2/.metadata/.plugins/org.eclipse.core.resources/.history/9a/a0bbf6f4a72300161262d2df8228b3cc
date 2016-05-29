@@ -1,0 +1,8 @@
+package VC;
+
+import java.awt.*;
+import javax.swing.JPanel;
+
+class Screen extends JPanel{
+
+}

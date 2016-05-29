@@ -1,0 +1,15 @@
+package VC;
+
+import Prolog.PrologConnection;
+
+class Main {
+
+	public static void main(String[] args) {
+		
+		PrologConnection pg = new PrologConnection();
+		pg.connectProlog();
+		
+		
+	}
+	
+}

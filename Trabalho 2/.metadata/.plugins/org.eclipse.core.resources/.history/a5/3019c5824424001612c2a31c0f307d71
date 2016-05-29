@@ -1,0 +1,26 @@
+package VC;
+
+import java.awt.*;
+import javax.swing.JPanel;
+
+class Tabuleiro extends JPanel{
+
+	/**
+	 * Tabuleiro
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
+	
+	private Graphics2D g;
+	
+	public Tabuleiro()
+	{
+		
+
+		
+		this.setBackground(Color.BLUE);
+
+	}
+	
+}

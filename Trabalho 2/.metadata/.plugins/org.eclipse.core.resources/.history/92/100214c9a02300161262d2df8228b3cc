@@ -1,0 +1,5 @@
+package Prolog;
+
+class Term {
+
+}

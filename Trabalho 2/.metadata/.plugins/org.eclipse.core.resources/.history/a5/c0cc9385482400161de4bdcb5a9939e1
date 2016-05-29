@@ -1,0 +1,14 @@
+package VC;
+
+import Prolog.PrologConnection;
+
+class Main {
+
+	public static void main(String[] args) {
+		new Frame();
+		
+		
+		
+	}
+	
+}
