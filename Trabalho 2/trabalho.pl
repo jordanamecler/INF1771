@@ -373,25 +373,25 @@ mover_para_frente :- posicao(X, Y, P), P = norte,  Y > 1, YY is Y - 1,
 				 memoria(X, YY, nao),
 				 custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
          	     retract(posicao(_, _, _)), assert(posicao(X, YY, P)),
-		     	 retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
+		     	 retract(memoria(X, YY, _)), assert(memoria(X, YY, sim)), !.
 		 
 mover_para_frente :- posicao(X, Y, P), P = sul,  Y < 12, YY is Y + 1, 
 			     memoria(X, YY, nao),
 				 custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
          	     retract(posicao(_, _, _)), assert(posicao(X, YY, P)),
-		     	 retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
+		     	 retract(memoria(X, YY, _)), assert(memoria(X, YY, sim)), !.
 
 mover_para_frente :- posicao(X, Y, P), P = leste,  X < 12, XX is X + 1, 
 			 	 memoria(XX, Y, nao),
 				 custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
         	     retract(posicao(_, _, _)), assert(posicao(XX, Y, P)),
-		     	 retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
+		     	 retract(memoria(XX, Y, _)), assert(memoria(XX, Y, sim)), !.
 
 mover_para_frente :- posicao(X, Y, P), P = oeste,  X > 1, XX is X - 1, 
 				 memoria(XX, Y, nao),
 				 custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
          	     retract(posicao(_, _, _)), assert(posicao(XX, Y, P)),
-		     	 retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
+		     	 retract(memoria(XX, Y, _)), assert(memoria(XX, Y, sim)), !.
          	     
 /******************************************************************
 **
