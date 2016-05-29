@@ -369,25 +369,29 @@ percepcao_vida(X, Y) :- quadrado(X, Y, vida).
 **
 *******************************************************************/
 
-mover_para_frente(XX, YY) :- posicao(X, Y, P), P = norte,  Y > 1, YY is Y - 1,
+mover_para_frente :- posicao(X, Y, P), P = norte,  Y > 1, YY is Y - 1,
+				 memoria(X, YY, nao),
 				 custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
          	     retract(posicao(_, _, _)), assert(posicao(X, YY, P)),
-		     retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
+		     	 retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
 		 
-mover_para_frente(XX, YY) :- posicao(X, Y, P), P = sul,  Y < 12, YY is Y + 1, 
+mover_para_frente :- posicao(X, Y, P), P = sul,  Y < 12, YY is Y + 1, 
+			     memoria(X, YY, nao),
 				 custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
          	     retract(posicao(_, _, _)), assert(posicao(X, YY, P)),
-		     retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
+		     	 retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
 
-mover_para_frente(XX, YY) :- posicao(X, Y, P), P = leste,  X < 12, XX is X + 1, 
+mover_para_frente :- posicao(X, Y, P), P = leste,  X < 12, XX is X + 1, 
+			 	 memoria(XX, Y, nao),
 				 custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
         	     retract(posicao(_, _, _)), assert(posicao(XX, Y, P)),
-		     retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
+		     	 retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
 
-mover_para_frente(XX, YY) :- posicao(X, Y, P), P = oeste,  X > 1, XX is X - 1, 
+mover_para_frente :- posicao(X, Y, P), P = oeste,  X > 1, XX is X - 1, 
+				 memoria(XX, Y, nao),
 				 custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
          	     retract(posicao(_, _, _)), assert(posicao(XX, Y, P)),
-		     retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
+		     	 retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
          	     
 /******************************************************************
 **
@@ -527,5 +531,5 @@ imprime_posicao(X, Y) :-  write('X = '), write(X), write(', Y = '), write(Y),!.
 
 melhor_movimento(R) :- ganhar_jogo, R = 'ganhou', !.
 melhor_movimento(R) :- pegar_ouro, R = 'pegou ouro', !.
-melhor_movimento(R) :- memoria(X, Y, nao), mover_para_frente(X, Y), R = 'andou para frente', !.
+melhor_movimento(R) :- mover_para_frente, R = 'andou para frente', !.
 melhor_movimento(R) :- virar_a_direita, R = 'virou a direita', !.
