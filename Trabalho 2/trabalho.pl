@@ -28,6 +28,8 @@
 :-dynamic inimigo1Dano50/1.
 :-dynamic posicaoInimigo2Dano50/2.
 :-dynamic inimigo2Dano50/1.
+:-dynamic temBuraco/1.
+
 
 /******************************************************************
 **
@@ -333,6 +335,8 @@ energia(100).
 
 custo(0).
 
+temBuraco(0).
+
 numOuros(0).
 
 inimigo1Dano20(100).
@@ -359,7 +363,19 @@ adjacente(X, Y, X, YY) :- YY is Y - 1, YY > 0.
 
 percepcao_passos(X, Y) :- posicao(X, Y, _), adjacente(X, Y, XX, YY), (quadrado(XX, YY, inimigo1dano20) ; quadrado(XX, YY, inimigo2dano20) ; 
 			  quadrado(XX, YY, inimigo1dano50) ; quadrado(XX, YY, inimigo2dano50)), assert(pode_conter_algo(XX, YY, poco)).
-percepcao_brisa(X, Y) :- posicao(X, Y, _), adjacente(X, Y, XX, YY), quadrado(XX, YY, poco), assert(pode_conter_algo(XX, YY, poco)).
+			  
+percepcao_brisa(X, Y) :- posicao(X, Y, _), 
+					retract(temBuraco(_)), assert(temBuraco(0)), 
+					adjacente(X, Y, XX, YY),  memoria(XX, YY, nao),
+					quadrado(XX, YY, poco),
+					retract(temBuraco(_)), assert(temBuraco(1)), 
+				    assert(pode_conter_algo(XX, YY, poco)).
+				    
+percepcao_brisa(X, Y) :- temBuraco(B), B == 1, posicao(X, Y, _), 
+					adjacente(X, Y, XX, YY),  memoria(XX, YY, nao),
+				    assert(pode_conter_algo(XX, YY, poco)),!.
+
+
 percepcao_flash(X, Y) :- posicao(X, Y, _), adjacente(X, Y, XX, YY), quadrado(XX, YY, teletransporte), assert(pode_conter_algo(XX, YY, teletransporte)).
 
 percepcao_vida(X, Y) :- posicao(X, Y, _), quadrado(X, Y, vida).
@@ -528,8 +544,10 @@ imprime_posicao(X, Y) :-  write('X = '), write(X), write(', Y = '), write(Y),!.
 
 melhor_movimento(R) :- ganhar_jogo, R = 'ganhou', !.
 melhor_movimento(R) :- pegar_ouro, R = 'pegou ouro', !.
+
 melhor_movimento(R) :- posicao(X, Y, _), \+percepcao_brisa(X, Y), memoria(XX, YY, nao), mover_para_frente(XX, YY), R = 'andou para frente', !.
 melhor_movimento(R) :- posicao(X, Y, _), \+percepcao_brisa(X, Y), mover_para_frente(_, _), R = 'andou para frente', !.
 melhor_movimento(R) :- posicao(X, Y, _), percepcao_brisa(X, Y), memoria(XX, YY, nao), mover_para_frente(XX, YY), R = 'andou para frente', !.
 melhor_movimento(R) :- posicao(X, Y, _), percepcao_brisa(X, Y), mover_para_frente(_, _), R = 'andou para frente', !.
+
 melhor_movimento(R) :- virar_a_direita, R = 'virou a direita', !.
