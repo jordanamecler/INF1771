@@ -6,6 +6,7 @@
 **
 *******************************************************************/
 
+:-dynamic pode_conter_algo/3.
 :-dynamic memoria/3.
 :-dynamic numOuros/1.
 :-dynamic quadrado/3.
@@ -356,12 +357,12 @@ adjacente(X, Y, X, YY) :- YY is Y - 1, YY > 0.
 **
 *******************************************************************/
 
-percepcao_passos(X, Y) :- adjacente(X, Y, XX, YY), (quadrado(XX, YY, inimigo1dano20) ; quadrado(XX, YY, inimigo2dano20) ; quadrado(XX, YY, inimigo1dano50) ; quadrado(XX, YY, inimigo2dano50)).
-percepcao_brisa(X, Y) :- adjacente(X, Y, XX, YY), quadrado(XX, YY, poco).
-percepcao_flash(X, Y) :- adjacente(X, Y, XX, YY), quadrado(XX, YY, teletransporte).
+percepcao_passos(X, Y) :- posicao(X, Y, _), adjacente(X, Y, XX, YY), (quadrado(XX, YY, inimigo1dano20) ; quadrado(XX, YY, inimigo2dano20) ; 
+			  quadrado(XX, YY, inimigo1dano50) ; quadrado(XX, YY, inimigo2dano50)), assert(pode_conter_algo(XX, YY, poco)).
+percepcao_brisa(X, Y) :- posicao(X, Y, _), adjacente(X, Y, XX, YY), quadrado(XX, YY, poco), assert(pode_conter_algo(XX, YY, poco)).
+percepcao_flash(X, Y) :- posicao(X, Y, _), adjacente(X, Y, XX, YY), quadrado(XX, YY, teletransporte), assert(pode_conter_algo(XX, YY, teletransporte)).
 
-percepcao_ouro(X, Y) :- quadrado(X, Y, ouro).
-percepcao_vida(X, Y) :- quadrado(X, Y, vida).
+percepcao_vida(X, Y) :- posicao(X, Y, _), quadrado(X, Y, vida).
 
 /******************************************************************
 **
@@ -369,29 +370,25 @@ percepcao_vida(X, Y) :- quadrado(X, Y, vida).
 **
 *******************************************************************/
 
-mover_para_frente :- posicao(X, Y, P), P = norte,  Y > 1, YY is Y - 1,
-				 memoria(X, YY, nao),
-				 custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
-         	     retract(posicao(_, _, _)), assert(posicao(X, YY, P)),
-		     	 retract(memoria(X, YY, _)), assert(memoria(X, YY, sim)), !.
+mover_para_frente(XX, YY) :- posicao(X, Y, P), P = norte,  Y > 1, YY is Y - 1,
+			     custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
+         	     	     retract(posicao(_, _, _)), assert(posicao(X, YY, P)),
+		     	     retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
 		 
-mover_para_frente :- posicao(X, Y, P), P = sul,  Y < 12, YY is Y + 1, 
-			     memoria(X, YY, nao),
-				 custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
-         	     retract(posicao(_, _, _)), assert(posicao(X, YY, P)),
-		     	 retract(memoria(X, YY, _)), assert(memoria(X, YY, sim)), !.
+mover_para_frente(XX, YY) :- posicao(X, Y, P), P = sul,  Y < 12, YY is Y + 1, 
+			     custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
+         	     	     retract(posicao(_, _, _)), assert(posicao(X, YY, P)),
+		     	     retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
 
-mover_para_frente :- posicao(X, Y, P), P = leste,  X < 12, XX is X + 1, 
-			 	 memoria(XX, Y, nao),
-				 custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
-        	     retract(posicao(_, _, _)), assert(posicao(XX, Y, P)),
-		     	 retract(memoria(XX, Y, _)), assert(memoria(XX, Y, sim)), !.
+mover_para_frente(XX, YY) :- posicao(X, Y, P), P = leste,  X < 12, XX is X + 1, 
+			     custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
+        	     	     retract(posicao(_, _, _)), assert(posicao(XX, Y, P)),
+		     	     retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
 
-mover_para_frente :- posicao(X, Y, P), P = oeste,  X > 1, XX is X - 1, 
-				 memoria(XX, Y, nao),
-				 custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
-         	     retract(posicao(_, _, _)), assert(posicao(XX, Y, P)),
-		     	 retract(memoria(XX, Y, _)), assert(memoria(XX, Y, sim)), !.
+mover_para_frente(XX, YY) :- posicao(X, Y, P), P = oeste,  X > 1, XX is X - 1, 
+			     custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
+         	     	     retract(posicao(_, _, _)), assert(posicao(XX, Y, P)),
+		     	     retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
          	     
 /******************************************************************
 **
@@ -400,20 +397,20 @@ mover_para_frente :- posicao(X, Y, P), P = oeste,  X > 1, XX is X - 1,
 *******************************************************************/
 
 virar_a_direita :- posicao(X, Y, norte), 
-				   custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
-	 			   retract(posicao(_, _, _)), assert(posicao(X, Y, leste)),!.
+		   custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
+	 	   retract(posicao(_, _, _)), assert(posicao(X, Y, leste)),!.
 
 virar_a_direita :- posicao(X, Y, oeste), 
-				   custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
-				   retract(posicao(_, _, _)), assert(posicao(X, Y, norte)),!.
+		   custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
+		   retract(posicao(_, _, _)), assert(posicao(X, Y, norte)),!.
 
 virar_a_direita :- posicao(X, Y, sul), 
-				  custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
-			  	  retract(posicao(_, _, _)), assert(posicao(X, Y, oeste)),!.
+		   custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
+		   retract(posicao(_, _, _)), assert(posicao(X, Y, oeste)),!.
 
 virar_a_direita :- posicao(X, Y, leste), 
-				   custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
-				   retract(posicao(_, _, _)), assert(posicao(X, Y, sul)),!.
+		   custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
+		   retract(posicao(_, _, _)), assert(posicao(X, Y, sul)),!.
 				   
 /******************************************************************
 **
@@ -531,5 +528,8 @@ imprime_posicao(X, Y) :-  write('X = '), write(X), write(', Y = '), write(Y),!.
 
 melhor_movimento(R) :- ganhar_jogo, R = 'ganhou', !.
 melhor_movimento(R) :- pegar_ouro, R = 'pegou ouro', !.
-melhor_movimento(R) :- mover_para_frente, R = 'andou para frente', !.
+melhor_movimento(R) :- posicao(X, Y, _), \+percepcao_brisa(X, Y), memoria(XX, YY, nao), mover_para_frente(XX, YY), R = 'andou para frente', !.
+melhor_movimento(R) :- posicao(X, Y, _), \+percepcao_brisa(X, Y), mover_para_frente(_, _), R = 'andou para frente', !.
+melhor_movimento(R) :- posicao(X, Y, _), percepcao_brisa(X, Y), memoria(XX, YY, nao), mover_para_frente(XX, YY), R = 'andou para frente', !.
+melhor_movimento(R) :- posicao(X, Y, _), percepcao_brisa(X, Y), mover_para_frente(_, _), R = 'andou para frente', !.
 melhor_movimento(R) :- virar_a_direita, R = 'virou a direita', !.
