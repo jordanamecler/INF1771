@@ -1,0 +1,12 @@
+c:\users\jordana\documents\visual studio 2015\Projects\IA\IA\bin\Debug\IA.exe.config
+c:\users\jordana\documents\visual studio 2015\Projects\IA\IA\bin\Debug\IA.exe
+c:\users\jordana\documents\visual studio 2015\Projects\IA\IA\bin\Debug\IA.pdb
+c:\users\jordana\documents\visual studio 2015\Projects\IA\IA\obj\Debug\IA.csprojResolveAssemblyReference.cache
+c:\users\jordana\documents\visual studio 2015\Projects\IA\IA\obj\Debug\IA.exe
+c:\users\jordana\documents\visual studio 2015\Projects\IA\IA\obj\Debug\IA.pdb
+C:\Users\jordana\Documents\INF1771\Trabalho 3\IA\IA\bin\Debug\IA.exe.config
+C:\Users\jordana\Documents\INF1771\Trabalho 3\IA\IA\obj\Debug\IA.exe
+C:\Users\jordana\Documents\INF1771\Trabalho 3\IA\IA\obj\Debug\IA.pdb
+C:\Users\jordana\Documents\INF1771\Trabalho 3\IA\IA\bin\Debug\IA.exe
+C:\Users\jordana\Documents\INF1771\Trabalho 3\IA\IA\bin\Debug\IA.pdb
+C:\Users\jordana\Documents\INF1771\Trabalho 3\IA\IA\obj\Debug\IA.csprojResolveAssemblyReference.cache
