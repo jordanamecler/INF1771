@@ -29,7 +29,7 @@
 :-dynamic posicaoInimigo2Dano50/2.
 :-dynamic inimigo2Dano50/1.
 :-dynamic temBuraco/1.
-
+:-dynamic qtdViradas/1.
 
 /******************************************************************
 **
@@ -339,6 +339,10 @@ temBuraco(0).
 
 numOuros(0).
 
+pode_conter_algo(1, 12, nao).
+
+qtdViradas(0).
+
 inimigo1Dano20(100).
 inimigo2Dano20(100).
 inimigo1Dano50(100).
@@ -355,6 +359,11 @@ adjacente(X, Y, XX, Y) :- XX is X - 1, XX > 0.
 adjacente(X, Y, X, YY) :- YY is Y + 1, YY < 13.
 adjacente(X, Y, X, YY) :- YY is Y - 1, YY > 0.
 
+adjacente(X, Y, XX, Y, Z) :- Z == 0, XX is X + 1, XX < 13.
+adjacente(X, Y, XX, Y, Z) :- Z == 1, XX is X - 1, XX > 0.
+adjacente(X, Y, X, YY, Z) :- Z == 2, YY is Y + 1, YY < 13.
+adjacente(X, Y, X, YY, Z) :- Z == 3, YY is Y - 1, YY > 0.
+
 /******************************************************************
 **
 ** Percepcoes na Posicao
@@ -363,18 +372,84 @@ adjacente(X, Y, X, YY) :- YY is Y - 1, YY > 0.
 
 percepcao_passos(X, Y) :- posicao(X, Y, _), adjacente(X, Y, XX, YY), (quadrado(XX, YY, inimigo1dano20) ; quadrado(XX, YY, inimigo2dano20) ; 
 			  quadrado(XX, YY, inimigo1dano50) ; quadrado(XX, YY, inimigo2dano50)), assert(pode_conter_algo(XX, YY, poco)).
-			  
+			 
+/******************************************************************
+**
+** Percepcão de brisa
+**
+*******************************************************************/			 
+ 
 percepcao_brisa(X, Y) :- posicao(X, Y, _), 
 					retract(temBuraco(_)), assert(temBuraco(0)), 
-					adjacente(X, Y, XX, YY),  memoria(XX, YY, nao),
+					adjacente(X, Y, XX, YY, 0),  memoria(XX, YY, nao),
 					quadrado(XX, YY, poco),
-					retract(temBuraco(_)), assert(temBuraco(1)), 
+					retract(temBuraco(_)), assert(temBuraco(1)).
+				    
+percepcao_brisa(X, Y) :- posicao(X, Y, _), temBuraco(B), B == 0, 
+					retract(temBuraco(_)), assert(temBuraco(0)), 
+					adjacente(X, Y, XX, YY, 1),  memoria(XX, YY, nao),
+					quadrado(XX, YY, poco),
+					retract(temBuraco(_)), assert(temBuraco(1)).
+
+percepcao_brisa(X, Y) :- posicao(X, Y, _), temBuraco(B), B == 0, 
+					retract(temBuraco(_)), assert(temBuraco(0)), 
+					adjacente(X, Y, XX, YY, 2),  memoria(XX, YY, nao),
+					quadrado(XX, YY, poco),
+					retract(temBuraco(_)), assert(temBuraco(1)).
+				    
+percepcao_brisa(X, Y) :- posicao(X, Y, _), temBuraco(B), B == 0, 
+					retract(temBuraco(_)), assert(temBuraco(0)), 
+					adjacente(X, Y, XX, YY, 3),  memoria(XX, YY, nao),
+					quadrado(XX, YY, poco),
+					retract(temBuraco(_)), assert(temBuraco(1)).							    				  
+				    
+				    
+				    
+				    
+percepcao_brisa(X, Y) :- temBuraco(B), B == 1, posicao(X, Y, _), 
+					adjacente(X, Y, XX, YY, 0),  memoria(XX, YY, nao),
+					\+pode_conter_algo(XX, YY, nao),
 				    assert(pode_conter_algo(XX, YY, poco)).
 				    
 percepcao_brisa(X, Y) :- temBuraco(B), B == 1, posicao(X, Y, _), 
-					adjacente(X, Y, XX, YY),  memoria(XX, YY, nao),
-				    assert(pode_conter_algo(XX, YY, poco)),!.
+					adjacente(X, Y, XX, YY, 1),  memoria(XX, YY, nao),
+					\+pode_conter_algo(XX, YY, nao),
+				    assert(pode_conter_algo(XX, YY, poco)).
+				    
+percepcao_brisa(X, Y) :- temBuraco(B), B == 1, posicao(X, Y, _), 
+					adjacente(X, Y, XX, YY, 2),  memoria(XX, YY, nao),
+					\+pode_conter_algo(XX, YY, nao),
+				    assert(pode_conter_algo(XX, YY, poco)).
+				    
+percepcao_brisa(X, Y) :- temBuraco(B), B == 1, posicao(X, Y, _), 
+					adjacente(X, Y, XX, YY, 3),  memoria(XX, YY, nao),
+					\+pode_conter_algo(XX, YY, nao),
+				    assert(pode_conter_algo(XX, YY, poco)).
+				    
+				    
+				    
+				    
+percepcao_brisa(X, Y) :- temBuraco(B), B == 0, posicao(X, Y, _), 
+					adjacente(X, Y, XX, YY, 0),  memoria(XX, YY, nao),
+				    assert(pode_conter_algo(XX, YY, nao)).
+				    
+percepcao_brisa(X, Y) :- temBuraco(B), B == 0, posicao(X, Y, _), 
+					adjacente(X, Y, XX, YY, 1),  memoria(XX, YY, nao),
+				    assert(pode_conter_algo(XX, YY, nao)).
+				    
+percepcao_brisa(X, Y) :- temBuraco(B), B == 0, posicao(X, Y, _), 
+					adjacente(X, Y, XX, YY, 2),  memoria(XX, YY, nao),
+				    assert(pode_conter_algo(XX, YY, nao)).
+				    
+percepcao_brisa(X, Y) :- temBuraco(B), B == 0, posicao(X, Y, _), 
+					adjacente(X, Y, XX, YY, 3),  memoria(XX, YY, nao),
+				    assert(pode_conter_algo(XX, YY, nao)).
 
+/******************************************************************
+**
+** Percepcoes na Posicao
+**
+*******************************************************************/
 
 percepcao_flash(X, Y) :- posicao(X, Y, _), adjacente(X, Y, XX, YY), quadrado(XX, YY, teletransporte), assert(pode_conter_algo(XX, YY, teletransporte)).
 
@@ -386,25 +461,39 @@ percepcao_vida(X, Y) :- posicao(X, Y, _), quadrado(X, Y, vida).
 **
 *******************************************************************/
 
-mover_para_frente(XX, YY) :- posicao(X, Y, P), P = norte,  Y > 1, YY is Y - 1,
+mover_para_frente(X, YY) :- posicao(X, Y, P), P = norte,  Y > 1, YY is Y - 1,
 			     custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
          	     	     retract(posicao(_, _, _)), assert(posicao(X, YY, P)),
-		     	     retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
+		     	     retract(memoria(X, YY, _)), assert(memoria(X, YY, sim)), !.
 		 
-mover_para_frente(XX, YY) :- posicao(X, Y, P), P = sul,  Y < 12, YY is Y + 1, 
+mover_para_frente(X, YY) :- posicao(X, Y, P), P = sul,  Y < 12, YY is Y + 1, 
 			     custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
          	     	     retract(posicao(_, _, _)), assert(posicao(X, YY, P)),
-		     	     retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
+		     	     retract(memoria(X, YY, _)), assert(memoria(X, YY, sim)), !.
 
-mover_para_frente(XX, YY) :- posicao(X, Y, P), P = leste,  X < 12, XX is X + 1, 
+mover_para_frente(XX, Y) :- posicao(X, Y, P), P = leste,  X < 12, XX is X + 1, 
 			     custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
         	     	     retract(posicao(_, _, _)), assert(posicao(XX, Y, P)),
-		     	     retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
+		     	     retract(memoria(XX, Y, _)), assert(memoria(XX, Y, sim)), !.
 
-mover_para_frente(XX, YY) :- posicao(X, Y, P), P = oeste,  X > 1, XX is X - 1, 
+mover_para_frente(XX, Y) :- posicao(X, Y, P), P = oeste,  X > 1, XX is X - 1, 
 			     custo(C), CC is C - 1, retract(custo(_)), assert(custo(CC)),
          	     	     retract(posicao(_, _, _)), assert(posicao(XX, Y, P)),
-		     	     retract(memoria(XX, YY, _)), assert(memoria(XX, YY, sim)), !.
+		     	     retract(memoria(XX, Y, _)), assert(memoria(XX, Y, sim)), !.
+		     	     
+/******************************************************************
+**
+** AÇÕES - Retorna posicao da frente
+**
+*******************************************************************/
+
+retorna_posicao_frente(XX, YY) :- posicao(X, Y, P), P = norte,  Y > 1, YY is Y - 1, XX is X,!.
+		 
+retorna_posicao_frente(XX, YY) :- posicao(X, Y, P), P = sul,  Y < 12, YY is Y + 1, XX is X,!.
+
+retorna_posicao_frente(XX, YY) :- posicao(X, Y, P), P = leste,  X < 12, XX is X + 1, YY is Y,!.
+
+retorna_posicao_frente(XX, YY) :- posicao(X, Y, P), P = oeste,  X > 1, XX is X - 1, YY is Y,!.
          	     
 /******************************************************************
 **
@@ -526,7 +615,7 @@ atirar :-   posicao(X, Y, leste), PX is X + 1, existe_Inimigo_Posicao(PX, Y),
 atirar :-   posicao(X, Y, oeste), PX is X - 1, existe_Inimigo_Posicao(PX, Y),
 			random(20, 51, FA), diminuir_energia_inimigo(PX,Y,FA),
 			tiros(T), T > 0, TT is T - 1, retract(tiros(_)), assert(tiros(TT)),
-			energia(E), EE is E - 10, retract(energia(_)), assert(energia(EE)),!.	
+			energia(E), EE is E - 10, retract(energia(_)), (energia(EE)),!.	
          
 /******************************************************************
 **
@@ -538,6 +627,27 @@ imprime_posicao(X, Y) :-  write('X = '), write(X), write(', Y = '), write(Y),!.
 
 /******************************************************************
 **
+** QtdViradas
+**
+*******************************************************************/
+
+add_qtdVirada :- qtdViradas(X), XX is X + 1,
+				retract(qtdViradas(_)), assert(qtdViradas(XX)),!.
+remove_qtdVirada :- qtdViradas(X), XX is X - 1,
+				retract(qtdViradas(_)), assert(qtdViradas(XX)),!.
+reseta_qtdVirada :- XX is 0,
+				retract(qtdViradas(_)), assert(qtdViradas(XX)),!.
+
+/******************************************************************
+**
+** É casa boa
+**
+*******************************************************************/
+
+eh_casa_boa(X, Y) :- memoria(X, Y, nao), pode_conter_algo(X, Y, nao),!. 
+
+/******************************************************************
+**
 ** Melhor movimento
 **
 *******************************************************************/
@@ -545,9 +655,9 @@ imprime_posicao(X, Y) :-  write('X = '), write(X), write(', Y = '), write(Y),!.
 melhor_movimento(R) :- ganhar_jogo, R = 'ganhou', !.
 melhor_movimento(R) :- pegar_ouro, R = 'pegou ouro', !.
 
-melhor_movimento(R) :- posicao(X, Y, _), \+percepcao_brisa(X, Y), memoria(XX, YY, nao), mover_para_frente(XX, YY), R = 'andou para frente', !.
-melhor_movimento(R) :- posicao(X, Y, _), \+percepcao_brisa(X, Y), mover_para_frente(_, _), R = 'andou para frente', !.
-melhor_movimento(R) :- posicao(X, Y, _), percepcao_brisa(X, Y), memoria(XX, YY, nao), mover_para_frente(XX, YY), R = 'andou para frente', !.
-melhor_movimento(R) :- posicao(X, Y, _), percepcao_brisa(X, Y), mover_para_frente(_, _), R = 'andou para frente', !.
+melhor_movimento(_) :- posicao(X, Y, _), percepcao_brisa(X, Y), pegar_ouro.
+melhor_movimento(R) :- retorna_posicao_frente(X, Y), eh_casa_boa(X, Y), pode_conter_algo(X, Y, nao), mover_para_frente(_, _), R='andar para frente', reseta_qtdVirada,!.
+melhor_movimento(R) :- retorna_posicao_frente(X, Y), qtdViradas(Q), Q > 3, pode_conter_algo(X, Y, nao), mover_para_frente(_, _), R='andar para frente', reseta_qtdVirada,!.
 
-melhor_movimento(R) :- virar_a_direita, R = 'virou a direita', !.
+
+melhor_movimento(R) :- virar_a_direita, R = 'virou a direita', add_qtdVirada,!.
