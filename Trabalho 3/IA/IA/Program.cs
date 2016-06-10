@@ -10,7 +10,9 @@ namespace IA
 {
     class Program
     {
-        private static HashSet<string> _notImportantWords = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        public static List <string>     _badReviews        = new List <string> ();
+        public static List <string>     _goodReviews       = new List <string> ();
+        private static HashSet <string> _notImportantWords = new HashSet <string> (StringComparer.OrdinalIgnoreCase)
         {
             ".", ",", "and",
             "i", "it", "for",
@@ -57,53 +59,116 @@ namespace IA
             "about"
         };
 
-        static void Main(string[] args)
+        static void Main (string[] args)
         {
-            using (StreamWriter outputFile = new StreamWriter("C:\\Users\\jordana\\Documents\\INF1771\\Trabalho 3\\outputIA.arff", true))
+            Console.WriteLine ("Started at: " + DateTime.Now);
+
+            // Removes crapy words from reviews and stores them in good/bad list
+            FillsReviewsList ("neg");
+            FillsReviewsList ("pos");
+
+            Console.WriteLine ("Finished at: " + DateTime.Now);
+        }
+
+        public static void FillsReviewsList (string reviewType)
+        {
+            foreach (string file in Directory.GetFiles ("C:\\Users\\jordana\\Desktop\\Arquivos_ia\\IA\\movie_review_dataset\\part1\\" + reviewType, "*.txt"))
             {
-                foreach (string file in Directory.GetFiles("C:\\Users\\jordana\\Desktop\\Arquivos_ia\\IA\\movie_review_dataset\\part2\\pos", "*.txt"))
+                using (StreamReader inputFile = new StreamReader (file))
                 {
-                    using (StreamReader inputFile = new StreamReader (file))
+                    string line;
+                    string newLine = "";
+                    while ((line = inputFile.ReadLine ()) != null)
                     {
-                        string line;
-                        string newLine = "";
-                        while ((line = inputFile.ReadLine()) != null)
+                        string[] words = line.Split (' ');
+                        newLine += "\"";
+                        foreach (string word in words)
                         {
-                            string[] words = line.Split(' ');
-                            newLine += "\"";
-                            foreach (string word in words)
+                            string newWord = RemoveDiacritics (word);
+                            newWord = newWord.Replace ("\"", "");
+                            newWord = newWord.Replace (".", "");
+                            newWord = newWord.Replace (",", "");
+                            newWord = newWord.Replace (":", "");
+                            newWord = newWord.Replace ("!", "");
+                            newWord = newWord.Replace ("?", "");
+                            newWord = newWord.Replace ("/", "");
+                            newWord = newWord.Replace ("*", "");
+                            newWord = newWord.Replace ("%", "");
+                            newWord = newWord.Replace ("&", "");
+                            newWord = newWord.Replace ("@", "");
+                            newWord = newWord.Replace ("$", "");
+                            if (!_notImportantWords.Contains (newWord))
                             {
-                                string newWord = RemoveDiacritics(word);
-                                newWord = newWord.Replace ("\"", "");
-                                if (!_notImportantWords.Contains(newWord))
-                                {
-                                    newLine += (newWord + " ");
-                                }
+                                newLine += (newWord + " ");
                             }
-                            newLine = newLine.Remove (newLine.Length - 1);
-                            newLine += "\", p";
-                            outputFile.WriteLine (newLine);
+                        }
+                        newLine = newLine.Remove (newLine.Length - 1);
+                        if (reviewType == "neg")
+                        {
+                            _badReviews.Add (newLine);
+                        }
+                        else
+                        {
+                            _goodReviews.Add (newLine);
                         }
                     }
                 }
             }
         }
 
+        public static void FillsGoodReviewsList ()
+        {
+            foreach (string file in Directory.GetFiles ("C:\\Users\\jordana\\Desktop\\Arquivos_ia\\IA\\movie_review_dataset\\part1\\pos", "*.txt"))
+            {
+                using (StreamReader inputFile = new StreamReader (file))
+                {
+                    string line;
+                    string newLine = "";
+                    while ((line = inputFile.ReadLine ()) != null)
+                    {
+                        string[] words = line.Split (' ');
+                        newLine += "\"";
+                        foreach (string word in words)
+                        {
+                            string newWord = RemoveDiacritics (word);
+                            newWord = newWord.Replace ("\"", "");
+                            newWord = newWord.Replace (".", "");
+                            newWord = newWord.Replace (",", "");
+                            newWord = newWord.Replace (":", "");
+                            newWord = newWord.Replace ("!", "");
+                            newWord = newWord.Replace ("?", "");
+                            newWord = newWord.Replace ("/", "");
+                            newWord = newWord.Replace ("*", "");
+                            newWord = newWord.Replace ("%", "");
+                            newWord = newWord.Replace ("&", "");
+                            newWord = newWord.Replace ("@", "");
+                            newWord = newWord.Replace ("$", "");
+                            if (!_notImportantWords.Contains (newWord))
+                            {
+                                newLine += (newWord + " ");
+                            }
+                        }
+                        newLine = newLine.Remove (newLine.Length - 1);
+                        _goodReviews.Add (newLine);
+                    }
+                }
+            }
+        }
         static string RemoveDiacritics (string text)
         {
-            var normalizedString = text.Normalize(NormalizationForm.FormD);
-            var stringBuilder = new StringBuilder();
+            var normalizedString = text.Normalize (NormalizationForm.FormD);
+            var stringBuilder = new StringBuilder ();
 
             foreach (var c in normalizedString)
             {
-                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory (c);
                 if (unicodeCategory != UnicodeCategory.NonSpacingMark)
                 {
-                    stringBuilder.Append(c);
+                    stringBuilder.Append (c);
                 }
             }
 
-            return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+            return stringBuilder.ToString ().Normalize (NormalizationForm.FormC);
         }
     }
 }
