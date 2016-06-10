@@ -82,12 +82,20 @@ namespace IA
             "get", "do", "make",
             "first", "could", "most",
             "will", "other", "very",
-            "relly", "much", "dont",
+            "really", "much", "dont",
             "people", "made", "way",
             "any", "movies", "character",
             "characters", "too", "think",
             "seen", "watch", "films",
-            "well"
+            "well", "know", "life",
+            "does", "ever", "did",
+            "plot", "being", "acting",
+            "scene", "scenes", "over",
+            "end", "something", "say",
+            "many", "show", "back",
+            "actors", "real", "Im",
+            "go", "didnt", "those",
+            "should", "such", "these"
         };
 
         static void Main (string[] args)
