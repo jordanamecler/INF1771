@@ -78,7 +78,16 @@ namespace IA
             "been", "it's", "would",
             "time", "only", "had",
             "can", "there", "story",
-            "were", "no", "see"
+            "were", "no", "see",
+            "get", "do", "make",
+            "first", "could", "most",
+            "will", "other", "very",
+            "relly", "much", "dont",
+            "people", "made", "way",
+            "any", "movies", "character",
+            "characters", "too", "think",
+            "seen", "watch", "films",
+            "well"
         };
 
         static void Main (string[] args)
@@ -130,6 +139,7 @@ namespace IA
                             newWord = newWord.Replace (">", "");
                             newWord = newWord.Replace ("<", "");
                             newWord = newWord.Replace ("-", "");
+                            newWord = newWord.Replace ("'", "");
                             
                             if (!_notImportantWords.Contains (newWord))
                             {
@@ -159,13 +169,16 @@ namespace IA
                 string[] words = review.Split (' ');
                 foreach (string word in words)
                 {
-                    if (_topWords.ContainsKey (word))
+                    if (!String.IsNullOrEmpty(word) && !word.Equals (" "))
                     {
-                        _topWords[word]++;
-                    }
-                    else
-                    {
-                        _topWords.Add (word, 1);
+                        if (_topWords.ContainsKey(word))
+                        {
+                            _topWords[word]++;
+                        }
+                        else
+                        {
+                            _topWords.Add(word, 1);
+                        }
                     }
                 }
             }
@@ -175,13 +188,16 @@ namespace IA
                 string[] words = review.Split (' ');
                 foreach (string word in words)
                 {
-                    if (_topWords.ContainsKey (word))
+                    if (!String.IsNullOrEmpty(word) && !word.Equals(" "))
                     {
-                        _topWords[word]++;
-                    }
-                    else
-                    {
-                        _topWords.Add (word, 1);
+                        if (_topWords.ContainsKey(word))
+                        {
+                            _topWords[word]++;
+                        }
+                        else
+                        {
+                            _topWords.Add(word, 1);
+                        }
                     }
                 }
             }
