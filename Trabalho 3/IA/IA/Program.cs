@@ -95,7 +95,33 @@ namespace IA
             "many", "show", "back",
             "actors", "real", "Im",
             "go", "didnt", "those",
-            "should", "such", "these"
+            "should", "such", "these",
+            "going", "years", "find",
+            "makes", "here", "man",
+            "watching", "doesnt", "thing",
+            "part", "cant", "look",
+            "quite", "again", "fact",
+            "got", "things", "around",
+            "want", "every", "seems",
+            "cast", "another", "nothing",
+            "isnt", "saw", "may",
+            "give", "gets", "take",
+            "young", "director", "own",
+            "between", "thought", "almost",
+            "both", "series", "role", "whole",
+            "actually", "far", "performance",
+            "thats", "guy", "minutes",
+            "script", "might", "come",
+            "done", "without", "music",
+            "bit", "must", "TV",
+            "anything", "comes", "course",
+            "point", "action", "new",
+            "world", "youre", "else",
+            "used", "theres", "john",
+            "having", "someone", "actor",
+            "set", "screen", "plays",
+            "audience", "said", "takes",
+            "dvd", "wasnt"
         };
 
         static void Main (string[] args)
@@ -105,6 +131,8 @@ namespace IA
             // Removes crapy words from reviews and stores them in good/bad list
             FillsReviewsList ("neg");
             FillsReviewsList ("pos");
+            FillsReviewsList ("neg_2");
+            FillsReviewsList ("pos_2");
 
             // Fills dictionary with all words and its occurrencies
             FillsWordsDictionary ();
@@ -120,7 +148,7 @@ namespace IA
         public static void FillsReviewsList (string reviewType)
         {
             Console.WriteLine ("Started reading reviews");
-            foreach (string file in Directory.GetFiles ("C:\\Users\\jordana\\Desktop\\Arquivos_ia\\IA\\movie_review_dataset\\part1\\" + reviewType, "*.txt"))
+            foreach (string file in Directory.GetFiles ("C:\\Users\\jordana\\Desktop\\Arquivos_ia\\" + reviewType, "*.txt"))
             {
                 using (StreamReader inputFile = new StreamReader (file))
                 {
@@ -128,6 +156,7 @@ namespace IA
                     string newLine = "";
                     while ((line = inputFile.ReadLine ()) != null)
                     {
+                        line.Replace ("not ", "not");
                         string[] words = line.Split (' ');
                         foreach (string word in words)
                         {
@@ -151,15 +180,26 @@ namespace IA
                             
                             if (!_notImportantWords.Contains (newWord))
                             {
-                                newLine += (newWord + " ");
+                                if (word.Equals ("not", StringComparison.InvariantCultureIgnoreCase))
+                                {
+                                    newLine += newWord;
+                                }
+                                else
+                                {
+                                    newLine += (newWord + " ");
+                                }                                
                             }
                         }
-                        newLine = newLine.Remove (newLine.Length - 1);
-                        if (reviewType == "neg")
+                        if (newLine.Last ().Equals (' '))
+                        {
+                            newLine = newLine.Remove(newLine.Length - 1);
+                        }
+
+                        if (reviewType.Equals ("neg") || reviewType.Equals ("neg_2"))
                         {
                             _badReviews.Add (newLine);
                         }
-                        else
+                        else if (reviewType.Equals ("pos") || reviewType.Equals ("pos_2"))
                         {
                             _goodReviews.Add (newLine);
                         }
@@ -221,7 +261,7 @@ namespace IA
 
             foreach (KeyValuePair <string, int> topWord in items)
             {
-                if (count >= 20)
+                if (count >= 110)
                 {
                     break;
                 }
