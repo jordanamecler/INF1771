@@ -121,7 +121,10 @@ namespace IA
             "having", "someone", "actor",
             "set", "screen", "plays",
             "audience", "said", "takes",
-            "dvd", "wasnt"
+            "dvd", "wasnt", "everyone",
+            "version", "idea", "seeing",
+            "completely", "use", "read",
+            "performances", "half", "year"
         };
 
         static void Main (string[] args)
@@ -261,7 +264,7 @@ namespace IA
 
             foreach (KeyValuePair <string, int> topWord in items)
             {
-                if (count >= 110)
+                if (count >= 150)
                 {
                     break;
                 }

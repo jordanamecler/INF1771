@@ -1,0 +1,215 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.SMO -C 1.0 -L 0.001 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007" -calibrator "weka.classifiers.functions.Logistic -R 1.0E-8 -M -1 -num-decimal-places 4"
+Relation:     imdb
+Instances:    50000
+Attributes:   81
+              like
+              good
+              great
+              bad
+              never
+              little
+              love
+              best
+              better
+              few
+              work
+              lot
+              same
+              funny
+              old
+              pretty
+              down
+              Ive
+              enough
+              horror
+              always
+              original
+              times
+              long
+              right
+              least
+              interesting
+              comedy
+              feel
+              big
+              kind
+              probably
+              family
+              found
+              last
+              away
+              fun
+              each
+              shows
+              making
+              worst
+              trying
+              woman
+              believe
+              goes
+              played
+              anyone
+              girl
+              put
+              different
+              main
+              hes
+              DVD
+              ending
+              wasnt
+              looks
+              watched
+              hard
+              looking
+              place
+              reason
+              effects
+              book
+              sense
+              job
+              takes
+              said
+              money
+              play
+              together
+              10
+              seem
+              American
+              especially
+              day
+              audience
+              left
+              2
+              version
+              idea
+              class
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+SMO
+
+Kernel used:
+  Linear Kernel: K(x,y) = <x,y>
+
+Classifier for classes: p, n
+
+BinarySMO
+
+Machine linear: showing attribute weights, not support vectors.
+
+         3.4777 * (normalized) like
+ +      -1.7531 * (normalized) good
+ +      -6.6082 * (normalized) great
+ +      11.3556 * (normalized) bad
+ +       0.5637 * (normalized) never
+ +      -0.6853 * (normalized) little
+ +      -6.279  * (normalized) love
+ +      -9.003  * (normalized) best
+ +       2.2462 * (normalized) better
+ +       0.8389 * (normalized) few
+ +      -0.7872 * (normalized) work
+ +      -0.9269 * (normalized) lot
+ +       0.2076 * (normalized) same
+ +      -0.3643 * (normalized) funny
+ +      -0.2471 * (normalized) old
+ +       3.2327 * (normalized) pretty
+ +       0.9148 * (normalized) down
+ +      -0.7649 * (normalized) Ive
+ +       0.9874 * (normalized) enough
+ +       0.6453 * (normalized) horror
+ +      -2.9905 * (normalized) always
+ +       3.2621 * (normalized) original
+ +      -1.292  * (normalized) times
+ +       0.2119 * (normalized) long
+ +      -1.2623 * (normalized) right
+ +       3.698  * (normalized) least
+ +       0.9494 * (normalized) interesting
+ +      -0.2695 * (normalized) comedy
+ +      -1.4715 * (normalized) feel
+ +      -0.0592 * (normalized) big
+ +       0.6776 * (normalized) kind
+ +      -0.1062 * (normalized) probably
+ +      -2.4821 * (normalized) family
+ +      -0.2641 * (normalized) found
+ +      -0.7883 * (normalized) last
+ +       0.3636 * (normalized) away
+ +      -3.4851 * (normalized) fun
+ +      -2.486  * (normalized) each
+ +      -3.2353 * (normalized) shows
+ +       1.0591 * (normalized) making
+ +      14.2415 * (normalized) worst
+ +       3.6766 * (normalized) trying
+ +       0.6188 * (normalized) woman
+ +       1.3558 * (normalized) believe
+ +       0.0793 * (normalized) goes
+ +      -1.4752 * (normalized) played
+ +       0.0955 * (normalized) anyone
+ +       0.2231 * (normalized) girl
+ +       1.0741 * (normalized) put
+ +      -3.5214 * (normalized) different
+ +       1.0972 * (normalized) main
+ +      -0.0773 * (normalized) hes
+ +      -3.5581 * (normalized) DVD
+ +      -0.3404 * (normalized) ending
+ +       2.2108 * (normalized) wasnt
+ +       1.9869 * (normalized) looks
+ +      -0.112  * (normalized) watched
+ +       0.4219 * (normalized) hard
+ +       1.1627 * (normalized) looking
+ +      -0.3977 * (normalized) place
+ +       3.9418 * (normalized) reason
+ +       1.329  * (normalized) effects
+ +       1.6578 * (normalized) book
+ +       0.4679 * (normalized) sense
+ +      -2.7341 * (normalized) job
+ +      -1.04   * (normalized) takes
+ +       1.2465 * (normalized) said
+ +       5.7467 * (normalized) money
+ +      -0.367  * (normalized) play
+ +      -1.0928 * (normalized) together
+ +      -0.2751 * (normalized) 10
+ +       0.4894 * (normalized) seem
+ +      -1.2878 * (normalized) American
+ +      -1.9301 * (normalized) especially
+ +      -1.9698 * (normalized) day
+ +       0.5896 * (normalized) audience
+ +       1.2333 * (normalized) left
+ +       3.4038 * (normalized) 2
+ +      -0.5808 * (normalized) version
+ +       2.3479 * (normalized) idea
+ -       0.2047
+
+Number of kernel evaluations: 108187967 (36.427% cached)
+
+
+
+Time taken to build model: 195.11 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances       35965               71.93   %
+Incorrectly Classified Instances     14035               28.07   %
+Kappa statistic                          0.4386
+Mean absolute error                      0.2807
+Root mean squared error                  0.5298
+Relative absolute error                 56.14   %
+Root relative squared error            105.9623 %
+Total Number of Instances            50000     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,788    0,350    0,693      0,788    0,737      0,443    0,719     0,652     p
+                 0,650    0,212    0,754      0,650    0,699      0,443    0,719     0,665     n
+Weighted Avg.    0,719    0,281    0,724      0,719    0,718      0,443    0,719     0,659     
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 19703  5297 |     a = p
+  8738 16262 |     b = n
+

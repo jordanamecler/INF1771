@@ -1,0 +1,120 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.LibSVM -S 0 -K 2 -D 3 -G 0.0 -R 0.0 -N 0.5 -M 40.0 -C 1.0 -E 0.001 -P 0.1 -model "C:\\Program Files\\Weka-3-8" -seed 1
+Relation:     imdb
+Instances:    50000
+Attributes:   81
+              like
+              good
+              great
+              bad
+              never
+              little
+              love
+              best
+              better
+              few
+              work
+              lot
+              same
+              funny
+              old
+              pretty
+              down
+              Ive
+              enough
+              horror
+              always
+              original
+              times
+              long
+              right
+              least
+              interesting
+              comedy
+              feel
+              big
+              kind
+              probably
+              family
+              found
+              last
+              away
+              fun
+              each
+              shows
+              making
+              worst
+              trying
+              woman
+              believe
+              goes
+              played
+              anyone
+              girl
+              put
+              different
+              main
+              hes
+              DVD
+              ending
+              wasnt
+              looks
+              watched
+              hard
+              looking
+              place
+              reason
+              effects
+              book
+              sense
+              job
+              takes
+              said
+              money
+              play
+              together
+              10
+              seem
+              American
+              especially
+              day
+              audience
+              left
+              2
+              version
+              idea
+              class
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+LibSVM wrapper, original code by Yasser EL-Manzalawy (= WLSVM)
+
+Time taken to build model: 980.54 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances       36073               72.146  %
+Incorrectly Classified Instances     13927               27.854  %
+Kappa statistic                          0.4429
+Mean absolute error                      0.2785
+Root mean squared error                  0.5278
+Relative absolute error                 55.708  %
+Root relative squared error            105.5538 %
+Total Number of Instances            50000     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,775    0,332    0,700      0,775    0,736      0,446    0,721     0,655     p
+                 0,668    0,225    0,748      0,668    0,706      0,446    0,721     0,666     n
+Weighted Avg.    0,721    0,279    0,724      0,721    0,721      0,446    0,721     0,660     
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 19381  5619 |     a = p
+  8308 16692 |     b = n
+

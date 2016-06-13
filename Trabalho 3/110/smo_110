@@ -1,0 +1,165 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.SMO -C 1.0 -L 0.001 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007" -calibrator "weka.classifiers.functions.Logistic -R 1.0E-8 -M -1 -num-decimal-places 4"
+Relation:     imdb
+Instances:    50000
+Attributes:   111
+              [list of attributes omitted]
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+SMO
+
+Kernel used:
+  Linear Kernel: K(x,y) = <x,y>
+
+Classifier for classes: p, n
+
+BinarySMO
+
+Machine linear: showing attribute weights, not support vectors.
+
+         3.3046 * (normalized) like
+ +      -1.4796 * (normalized) good
+ +      -6.2077 * (normalized) great
+ +      10.4332 * (normalized) bad
+ +       0.4802 * (normalized) never
+ +      -0.5404 * (normalized) little
+ +      -6.1178 * (normalized) love
+ +      -8.8648 * (normalized) best
+ +       2.01   * (normalized) better
+ +       0.869  * (normalized) few
+ +      -0.5599 * (normalized) work
+ +      -0.9167 * (normalized) lot
+ +       0.1413 * (normalized) same
+ +      -0.4816 * (normalized) funny
+ +      -0.116  * (normalized) old
+ +       2.6868 * (normalized) pretty
+ +       0.5836 * (normalized) down
+ +      -0.9709 * (normalized) Ive
+ +       1.0245 * (normalized) enough
+ +       0.5734 * (normalized) horror
+ +      -2.7621 * (normalized) always
+ +       2.8653 * (normalized) original
+ +      -1.1477 * (normalized) times
+ +       0.1176 * (normalized) long
+ +      -1.221  * (normalized) right
+ +       3.177  * (normalized) least
+ +       1.2377 * (normalized) interesting
+ +      -0.3881 * (normalized) comedy
+ +      -1.3298 * (normalized) feel
+ +       0.0211 * (normalized) big
+ +       0.6407 * (normalized) kind
+ +      -0.0263 * (normalized) probably
+ +      -2.3699 * (normalized) family
+ +      -0.0668 * (normalized) found
+ +      -0.702  * (normalized) last
+ +       0.213  * (normalized) away
+ +      -3.5712 * (normalized) fun
+ +      -2.3509 * (normalized) each
+ +      -2.7382 * (normalized) shows
+ +       0.8595 * (normalized) making
+ +      13.431  * (normalized) worst
+ +       3.3081 * (normalized) trying
+ +       1.4227 * (normalized) woman
+ +       1.3434 * (normalized) believe
+ +       0.1346 * (normalized) goes
+ +      -1.0814 * (normalized) played
+ +       0.0238 * (normalized) anyone
+ +       0.3102 * (normalized) girl
+ +       0.6395 * (normalized) put
+ +      -3.4593 * (normalized) different
+ +       1.0656 * (normalized) main
+ +      -0.0326 * (normalized) hes
+ +      -0.3336 * (normalized) ending
+ +       1.764  * (normalized) looks
+ +      -0.2626 * (normalized) watched
+ +       0.3923 * (normalized) hard
+ +       1.1514 * (normalized) looking
+ +      -0.5791 * (normalized) place
+ +       3.6871 * (normalized) reason
+ +       1.174  * (normalized) effects
+ +       1.2959 * (normalized) book
+ +       0.5325 * (normalized) sense
+ +      -2.3122 * (normalized) job
+ +       5.048  * (normalized) money
+ +      -0.3444 * (normalized) play
+ +      -0.9553 * (normalized) together
+ +      -0.11   * (normalized) 10
+ +       0.4517 * (normalized) seem
+ +      -1.3523 * (normalized) American
+ +      -1.7051 * (normalized) especially
+ +      -1.9156 * (normalized) day
+ +       1.1135 * (normalized) left
+ +       3.2174 * (normalized) 2
+ +      -0.7391 * (normalized) version
+ +       2.1065 * (normalized) idea
+ +      -0.4052 * (normalized) during
+ +      -3.9871 * (normalized) beautiful
+ +      -1.9742 * (normalized) worth
+ +      -0.3525 * (normalized) everything
+ +      -2.6929 * (normalized) true
+ +      -0.6576 * (normalized) special
+ +      -0.4715 * (normalized) seeing
+ +       0.2331 * (normalized) shot
+ +      -3.6525 * (normalized) excellent
+ +       2.1508 * (normalized) completely
+ +      -2.5281 * (normalized) later
+ +       2.2443 * (normalized) simply
+ +      -0.036  * (normalized) fan
+ +      -0.7668 * (normalized) wife
+ +      -1.1271 * (normalized) nice
+ +      -1.2788 * (normalized) short
+ +      -0.1417 * (normalized) sure
+ +      -0.7163 * (normalized) help
+ +       5.5973 * (normalized) poor
+ +      -0.7018 * (normalized) everyone
+ +       0.161  * (normalized) use
+ +      -0.4953 * (normalized) friends
+ +       0.2904 * (normalized) kids
+ +       2.7437 * (normalized) rest
+ +       0.3402 * (normalized) need
+ +       0.6409 * (normalized) less
+ +       0.841  * (normalized) read
+ +      -2.0396 * (normalized) performances
+ +       1.0272 * (normalized) couple
+ +       2.5985 * (normalized) half
+ +       0.4755 * (normalized) start
+ +      -0.7623 * (normalized) year
+ +      -1.0621 * (normalized) mind
+ +       1.5842 * (normalized) try
+ +       0.3212 * (normalized) high
+ -       0.0678
+
+Number of kernel evaluations: 166353984 (33.119% cached)
+
+
+
+Time taken to build model: 375.7 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances       36969               73.938  %
+Incorrectly Classified Instances     13031               26.062  %
+Kappa statistic                          0.4788
+Mean absolute error                      0.2606
+Root mean squared error                  0.5105
+Relative absolute error                 52.124  %
+Root relative squared error            102.1019 %
+Total Number of Instances            50000     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,777    0,298    0,723      0,777    0,749      0,480    0,739     0,673     p
+                 0,702    0,223    0,759      0,702    0,729      0,480    0,739     0,682     n
+Weighted Avg.    0,739    0,261    0,741      0,739    0,739      0,480    0,739     0,677     
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 19413  5587 |     a = p
+  7444 17556 |     b = n
+
