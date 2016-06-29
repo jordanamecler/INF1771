@@ -1,0 +1,11 @@
+import Main;
+import Game.Bot;
+
+public class main {
+
+	public static void main(String[] args) {
+		Bot b = new Bot();
+
+	}
+
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy package &apos;Prolog&apos; to &apos;Trabalho 4 Bot/src&apos;&#x0D;&#x0A;- Original project: &apos;Wumpus&apos;&#x0D;&#x0A;- Destination element: &apos;Trabalho 4 Bot/src&apos;&#x0D;&#x0A;- Original element: &apos;Wumpus/src/Prolog&apos;" description="Copy package" destination="=Trabalho 4 Bot/src" element1="/src&lt;Prolog" flags="589830" fragments="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1467055411172" version="1.0"/>
+</session>
